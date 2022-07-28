@@ -1,0 +1,3 @@
+rootProject.name = "MuyiApp"
+include ':app',':lib_base'
+include ':module_main'
