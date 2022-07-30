@@ -1,7 +1,5 @@
 package com.muyi.main.viewmodel
 
-import android.util.Log
-import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseViewModel
 import com.czl.lib_base.base.MyApplication
@@ -14,10 +12,8 @@ import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.util.RxThreadHelper
 
 /**
- * @author Alwyn
- * @Date 2020/10/21
- * @Description
- */
+ * Created by hq on 2022/7/29.
+ **/
 class MainViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
     val name = "huangqiang"

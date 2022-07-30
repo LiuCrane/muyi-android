@@ -23,6 +23,10 @@ class DataRepository constructor(
         mLocalDataSource.saveUserData(userBean)
     }
 
+    override fun getUserToken(): String? {
+        return mLocalDataSource.getUserToken()
+    }
+
 
     override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
         return mHttpDataSource.userLogin(username,password)
@@ -31,5 +35,6 @@ class DataRepository constructor(
     override fun getBrowseRecords(limit: Int): Observable<BaseBean<BrowseRecordsBean>> {
         return mHttpDataSource.getBrowseRecords(limit)
     }
+
 
 }

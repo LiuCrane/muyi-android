@@ -9,7 +9,6 @@ import com.czl.lib_base.data.bean.UserBean
  */
 interface LocalDataSource {
     fun saveUserData(userBean: UserBean)
-
-
+    fun getUserToken(): String?
 
 }

@@ -4,7 +4,7 @@
     package="com.muyi.main">
     <application>
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".ui.activity.SplashActivity"
             android:theme="@style/AppTheme.Launcher"
             android:exported="true">
             <intent-filter>
@@ -12,5 +12,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask"/>
     </application>
 </manifest>

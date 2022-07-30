@@ -18,6 +18,11 @@ interface AppConstants {
      */
     interface Router {
 
+        object Main {
+            const val A_MAIN = "/main/MainActivity"
+            const val F_HOME = "/main/HomeFragment"
+        }
+
         object Login {
             const val F_LOGIN = "/login/LoginFragment"
         }
