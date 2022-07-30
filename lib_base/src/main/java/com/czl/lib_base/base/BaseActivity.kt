@@ -36,7 +36,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
         super.onCreate(savedInstanceState)
         //页面接受的参数方法
         initParam()
-        //私有的初始化Databinding和ViewModel方法
+        //私有的初始化DataBinding和ViewModel方法
         initViewDataBinding(savedInstanceState)
         if (isImmersionBarEnabled())
             initStatusBar()
@@ -120,39 +120,37 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
     private fun registerUIChangeLiveDataCallBack() {
         //加载对话框显示
         viewModel.uC.getShowLoadingEvent()
-            .observe(this, { title: String? -> showLoading(title) })
+            .observe(this) { title: String? -> showLoading(title) }
         //加载对话框消失
         viewModel.uC.getDismissDialogEvent()
-            .observe(this, { v: Void? -> dismissLoading() })
+            .observe(this) { dismissLoading() }
         //跳入新页面
-        viewModel.uC.getStartActivityEvent().observe(
-            this, { map ->
+        viewModel.uC.getStartActivityEvent()
+            .observe(this) { map ->
                 val routePath: String = map[BaseViewModel.ParameterField.ROUTE_PATH] as String
                 val bundle = map[BaseViewModel.ParameterField.BUNDLE] as Bundle?
                 RouteCenter.navigate(routePath, bundle)
             }
-        )
-        viewModel.uC.getStartFragmentEvent().observe(this, { map ->
+        viewModel.uC.getStartFragmentEvent().observe(this) { map ->
             val routePath: String = map[BaseViewModel.ParameterField.ROUTE_PATH] as String
             val bundle: Bundle? = map[BaseViewModel.ParameterField.BUNDLE] as Bundle?
             start(RouteCenter.navigate(routePath, bundle) as SupportFragment)
-        })
+        }
         //跳入ContainerActivity
-        viewModel.uC.getStartContainerActivityEvent().observe(
-            this, { params: Map<String?, Any?> ->
+        viewModel.uC.getStartContainerActivityEvent()
+            .observe(this) { params: Map<String?, Any?> ->
                 val canonicalName = params[BaseViewModel.ParameterField.ROUTE_PATH] as String?
                 val bundle = params[BaseViewModel.ParameterField.BUNDLE] as Bundle?
                 startContainerActivity(canonicalName, bundle)
             }
-        )
         //关闭界面
-        viewModel.uC.getFinishEvent().observe(this, {
+        viewModel.uC.getFinishEvent().observe(this) {
             finish()
-        })
+        }
         //关闭上一层
         viewModel.uC.getOnBackPressedEvent().observe(
-            this, { onBackPressedSupport() }
-        )
+            this
+        ) { onBackPressedSupport() }
     }
 
     fun showLoading(title: String?) {

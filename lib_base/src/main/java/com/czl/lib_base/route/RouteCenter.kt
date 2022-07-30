@@ -1,11 +1,7 @@
 package com.czl.lib_base.route
 
 import android.os.Bundle
-import android.os.Parcelable
 import com.alibaba.android.arouter.launcher.ARouter
-import com.czl.lib_base.config.AppConstants
-import com.czl.lib_base.mvvm.ui.ContainerFmActivity
-import java.io.Serializable
 
 /**
  * @author Alwyn

@@ -1,7 +1,6 @@
 package com.czl.lib_base.mvvm.ui
 
 import android.os.Bundle
-import com.alibaba.android.arouter.launcher.ARouter
 import com.czl.lib_base.BR
 import com.czl.lib_base.R
 import com.czl.lib_base.base.BaseActivity

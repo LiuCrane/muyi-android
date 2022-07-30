@@ -1,5 +1,6 @@
 package com.czl.lib_base.data.net
 
+import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.base.BaseBean
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -34,16 +35,16 @@ class ResponseInterceptor : Interceptor {
                 200 -> {
                     val source = responseBody.source()
                     source.request(Long.MAX_VALUE)
-                    val buffer = source.buffer
+                    val buffer = source.buffer()
                     val charset = StandardCharsets.UTF_8
-                    //                    charset = mediaType.charset(charset);
+//                     charset = mediaType.charset(charset);
                     if (charset != null) {
                         // 服务器返回结果 可处理加解密或者token失效
                         val bodyString = buffer.clone().readString(charset)
                         val baseBean = Gson().fromJson<BaseBean<*>>(
                             bodyString, object : TypeToken<BaseBean<*>?>() {}.type)
-//                        LogUtils.i("Interceptor Response=" + baseBean.toString() + ",code=" + baseBean.errorCode)
-                        when (baseBean.errorCode) {
+//                        LogUtils.e("Interceptor Response=" + baseBean.toString() + ",code=" + baseBean.code)
+                        when (baseBean.code) {
                             -1001 -> {
                                 // token/cookie失效 ApiSubscriberHelper 已在ApiSubscriberHelper网络业务层处理
                                 // LiveBusCenter.postTokenExpiredEvent(baseBean.errorMsg)
@@ -64,7 +65,7 @@ class ResponseInterceptor : Interceptor {
             return true
         }
         var subtype = mediaType.subtype()
-        subtype = subtype.toLowerCase(Locale.getDefault())
+        subtype = subtype.lowercase(Locale.getDefault())
         return subtype.contains("x-www-form-urlencoded")
                 || subtype.contains("json")
                 || subtype.contains("xml")

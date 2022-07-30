@@ -85,7 +85,7 @@ dependencies {
     api rootProject.ext.dependencies["glide-transfer"]
     kapt rootProject.ext.dependencies["glide-compiler"]
 
-    //Google LiveData和ViewModel组件
+    //Google LiveData/ViewModel/App Startup组件
     api rootProject.ext.dependencies["lifecycle-extensions"]
     kapt rootProject.ext.dependencies["lifecycle-compiler"]
 

@@ -16,7 +16,10 @@ object SpHelper {
      * @param key
      * @param value
      */
-    fun encode(key: String?, value: Any) {
+    fun encode(key: String?, value: Any?) {
+        if (value == null)
+            return
+
         when (value) {
             is String -> {
                 mv.encode(key, value)

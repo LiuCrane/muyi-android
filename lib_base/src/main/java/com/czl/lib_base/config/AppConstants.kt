@@ -7,7 +7,8 @@ package com.czl.lib_base.config
  */
 interface AppConstants {
     object SpKey {
-
+        const val USER_TOKEN: String = "user_token"
+        const val USER_JSON_DATA: String = "user_json_data"
     }
 
     /**

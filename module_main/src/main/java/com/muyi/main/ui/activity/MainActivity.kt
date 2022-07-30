@@ -7,7 +7,7 @@ import com.muyi.main.databinding.MainActivityMainBinding
 import com.muyi.main.viewmodel.MainViewModel
 
 
-class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(){
+class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>() {
     override fun initContentView(): Int {
         return R.layout.main_activity_main
     }
@@ -15,4 +15,11 @@ class MainActivity : BaseActivity<MainActivityMainBinding, MainViewModel>(){
     override fun initVariableId(): Int {
         return BR.viewModel
     }
+
+    override fun initData() {
+        viewModel.tvTitle.set("Login")
+        viewModel.toolbarRightText.set("right")
+    }
+
+
 }

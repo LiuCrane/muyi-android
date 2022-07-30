@@ -1,6 +1,7 @@
 package com.czl.lib_base.data.source
 
 import com.czl.lib_base.base.BaseBean
+import com.czl.lib_base.data.bean.BrowseRecordsBean
 import com.czl.lib_base.data.bean.UserBean
 import io.reactivex.Observable
 
@@ -10,5 +11,6 @@ import io.reactivex.Observable
  * @Description
  */
 interface HttpDataSource {
-    fun userLogin(account: String, pwd: String): Observable<BaseBean<UserBean>>
+    fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>>
+    fun getBrowseRecords(limit: Int): Observable<BaseBean<BrowseRecordsBean>>
 }

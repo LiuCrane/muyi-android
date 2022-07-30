@@ -19,11 +19,11 @@ import java.net.UnknownHostException
  * @Description RxJava 处理Api异常
  * 不自动处理状态页的不传构造即可
  */
-abstract class ApiSubscriberHelper<T> : DisposableObserver<T>() {
+abstract class ApiSubscriberHelper<T : Any> : DisposableObserver<T>() {
 
     override fun onNext(t: T) {
-        if (t is BaseBean<*> && t.errorCode != 0) {
-            showErrorToast(t.errorMsg)
+        if (t is BaseBean<*> && t.code != 0) {
+            showErrorToast(t.msg)
         }
         onResult(t)
     }
@@ -53,6 +53,6 @@ abstract class ApiSubscriberHelper<T> : DisposableObserver<T>() {
         }
     }
 
-    protected abstract fun onResult(t: T)
+    protected abstract fun onResult(result: T)
     protected abstract fun onFailed(msg: String?)
 }

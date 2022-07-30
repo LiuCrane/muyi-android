@@ -5,7 +5,6 @@ import android.graphics.Paint
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import com.blankj.utilcode.util.ClickUtils
 import com.czl.lib_base.util.RxThreadHelper
 import com.jakewharton.rxbinding3.widget.textChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
