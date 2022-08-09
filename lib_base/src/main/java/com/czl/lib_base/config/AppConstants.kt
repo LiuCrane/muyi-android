@@ -20,7 +20,11 @@ interface AppConstants {
 
         object Main {
             const val A_MAIN = "/main/MainActivity"
-            const val F_HOME = "/main/HomeFragment"
+            const val F_LEARN = "/main/LearnFragment"
+            const val F_PROGRESS = "/main/ProgressFragment"
+            const val F_MY = "/main/MyFragment"
+            const val A_DETAIL = "/main/DetailActivity"
+
         }
 
         object Login {

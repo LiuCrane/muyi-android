@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.muyi.main.viewmodel.LoginViewModel" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="#ff0000"
+            android:textSize="@dimen/sp_30"
+            binding:onClickCommand="@{viewModel.btnLoginClick}"
+            binding:layout_constraintStart_toStartOf="parent"
+            binding:layout_constraintEnd_toEndOf="parent"
+            binding:layout_constraintTop_toTopOf="parent"
+            binding:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="220dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,11 +1,11 @@
 ext {
     //android开发版本配置
     android = [
-            compileSdkVersion: 30,
-            buildToolsVersion: "30.0.2",
+            compileSdkVersion: 31,
+            buildToolsVersion: "31.0.0",
             applicationId    : "com.muyi.app",
             minSdkVersion    : 21,
-            targetSdkVersion : 28,
+            targetSdkVersion : 30,
             versionCode      : 1,
             versionName      : "1.0",
     ]
@@ -65,11 +65,21 @@ ext {
             'permissionx'                          : 'com.permissionx.guolindev:permissionx:1.4.0',
             // 内存泄漏检查
             'leakcanary'                           : 'com.squareup.leakcanary:leakcanary-android:2.5',
+            //底部导航
+            'navigation'                           : 'com.ashokvarma.android:bottom-navigation-bar:2.2.0',
             'toast'                                : 'com.github.GrenderG:Toasty:1.5.0',
             'refresh'                              : 'com.scwang.smart:refresh-layout-kernel:2.0.1',
             'refresh-header'                       : 'com.scwang.smart:refresh-header-material:2.0.1',
             'refresh-footer-ball'                  : 'com.scwang.smart:refresh-footer-ball:2.0.1',
             'refresh-footer-classic'               : 'com.scwang.smart:refresh-footer-classics:2.0.1',
             'autosize'                             : "me.jessyan:autosize:1.1.2",
+            'gsyVideoPlayer-java'                  :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.3.3-release-jitpack',
+            'gsyVideoPlayer-ex_so'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.3.3-release-jitpack',
+            'gsyVideoPlayer-arm64'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64:v8.3.3-release-jitpack',
+            'gsyVideoPlayer-armv7a'                :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv7a:v8.3.3-release-jitpack',
+            'gsyVideoPlayer-armv5'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-armv5:v8.3.3-release-jitpack',
+            'gsyVideoPlayer-x86'                   :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x86:v8.3.3-release-jitpack',
+            'gsyVideoPlayer-x64'                   :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-x64:v8.3.3-release-jitpack',
+
     ]
 }

@@ -22,7 +22,7 @@ class LocalDataImpl : LocalDataSource {
         )
     }
 
-    override fun getUserToken(): String? {
+    override fun getUserToken(): String {
         return SpHelper.decodeString(AppConstants.SpKey.USER_TOKEN)
     }
 
