@@ -73,6 +73,7 @@ ext {
             'refresh-footer-ball'                  : 'com.scwang.smart:refresh-footer-ball:2.0.1',
             'refresh-footer-classic'               : 'com.scwang.smart:refresh-footer-classics:2.0.1',
             'autosize'                             : "me.jessyan:autosize:1.1.2",
+            'xpopup'                               : 'com.lxj:xpopup:2.2.5',
             'gsyVideoPlayer-java'                  :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.3.3-release-jitpack',
             'gsyVideoPlayer-ex_so'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.3.3-release-jitpack',
             'gsyVideoPlayer-arm64'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64:v8.3.3-release-jitpack',

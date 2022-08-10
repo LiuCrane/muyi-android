@@ -29,6 +29,7 @@ interface AppConstants {
 
         object Login {
             const val F_LOGIN = "/login/LoginFragment"
+            const val F_REGISTER = "/login/RegisterFragment"
         }
 
     }

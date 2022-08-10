@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="open_initialize" translatable="false">com.hq.initialize</string>
+    <string name="app_name">目益视力</string>
 
 </resources>

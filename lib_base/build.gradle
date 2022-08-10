@@ -115,6 +115,7 @@ dependencies {
     api rootProject.ext.dependencies["toast"]
     api rootProject.ext.dependencies["autosize"]
     api rootProject.ext.dependencies["navigation"]
+    api rootProject.ext.dependencies["xpopup"]
 
 
     //视频GSYVideoPlayer

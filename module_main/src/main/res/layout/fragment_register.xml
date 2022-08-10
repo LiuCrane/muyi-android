@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.muyi.main.viewmodel.RegisterViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextViewTitleStyle"
+                android:layout_marginTop="100dp"
+                android:layout_gravity="center_horizontal"
+                android:text="新店注册" />
+
+            <TextView
+                android:id="@+id/tvNameLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="50dp"
+                android:text="姓名" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etName"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入姓名"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onUserNameChangeCommand}" />
+
+            <TextView
+                android:id="@+id/tvPhoneLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="手机号" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etPhone"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入手机号"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onUserPhoneChangeCommand}" />
+
+            <TextView
+                android:id="@+id/tvIdCardLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="身份证" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etIdCard"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入身份证号码"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onUserIdCardChangeCommand}" />
+
+            <TextView
+                android:id="@+id/tvStoreNameLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="门店名称" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etStoreName"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入门店名称"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onStoreNameChangeCommand}" />
+
+            <TextView
+                android:id="@+id/tvStoreLocationLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="门店位置" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etStoreLocation"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="请输入门店位置"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onStoreLocationChangeCommand}" />
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/ButtonBlueStyle"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="50dp"
+                android:text="确认注册"
+                binding:onClickCommand="@{viewModel.btnRegisterClick}" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</layout>

@@ -20,4 +20,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>() {
     override fun initVariableId(): Int {
         return BR.viewModel
     }
+
+    override fun useBaseLayout(): Boolean {
+        return false
+    }
 }

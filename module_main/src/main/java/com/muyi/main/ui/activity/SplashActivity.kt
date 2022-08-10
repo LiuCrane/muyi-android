@@ -33,7 +33,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
     }
 
     override fun initData() {
-//        goToMain()
         askPermission()
     }
 
@@ -57,7 +56,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                 if (allGranted) {
                     Toasty.success(this, "All permissions are granted!", Toast.LENGTH_LONG, true)
                         .show()
-                    goToMain()
+                    doJump()
                 } else {
                     Toasty.error(
                         this,
@@ -71,7 +70,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             }
     }
 
-    private fun goToMain() {
+    private fun doJump() {
         viewModel.addSubscribe(
             Flowable.timer(200L, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
