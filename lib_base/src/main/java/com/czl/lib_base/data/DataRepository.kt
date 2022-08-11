@@ -2,7 +2,8 @@ package com.czl.lib_base.data
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseModel
-import com.czl.lib_base.data.bean.*
+import com.czl.lib_base.data.bean.BrowseRecordsBean
+import com.czl.lib_base.data.bean.UserBean
 import com.czl.lib_base.data.source.HttpDataSource
 import com.czl.lib_base.data.source.LocalDataSource
 import io.reactivex.Observable
@@ -18,8 +19,22 @@ class DataRepository constructor(
     private val mHttpDataSource: HttpDataSource
 ) : BaseModel(), LocalDataSource, HttpDataSource {
 
-    override fun userLogin(account: String, pwd: String): Observable<BaseBean<UserBean>> {
-        return mHttpDataSource.userLogin(account, pwd)
+    override fun saveUserData(userBean: UserBean) {
+        mLocalDataSource.saveUserData(userBean)
     }
+
+    override fun getUserToken(): String? {
+        return mLocalDataSource.getUserToken()
+    }
+
+
+    override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
+        return mHttpDataSource.userLogin(username,password)
+    }
+
+    override fun getBrowseRecords(limit: Int): Observable<BaseBean<BrowseRecordsBean>> {
+        return mHttpDataSource.getBrowseRecords(limit)
+    }
+
 
 }

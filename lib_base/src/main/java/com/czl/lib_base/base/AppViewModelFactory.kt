@@ -44,25 +44,9 @@ class AppViewModelFactory(
         } catch (e: InvocationTargetException) {
             e.printStackTrace()
             throw java.lang.IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+        }catch (e:Throwable){
+            e.printStackTrace()
+            throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
-
-
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: AppViewModelFactory? = null
-//
-//        fun getInstance(application: Application): AppViewModelFactory? {
-//            if (INSTANCE == null) {
-//                synchronized(AppViewModelFactory::class.java) {
-//                    if (INSTANCE == null) {
-//                        // 已采用koin注入
-//                        INSTANCE = AppViewModelFactory(application, Injection.provideDemoRepository())
-//                    }
-//                }
-//            }
-//            return INSTANCE
-//        }
-//    }
 }

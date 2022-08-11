@@ -73,8 +73,7 @@ class HttpLoggingInterceptor(tag: String?) : Interceptor {
 
         //执行请求，计算请求时间
         val startNs = System.nanoTime()
-        val response: Response
-        response = try {
+        val response: Response = try {
             chain.proceed(request)
         } catch (e: Exception) {
             log("<-- HTTP FAILED: $e")

@@ -1,6 +1,5 @@
 package com.czl.lib_base.data.net
 
-import com.czl.lib_base.data.DataRepository
 import okhttp3.Interceptor
 import okhttp3.RequestBody
 import okhttp3.Response

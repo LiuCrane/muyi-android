@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--系统默认背景色#fff3f3f3-->
-<!--    <color name="colorPrimary">#EF5350</color>-->
-<!--    <color name="colorPrimaryDark">#303030</color>-->
-<!--    <color name="colorAccent">#EF5350</color>-->
-    <color name="mColorPrimary">#EF5350</color>
+    <color name="mColorPrimary">#3461FD</color>
     <color name="mColorPrimaryDark">#303030</color>
-    <color name="mColorAccent">#EF5350</color>
+    <color name="mColorAccent">#3461FD</color>
     <color name="color_default_bg">#fff3f3f3</color>
     <color name="color_default_dark">#424242</color>
     <color name="color_default_bg_deep">#FAFAFA</color>
@@ -27,6 +24,11 @@
     <color name="blue">#0000FF</color>
     <color name="orange">#FFA500</color>
     <color name="black">#000000</color>
+
+    <color name="hint">#BFBFBF</color>
+    <color name="color_AA">#AAAAAA</color>
+
+
 
 
 </resources>

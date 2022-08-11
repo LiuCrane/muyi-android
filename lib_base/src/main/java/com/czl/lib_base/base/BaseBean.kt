@@ -10,8 +10,8 @@ import java.io.Serializable
  */
 class BaseBean<T> : Serializable {
     var data: T? = null
-    var errorCode: Int = 0
-    var errorMsg: String? = null
+    var code: Int = 0
+    var msg: String? = null
 
 
     companion object {
@@ -19,7 +19,7 @@ class BaseBean<T> : Serializable {
     }
 
     override fun toString(): String {
-        return "BaseBean(data=$data, code=$errorCode, msg=$errorMsg)"
+        return "BaseBean(data=$data, code=$code, msg=$msg)"
     }
 
 }

@@ -6,8 +6,9 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="colorPrimary">@color/mColorPrimary</item>
         <item name="colorPrimaryDark">@color/mColorPrimaryDark</item>
-        <item name="colorAccent">@color/mColorAccent</item>
+        <item name="colorAccent">@color/mColorPrimary</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="backgroundColor">@color/white</item>
         <!--取消水波纹效果-->
         <!--        <item name="android:colorControlHighlight">@android:color/transparent</item>-->
     </style>
@@ -37,16 +38,53 @@
         <item name="android:activityCloseExitAnimation">@anim/v_fragment_exit</item>
     </style>
 
-    <style name="TextInputWhiteStyle" parent="AppTheme">
-        <!--输入框提示字体色-->
-        <item name="android:textColorHint">#ffffff</item>
+    <style name="EditTextStyle" parent="AppTheme">
+
         <!--输入框下划线默认颜色-->
         <!--        <item name="colorControlNormal">@color/white</item>-->
         <!--输入框下划线选中状态色-->
-        <item name="colorControlActivated">#ffffff</item>
+        <!--        <item name="colorControlActivated">#ffffff</item>-->
         <!--输入框光标颜色-->
-        <item name="colorControlHighlight">#ffffff</item>
+        <item name="colorControlHighlight">@color/mColorPrimary</item>
+        <item name="android:background">@drawable/bg_input_selector</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/hint</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+        <item name="android:layout_marginStart">26dp</item>
+        <item name="android:layout_marginEnd">26dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">57dp</item>
+        <item name="android:gravity">start|center_vertical</item>
     </style>
-    
+
+    <style name="TextViewStyle" parent="AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewTitleStyle" parent="TextViewStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextViewLabelStyle" parent="TextViewStyle">
+        <item name="android:layout_marginStart">46dp</item>
+    </style>
+
+    <style name="ButtonBlueStyle" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">57dp</item>
+        <item name="android:background">@drawable/bg_btn_blue</item>
+        <item name="android:layout_marginStart">26dp</item>
+        <item name="android:layout_marginEnd">26dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

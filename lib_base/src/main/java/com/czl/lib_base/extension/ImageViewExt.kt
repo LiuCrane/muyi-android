@@ -1,19 +1,14 @@
 package com.czl.lib_base.extension
 
 import android.graphics.drawable.Drawable
-import android.media.Image
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
-import com.blankj.utilcode.util.ResourceUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.czl.lib_base.R
-import jp.wasabeef.glide.transformations.BitmapTransformation
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation

@@ -1,12 +1,9 @@
 package com.czl.lib_base.util
 
-import android.content.Context
-import android.graphics.Color
 import android.text.TextUtils
 import android.view.Gravity
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import com.blankj.utilcode.util.ThreadUtils
+
 import com.blankj.utilcode.util.ThreadUtils.runOnUiThread
 import com.blankj.utilcode.util.Utils
 import es.dmoral.toasty.Toasty

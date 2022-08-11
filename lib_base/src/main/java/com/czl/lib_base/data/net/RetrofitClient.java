@@ -27,7 +27,7 @@ public class RetrofitClient {
     //超时时间
     private static final int DEFAULT_TIMEOUT = 20;
     //服务端根路径
-    public static String baseUrl = "https://www.wanandroid.com/";
+    public static String baseUrl = "http://124.221.182.242:3001/";
 
     private static Retrofit retrofit;
 
@@ -61,7 +61,7 @@ public class RetrofitClient {
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 // 这里你可以根据自己的机型设置同时连接的个数和时间，我这里8个，和每个保持时间为10s
-                .connectionPool(new ConnectionPool(15, 10, TimeUnit.SECONDS))
+                .connectionPool(new ConnectionPool(8, 10, TimeUnit.SECONDS))
                 .build();
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
