@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.czl.lib_base.data.bean.MediaBean" />
+
+        <variable
+            name="adapter"
+            type="com.muyi.main.adapter.LearnVideoAdapter" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_image"
+            android:layout_width="170dp"
+            android:layout_height="120dp"
+            android:paddingHorizontal="2dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            binding:placeholderRes="@{@drawable/ic_placeholder}"
+            binding:radiusUrl="@{data.img}"
+            binding:radius="@{16}" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_play"
+            android:layout_width="24dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_video_player" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/iv_image">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="14dp"
+                android:text="@{data.title}" />
+
+            <TextView
+                android:id="@+id/tv_duration"
+                style="@style/TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="14dp"
+                android:text="@{TextUtils.isEmpty(data.duration)?adapter.tvDuration:data.duration}"
+                android:textColor="#33000000" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -7,11 +7,7 @@ import com.czl.lib_base.data.source.LocalDataSource
 import com.czl.lib_base.util.SpHelper
 import com.google.gson.reflect.TypeToken
 
-/**
- * @author Alwyn
- * @Date 2020/7/20
- * @Description
- */
+
 class LocalDataImpl : LocalDataSource {
 
     override fun saveUserData(userBean: UserBean) {

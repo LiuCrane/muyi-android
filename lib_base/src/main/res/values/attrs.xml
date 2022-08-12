@@ -119,6 +119,8 @@
         <attr name="onSuccessCommand" format="reference" />
         <!--require BindingCommand<CloseableReference<CloseableImage>> See {@link com.kelin.mvvmlight.command.BindingCommand} -->
         <attr name="onFailureCommand" format="reference" />
+        <attr name="radius" format="integer"/>
+        <attr name="radiusUrl" format="string"/>
 
     </declare-styleable>
 

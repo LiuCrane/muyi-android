@@ -116,7 +116,12 @@ dependencies {
     api rootProject.ext.dependencies["autosize"]
     api rootProject.ext.dependencies["navigation"]
     api rootProject.ext.dependencies["xpopup"]
-
+    api rootProject.ext.dependencies["MagicIndicator"]
+    api rootProject.ext.dependencies["refresh-header"]
+    api rootProject.ext.dependencies["refresh-footer-ball"]
+    api rootProject.ext.dependencies["refresh-footer-classic"]
+    api rootProject.ext.dependencies["refresh"]
+    api rootProject.ext.dependencies["adapter-helper"]
 
     //视频GSYVideoPlayer
     api rootProject.ext.dependencies["gsyVideoPlayer-java"]

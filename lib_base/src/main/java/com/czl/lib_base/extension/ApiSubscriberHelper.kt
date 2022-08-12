@@ -32,24 +32,28 @@ abstract class ApiSubscriberHelper<T : Any> : DisposableObserver<T>() {
 
     override fun onError(throwable: Throwable) {
 
-        if (throwable is ConnectException || throwable is ConnectTimeoutException || throwable is UnknownHostException) {
-            onFailed("连接失败，请检查网络后再试")
-        } else if (throwable is RuntimeException) {
-            onFailed(throwable.message)
-        } else if (throwable is SocketTimeoutException) {
-            onFailed("连接超时，请重试")
-        } else if (throwable is IllegalStateException) {
-            onFailed(throwable.message)
-        } else if (throwable is HttpException) {
-            onFailed("网络异常，请重试")
-        } else if (throwable is JsonParseException
-            || throwable is JSONException
-            || throwable is JsonSyntaxException
-            || throwable is ParseException
-        ) {
-            onFailed("数据解析异常，请稍候再试")
-        } else {
-            onFailed(throwable.message)
+        when (throwable) {
+            is ConnectException, is ConnectTimeoutException, is UnknownHostException -> {
+                onFailed("连接失败，请检查网络后再试")
+            }
+            is RuntimeException -> {
+                onFailed(throwable.message)
+            }
+            is SocketTimeoutException -> {
+                onFailed("连接超时，请重试")
+            }
+            is IllegalStateException -> {
+                onFailed(throwable.message)
+            }
+            is HttpException -> {
+                onFailed("网络异常，请重试")
+            }
+            is JsonParseException, is JSONException, is JsonSyntaxException, is ParseException -> {
+                onFailed("数据解析异常，请稍候再试")
+            }
+            else -> {
+                onFailed(throwable.message)
+            }
         }
     }
 

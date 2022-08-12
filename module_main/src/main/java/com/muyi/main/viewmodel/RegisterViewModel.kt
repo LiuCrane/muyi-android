@@ -46,19 +46,27 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     val uc = UiChangeEvent()
 
     inner class UiChangeEvent {
-        val tabChangeLiveEvent: SingleLiveEvent<Int> = SingleLiveEvent()
         val successLiveEvent: SingleLiveEvent<Void> = SingleLiveEvent()
     }
 
     private fun register() {
         model.apply {
-            if (userName.get().isNullOrBlank() || userPhone.get().isNullOrBlank()) {
-                showNormalToast("账号或密码不能为空")
+            if (userName.get().isNullOrBlank() || userPhone.get().isNullOrBlank() ||
+                userIdCard.get().isNullOrBlank() || storeName.get().isNullOrBlank() ||
+                storeLocation.get().isNullOrBlank()
+            ) {
+                showNormalToast("注册各项不能为空")
                 return
             }
-            userLogin(
+            userRegister(
                 userName.get()!!,
-                userPhone.get()!!
+                "123456",
+                userPhone.get()!!,
+                userIdCard.get()!!,
+                storeName.get()!!,
+                storeLocation.get()!!,
+                "123",
+                "234"
             ).compose(RxThreadHelper.rxSchedulerHelper(this@RegisterViewModel))
                 .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<UserBean>>() {

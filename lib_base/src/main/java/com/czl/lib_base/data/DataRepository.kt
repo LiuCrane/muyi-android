@@ -2,7 +2,7 @@ package com.czl.lib_base.data
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseModel
-import com.czl.lib_base.data.bean.BrowseRecordsBean
+import com.czl.lib_base.data.bean.MediaBean
 import com.czl.lib_base.data.bean.UserBean
 import com.czl.lib_base.data.source.HttpDataSource
 import com.czl.lib_base.data.source.LocalDataSource
@@ -27,13 +27,40 @@ class DataRepository constructor(
         return mLocalDataSource.getUserToken()
     }
 
-
     override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
-        return mHttpDataSource.userLogin(username,password)
+        return mHttpDataSource.userLogin(username, password)
     }
 
-    override fun getBrowseRecords(limit: Int): Observable<BaseBean<BrowseRecordsBean>> {
-        return mHttpDataSource.getBrowseRecords(limit)
+    override fun userRegister(
+        name: String,
+        password: String,
+        phone: String,
+        id_card_num: String,
+        store_name: String,
+        store_address: String,
+        store_lat: String,
+        store_lng: String
+    ): Observable<BaseBean<UserBean>> {
+        return mHttpDataSource.userRegister(
+            name,
+            password,
+            phone,
+            id_card_num,
+            store_name,
+            store_address,
+            store_lat,
+            store_lng
+        )
+    }
+
+    override fun getMediaList(
+        offset: Int,
+        limit: Int,
+        type: String,
+        course_id: Int,
+        public: Boolean
+    ): Observable<BaseBean<List<MediaBean>>> {
+        return mHttpDataSource.getMediaList(offset, limit, type, course_id, public)
     }
 
 

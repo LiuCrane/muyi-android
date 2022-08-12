@@ -6,13 +6,15 @@ import com.czl.lib_base.config.AppConstants
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.FragmentLoginBinding
+import com.muyi.main.databinding.FragmentMyBinding
+import com.muyi.main.databinding.FragmentProgressBinding
 import com.muyi.main.viewmodel.MyViewModel
 
 /**
  * Created by hq on 2022/7/30.
  **/
 @Route(path = AppConstants.Router.Main.F_MY)
-class MyFragment : BaseFragment<FragmentLoginBinding, MyViewModel>() {
+class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
     override fun initContentView(): Int {
         return R.layout.fragment_my
     }
