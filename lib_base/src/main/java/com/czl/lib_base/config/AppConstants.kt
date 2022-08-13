@@ -32,5 +32,16 @@ interface AppConstants {
             const val F_REGISTER = "/login/RegisterFragment"
         }
 
+        object Learn {
+            const val F_AUDIO = "/main/AudioFragment"
+            const val F_VIDEO = "/main/VideoFragment"
+            const val F_CLASS = "/main/ClassFragment"
+        }
+
+        object Progress {
+            const val F_STUDENT_TRACK = "/main/StudentTrackFragment"
+
+        }
+
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="data"
+            type="com.czl.lib_base.data.bean.StudentBean" />
+
+        <variable
+            name="adapter"
+            type="com.muyi.main.progress.adapter.StudentTrackAdapter" />
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="155dp"
+        android:layout_height="260dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_radius_30"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextViewStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="@{data.currentCourse}" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

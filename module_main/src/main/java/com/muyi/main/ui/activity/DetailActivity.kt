@@ -71,7 +71,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                     Debuger.printfError("***** onQuitFullscreen **** " + objects[1]) //当前非全屏player
                     orientationUtils?.backToProtVideo()
                 }
-            }).setLockClickListener { view, lock ->
+            }).setLockClickListener { _, lock ->
                 orientationUtils?.isEnable = !lock
             }.build( binding.detailPlayer)
 

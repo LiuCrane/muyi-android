@@ -3,15 +3,21 @@ package com.czl.lib_base.extension
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import com.blankj.utilcode.util.ResourceUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.czl.lib_base.R
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+import net.lucode.hackware.magicindicator.buildins.UIUtil
+
 
 /**
  * @author Alwyn
@@ -22,24 +28,33 @@ fun ImageView.loadImage(url: String) {
     Glide.with(this).load(url).apply(
         RequestOptions().diskCacheStrategy(
             DiskCacheStrategy.RESOURCE
-        ).skipMemoryCache(true).dontAnimate()
+        ).skipMemoryCache(true).dontAnimate().placeholder(R.drawable.ic_placeholder)
     ).thumbnail(0.6f)
         .into(this)
 }
-fun ImageView.loadUrl(url: String?, placeHolderRes:Drawable){
+
+fun ImageView.loadUrl(
+    url: String?,
+    placeHolderRes: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder),
+    errorHolder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_error_placeholder)
+) {
     Glide.with(this)
         .load(url)
         .apply(
-            RequestOptions().placeholder(placeHolderRes)
+            RequestOptions().placeholder(placeHolderRes).error(errorHolder)
         )
         .into(this)
 }
-fun ImageView.loadBlurImageRes(@DrawableRes imgRes: Int,radius: Int=25,scale:Int = 1) {
+
+fun ImageView.loadBlurImageRes(@DrawableRes imgRes: Int, radius: Int = 25, scale: Int = 1) {
     Glide.with(this).load(imgRes).dontAnimate()
-        .apply(RequestOptions.bitmapTransform(BlurTransformation(radius,scale))).into(this)
+        .apply(
+            RequestOptions.bitmapTransform(BlurTransformation(radius, scale))
+                .placeholder(R.drawable.ic_placeholder)
+        ).into(this)
 }
 
-fun ImageView.loadBlurImage(url: String?){
+fun ImageView.loadBlurImage(url: String?) {
     Glide.with(this).load(url).dontAnimate()
         .apply(RequestOptions.bitmapTransform(BlurTransformation())).into(this)
 }
@@ -109,18 +124,22 @@ fun ImageView.loadCircleImageRes(resId: Int, @DrawableRes holder: Int? = null) {
     }
 }
 
-fun ImageView.loadRoundImage(url: String?, radius: Int, @DrawableRes holder: Int? = null) {
+fun ImageView.loadRoundImage(
+    url: String?,
+    radius: Double,
+    holder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder)
+) {
     if (url.isNullOrBlank() && holder != null) {
-        setImageResource(holder)
+        setImageDrawable(holder)
     } else if (holder == null) {
         Glide.with(this).load(url)
-            .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(radius, 0)))
+            .apply(RequestOptions().transform(CenterCrop(),RoundedCornersTransformation(UIUtil.dip2px(context, radius), 0)))
             .into(this)
     } else {
-        Glide.with(this).load(url).apply(
-            RequestOptions.bitmapTransform(RoundedCornersTransformation(radius, 0))
-                .placeholder(holder)
-        )
+
+        Glide.with(this).load(url)
+            .apply(RequestOptions().transform(CenterCrop(),RoundedCornersTransformation(UIUtil.dip2px(context, radius), 0))
+                .placeholder(holder))
             .into(this)
     }
 }
