@@ -2,7 +2,9 @@ package com.czl.lib_base.data.source.impl
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.data.api.ApiService
+import com.czl.lib_base.data.bean.ClassesBean
 import com.czl.lib_base.data.bean.MediaBean
+import com.czl.lib_base.data.bean.StudentBean
 import com.czl.lib_base.data.bean.UserBean
 import com.czl.lib_base.data.source.HttpDataSource
 import com.google.gson.JsonObject
@@ -47,6 +49,18 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         public: Boolean
     ): Observable<BaseBean<List<MediaBean>>> {
         return apiService.appMedia(offset, limit, type, course_id, public)
+    }
+
+    override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
+        return apiService.appClasses(offset, limit)
+    }
+
+    override fun getStudentList(
+        offset: Int,
+        limit: Int,
+        rehab: Boolean
+    ): Observable<BaseBean<List<StudentBean>>> {
+        return apiService.appStudents(offset, limit, rehab)
     }
 
 }

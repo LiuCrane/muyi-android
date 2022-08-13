@@ -102,6 +102,12 @@ class LearnFragment : BaseFragment<FragmentLearnBinding, LearnViewModel>() {
                 clipPagerTitleView.text = channels[index]
                 clipPagerTitleView.textColor = Color.parseColor("#443461FD")
                 clipPagerTitleView.clipColor = Color.WHITE
+                clipPagerTitleView.setPadding(
+                    UIUtil.dip2px(context, 13.0),
+                    0,
+                    UIUtil.dip2px(context, 13.0),
+                    0
+                )
                 clipPagerTitleView.textSize = UIUtil.dip2px(context, 16.0).toFloat()
                 clipPagerTitleView.setOnClickListener { binding.viewPager.currentItem = index }
                 return clipPagerTitleView
@@ -114,9 +120,9 @@ class LearnFragment : BaseFragment<FragmentLearnBinding, LearnViewModel>() {
                     context.resources.getDimension(com.czl.lib_base.R.dimen.dp_50)
                 val borderWidth = UIUtil.dip2px(context, 2.0).toFloat()
                 val lineHeight = navigatorHeight - 2 * borderWidth
-                indicator.lineWidth = UIUtil.dip2px(context, 100.0).toFloat()
+                indicator.lineWidth = UIUtil.dip2px(context, 90.0).toFloat()
                 indicator.lineHeight = lineHeight
-                indicator.roundRadius = lineHeight / 2
+                indicator.roundRadius =  UIUtil.dip2px(context, 70.0).toFloat()
                 indicator.yOffset = borderWidth
                 indicator.setColors(Color.parseColor("#3461FD"))
                 return indicator
@@ -124,19 +130,11 @@ class LearnFragment : BaseFragment<FragmentLearnBinding, LearnViewModel>() {
         }
         binding.magicIndicator.navigator = commonNavigator
         val titleContainer = commonNavigator.titleContainer // must after setNavigator
-
-        titleContainer.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
         titleContainer.setPadding(
-            UIUtil.dip2px(context, 12.0),
-            UIUtil.dip2px(context, 10.0),
-            UIUtil.dip2px(context, 12.0),
-            UIUtil.dip2px(context, 10.0)
+            UIUtil.dip2px(context, 4.0),
+            UIUtil.dip2px(context, 0.0),
+            UIUtil.dip2px(context, 4.0),
+            UIUtil.dip2px(context, 0.0)
         )
-        titleContainer.dividerDrawable = object : ColorDrawable() {
-            override fun getIntrinsicWidth(): Int {
-                return UIUtil.dip2px(context, 20.0)
-            }
-        }
-
     }
 }

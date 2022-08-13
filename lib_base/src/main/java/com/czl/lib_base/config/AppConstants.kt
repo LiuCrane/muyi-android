@@ -38,5 +38,10 @@ interface AppConstants {
             const val F_CLASS = "/main/ClassFragment"
         }
 
+        object Progress {
+            const val F_STUDENT_TRACK = "/main/StudentTrackFragment"
+
+        }
+
     }
 }

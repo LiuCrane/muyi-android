@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.muyi.main.viewmodel.VideoViewModel" />
+            type="com.muyi.main.learn.viewmodel.VideoViewModel" />
     </data>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout

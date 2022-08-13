@@ -1,4 +1,4 @@
-package com.muyi.main.viewmodel
+package com.muyi.main.learn.viewmodel
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseViewModel
@@ -14,7 +14,7 @@ import com.czl.lib_base.util.RxThreadHelper
 /**
  * Created by hq on 2022/8/3.
  **/
-class VideoViewModel(application: MyApplication, model: DataRepository) :
+class AudioViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
     var currentPage = 0
 
@@ -34,16 +34,14 @@ class VideoViewModel(application: MyApplication, model: DataRepository) :
     })
 
     private fun getMediaList() {
-        uc.refreshCompleteEvent.postValue(null)
-
         model.apply {
             getMediaList(
                 currentPage,
                 20,
-                "VIDEO",
+                "AUDIO",
                 1111,
                 true
-            ).compose(RxThreadHelper.rxSchedulerHelper(this@VideoViewModel))
+            ).compose(RxThreadHelper.rxSchedulerHelper(this@AudioViewModel))
                 .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<List<MediaBean>>>() {
                     override fun onResult(result: BaseBean<List<MediaBean>>) {
@@ -62,4 +60,5 @@ class VideoViewModel(application: MyApplication, model: DataRepository) :
                 })
         }
     }
+
 }

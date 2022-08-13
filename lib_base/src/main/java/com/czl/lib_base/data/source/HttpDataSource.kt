@@ -1,7 +1,9 @@
 package com.czl.lib_base.data.source
 
 import com.czl.lib_base.base.BaseBean
+import com.czl.lib_base.data.bean.ClassesBean
 import com.czl.lib_base.data.bean.MediaBean
+import com.czl.lib_base.data.bean.StudentBean
 import com.czl.lib_base.data.bean.UserBean
 import io.reactivex.Observable
 
@@ -30,4 +32,17 @@ interface HttpDataSource {
         course_id: Int,
         public: Boolean
     ): Observable<BaseBean<List<MediaBean>>>
+
+    fun getClassList(
+        offset: Int,
+        limit: Int
+    ): Observable<BaseBean<List<ClassesBean>>>
+
+    fun getStudentList(
+        offset: Int,
+        limit: Int,
+        rehab: Boolean
+    ): Observable<BaseBean<List<StudentBean>>>
+
+
 }

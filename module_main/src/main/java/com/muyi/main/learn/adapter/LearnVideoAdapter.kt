@@ -1,13 +1,12 @@
-package com.muyi.main.adapter
+package com.muyi.main.learn.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.czl.lib_base.data.bean.MediaBean
-import com.czl.lib_base.extension.loadRoundImage
 import com.muyi.main.R
 import com.muyi.main.databinding.ItemLearnVideoBinding
-import com.muyi.main.ui.fragment.learn.VideoFragment
+import com.muyi.main.learn.ui.VideoFragment
 
 /**
  * Created by hq on 2022/8/12.
@@ -36,7 +35,7 @@ class LearnVideoAdapter(val mFragment: VideoFragment) :
             oldItem: MediaBean,
             newItem: MediaBean
         ): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.title == newItem.title && oldItem.url == newItem.url
         }
     }
 }

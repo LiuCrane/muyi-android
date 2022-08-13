@@ -2,7 +2,9 @@ package com.czl.lib_base.data
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseModel
+import com.czl.lib_base.data.bean.ClassesBean
 import com.czl.lib_base.data.bean.MediaBean
+import com.czl.lib_base.data.bean.StudentBean
 import com.czl.lib_base.data.bean.UserBean
 import com.czl.lib_base.data.source.HttpDataSource
 import com.czl.lib_base.data.source.LocalDataSource
@@ -63,5 +65,16 @@ class DataRepository constructor(
         return mHttpDataSource.getMediaList(offset, limit, type, course_id, public)
     }
 
+    override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
+        return mHttpDataSource.getClassList(offset, limit)
+    }
+
+    override fun getStudentList(
+        offset: Int,
+        limit: Int,
+        rehab: Boolean
+    ): Observable<BaseBean<List<StudentBean>>> {
+        return mHttpDataSource.getStudentList(offset, limit, rehab)
+    }
 
 }

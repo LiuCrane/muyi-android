@@ -12,14 +12,14 @@
 
         <variable
             name="adapter"
-            type="com.muyi.main.adapter.LearnVideoAdapter" />
+            type="com.muyi.main.learn.adapter.LearnVideoAdapter" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="18dp"
         >
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/iv_image">
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="10dp"
                 android:text="@{data.title}" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="14dp"
+                android:layout_marginBottom="10dp"
                 android:text="@{TextUtils.isEmpty(data.duration)?adapter.tvDuration:data.duration}"
                 android:textColor="#33000000" />
 

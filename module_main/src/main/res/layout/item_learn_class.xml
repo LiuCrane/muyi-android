@@ -7,11 +7,11 @@
 
         <variable
             name="data"
-            type="com.czl.lib_base.data.bean.MediaBean" />
+            type="com.czl.lib_base.data.bean.ClassesBean" />
 
         <variable
             name="adapter"
-            type="com.muyi.main.learn.adapter.LearnAudioAdapter" />
+            type="com.muyi.main.learn.adapter.LearnClassAdapter" />
     </data>
 
     <RelativeLayout
@@ -24,11 +24,11 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_play"
             android:layout_width="24dp"
-            android:layout_height="20dp"
+            android:layout_height="24dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginHorizontal="20dp"
-            android:src="@drawable/ic_video_player" />
+            android:src="@drawable/ic_forward" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 style="@style/SmallTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{TextUtils.isEmpty(data.duration)?adapter.tvDuration:data.duration}"
+                android:text="@{data.store_name}"
                 android:textColor="#3461FD" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@{data.title}" />
+                android:text="@{data.current_course}" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

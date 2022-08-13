@@ -1,4 +1,4 @@
-package com.muyi.main.ui.fragment.learn
+package com.muyi.main.learn.ui
 
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,9 +9,9 @@ import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.bean.MediaBean
 import com.muyi.main.BR
 import com.muyi.main.R
-import com.muyi.main.adapter.LearnAudioAdapter
+import com.muyi.main.learn.adapter.LearnAudioAdapter
 import com.muyi.main.databinding.FragmentAudioBinding
-import com.muyi.main.viewmodel.AudioViewModel
+import com.muyi.main.learn.viewmodel.AudioViewModel
 
 /**
  * Created by hq on 2022/7/30.
@@ -62,7 +62,7 @@ class AudioFragment : BaseFragment<FragmentAudioBinding, AudioViewModel>() {
 //            if (it.over) {
 //                binding.smartCommon.finishLoadMoreWithNoMoreData()
 //            } else {
-//                binding.smartCommon.finishLoadMore(true)
+                binding.smartCommon.finishLoadMore(true)
 //            }
             if (viewModel.currentPage > 1) {
                 mAdapter.addData(it)

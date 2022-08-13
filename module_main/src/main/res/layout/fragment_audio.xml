@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.muyi.main.viewmodel.AudioViewModel" />
+            type="com.muyi.main.learn.viewmodel.AudioViewModel" />
     </data>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout

@@ -54,8 +54,7 @@ open class MyApplication : Application() {
             .debug(BuildConfig.DEBUG)
             .install()
         // 屏幕适配
-        AutoSizeConfig.getInstance().setCustomFragment(true).setBaseOnWidth(false)
-            .setExcludeFontScale(true).designHeightInDp = 720
+        AutoSizeConfig.getInstance().setCustomFragment(true).setBaseOnWidth(true)
         //是否开启日志打印
         LogUtils.getConfig().setLogSwitch(BuildConfig.DEBUG).setConsoleSwitch(BuildConfig.DEBUG)
         startKoin {

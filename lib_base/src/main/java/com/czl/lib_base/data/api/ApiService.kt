@@ -16,10 +16,24 @@ interface ApiService {
 
     @GET("/app/media")
     fun appMedia(
-        @Query("offset") offset: Int = 0,
-        @Query("limit") limit: Int = 20,
+        @Query("offset") offset: Int? = 0,
+        @Query("limit") limit: Int? = 20,
         @Query("type") type: String,
         @Query("course_id") course_id: Int,
         @Query("public") public: Boolean
     ): Observable<BaseBean<List<MediaBean>>>
+
+    @GET("/app/classes")
+    fun appClasses(
+        @Query("offset") offset: Int? = 0,
+        @Query("limit") limit: Int? = 20,
+    ): Observable<BaseBean<List<ClassesBean>>>
+
+    @GET(" /app/students")
+    fun appStudents(
+        @Query("offset") offset: Int? = 0,
+        @Query("limit") limit: Int? = 20,
+        @Query("rehab") rehab: Boolean,
+        ): Observable<BaseBean<List<StudentBean>>>
+
 }

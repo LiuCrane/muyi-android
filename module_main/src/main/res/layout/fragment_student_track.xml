@@ -3,9 +3,10 @@
     xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.muyi.main.learn.viewmodel.ClassViewModel" />
+            type="com.muyi.main.progress.viewmodel.StudentTrackViewModel" />
     </data>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -23,8 +24,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ry_common"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

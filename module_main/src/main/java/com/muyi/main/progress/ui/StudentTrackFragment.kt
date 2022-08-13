@@ -1,28 +1,30 @@
-package com.muyi.main.ui.fragment.learn
+package com.muyi.main.progress.ui
 
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.bean.MediaBean
+import com.czl.lib_base.data.bean.StudentBean
 import com.muyi.main.BR
 import com.muyi.main.R
-import com.muyi.main.adapter.LearnVideoAdapter
-import com.muyi.main.databinding.FragmentVideoBinding
-import com.muyi.main.viewmodel.VideoViewModel
+import com.muyi.main.databinding.FragmentStudentTrackBinding
+import com.muyi.main.progress.adapter.StudentTrackAdapter
+import com.muyi.main.progress.viewmodel.StudentTrackViewModel
 
 /**
  * Created by hq on 2022/7/30.
  **/
-@Route(path = AppConstants.Router.Learn.F_VIDEO)
-class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
+@Route(path = AppConstants.Router.Progress.F_STUDENT_TRACK)
+class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTrackViewModel>() {
     private var firstLoad = true
-    lateinit var mAdapter: LearnVideoAdapter
+    lateinit var mAdapter: StudentTrackAdapter
 
     override fun initContentView(): Int {
-        return R.layout.fragment_video
+        return R.layout.fragment_student_track
     }
 
     override fun initVariableId(): Int {
@@ -38,10 +40,10 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
     }
 
     private fun initAdapter() {
-        mAdapter = LearnVideoAdapter(this)
+        mAdapter = StudentTrackAdapter(this)
         mAdapter.setDiffCallback(mAdapter.diffConfig)
         binding.ryCommon.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = mAdapter
         }
     }
@@ -62,13 +64,13 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
 //            if (it.over) {
 //                binding.smartCommon.finishLoadMoreWithNoMoreData()
 //            } else {
-//                binding.smartCommon.finishLoadMore(true)
+                binding.smartCommon.finishLoadMore(true)
 //            }
             if (viewModel.currentPage > 1) {
                 mAdapter.addData(it)
                 return@Observer
             }
-            mAdapter.setDiffNewData(it as MutableList<MediaBean>)
+            mAdapter.setDiffNewData(it as MutableList<StudentBean>)
         })
 
     }
