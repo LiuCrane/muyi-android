@@ -57,5 +57,23 @@ data class StudentBean(
     @SerializedName("improved")
     val improved: Boolean,
     @SerializedName("diopters")
-    val diopters: List<String>
+    val diopters: List<String>? = null
+)
+
+data class StoreBean(
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("address")
+    val address: String,
+    @SerializedName("lat")
+    val lat: String,
+    @SerializedName("lng")
+    val lng: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("number")
+    val number: String,
+    @SerializedName("status")
+    val status: Boolean
+    //APPROVED, REJECTED, SUBMITTED
 )

@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.muyi.main.viewmodel.RegisterViewModel" />
+            type="com.muyi.main.my.viewmodel.StudentRegisterViewModel" />
     </data>
 
     <ScrollView
@@ -21,86 +21,100 @@
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/TextViewTitleStyle"
-                android:layout_marginTop="50dp"
                 android:layout_gravity="center_horizontal"
-                android:text="新店注册" />
+                android:layout_marginTop="50dp"
+                android:text="新店学员登记" />
 
             <TextView
-                android:id="@+id/tvNameLabel"
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="50dp"
                 android:text="姓名" />
 
             <com.czl.lib_base.widget.EditTextWithDel
-                android:id="@+id/etName"
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
                 android:hint="输入姓名"
                 android:inputType="text"
-                binding:textChanged="@{viewModel.onUserNameChangeCommand}" />
+                binding:textChanged="@{viewModel.onStudentNameChangeCommand}" />
 
             <TextView
-                android:id="@+id/tvPhoneLabel"
                 style="@style/TextViewLabelStyle"
-                android:layout_marginTop="20dp"
-                android:text="手机号" />
+                android:layout_marginTop="50dp"
+                android:text="家长姓名" />
 
             <com.czl.lib_base.widget.EditTextWithDel
-                android:id="@+id/etPhone"
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
-                android:hint="输入手机号"
+                android:hint="输入家长姓名"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onParentNameChangeCommand}" />
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="家长手机" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入家长手机号码"
                 android:inputType="number"
-                binding:textChanged="@{viewModel.onUserPhoneChangeCommand}" />
+                binding:textChanged="@{viewModel.onParentPhoneChangeCommand}" />
 
             <TextView
-                android:id="@+id/tvIdCardLabel"
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="20dp"
-                android:text="身份证" />
+                android:text="度数" />
 
             <com.czl.lib_base.widget.EditTextWithDel
-                android:id="@+id/etIdCard"
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
-                android:hint="输入身份证号码"
+                android:hint="输入学员度数"
                 android:inputType="text"
-                binding:textChanged="@{viewModel.onUserIdCardChangeCommand}" />
+                binding:textChanged="@{viewModel.onDegreeChangeCommand}" />
 
             <TextView
-                android:id="@+id/tvStoreNameLabel"
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="20dp"
-                android:text="门店名称" />
+                android:text="左眼视力" />
 
             <com.czl.lib_base.widget.EditTextWithDel
-                android:id="@+id/etStoreName"
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
-                android:hint="输入门店名称"
+                android:hint="输入学员左眼视力"
                 android:inputType="text"
-                binding:textChanged="@{viewModel.onStoreNameChangeCommand}" />
+                binding:textChanged="@{viewModel.onLeftSightChangeCommand}" />
 
             <TextView
-                android:id="@+id/tvStoreLocationLabel"
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="20dp"
-                android:text="门店位置" />
+                android:text="右眼视力" />
 
             <com.czl.lib_base.widget.EditTextWithDel
-                android:id="@+id/etStoreLocation"
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
-                android:hint="请输入门店位置"
+                android:hint="输入学员右眼视力"
                 android:inputType="text"
-                binding:textChanged="@{viewModel.onStoreLocationChangeCommand}" />
+                binding:textChanged="@{viewModel.onRightSightChangeCommand}" />
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="班级" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="请选择班级"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onClassChangeCommand}" />
 
             <Button
                 android:id="@+id/btn_login"
                 style="@style/ButtonBlueStyle"
                 android:layout_marginTop="70dp"
                 android:layout_marginBottom="50dp"
-                android:text="确认注册"
+                android:text="确认登记"
                 binding:onClickCommand="@{viewModel.btnRegisterClick}" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

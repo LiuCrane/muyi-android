@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableInt
+import com.czl.lib_base.extension.loadCircleImage
 import com.czl.lib_base.extension.loadRoundImage
 import com.czl.lib_base.extension.loadUrl
 
@@ -36,6 +37,21 @@ object ViewAdapter {
     ) {
         if (!TextUtils.isEmpty(radiusUrl)) {
             imageView.loadRoundImage(radiusUrl, radius, placeholderRes)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(
+        value = ["circleUrl", "placeholderRes"],
+        requireAll = false
+    )
+    fun setImageUrCircle(
+        imageView: ImageView,
+        circleUrl: String?,
+        placeholderRes: Drawable? = null,
+    ) {
+        if (!TextUtils.isEmpty(circleUrl)) {
+            imageView.loadCircleImage(circleUrl, placeholderRes)
         }
     }
 

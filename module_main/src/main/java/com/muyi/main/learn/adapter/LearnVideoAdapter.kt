@@ -4,6 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.czl.lib_base.data.bean.MediaBean
+import com.czl.lib_base.extension.loadImageRes
+import com.czl.lib_base.extension.loadUrl
 import com.muyi.main.R
 import com.muyi.main.databinding.ItemLearnVideoBinding
 import com.muyi.main.learn.ui.VideoFragment
@@ -20,6 +22,13 @@ class LearnVideoAdapter(val mFragment: VideoFragment) :
             data = item
             adapter = this@LearnVideoAdapter
             executePendingBindings()
+
+            if (item.img.isEmpty()){
+                ivImage.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
+            }else{
+                ivImage.loadUrl(item.img)
+
+            }
         }
     }
 

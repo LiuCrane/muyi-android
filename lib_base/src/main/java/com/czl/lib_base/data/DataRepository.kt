@@ -2,10 +2,7 @@ package com.czl.lib_base.data
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseModel
-import com.czl.lib_base.data.bean.ClassesBean
-import com.czl.lib_base.data.bean.MediaBean
-import com.czl.lib_base.data.bean.StudentBean
-import com.czl.lib_base.data.bean.UserBean
+import com.czl.lib_base.data.bean.*
 import com.czl.lib_base.data.source.HttpDataSource
 import com.czl.lib_base.data.source.LocalDataSource
 import io.reactivex.Observable
@@ -23,6 +20,10 @@ class DataRepository constructor(
 
     override fun saveUserData(userBean: UserBean) {
         mLocalDataSource.saveUserData(userBean)
+    }
+
+    override fun deleteUserData() {
+        mLocalDataSource.deleteUserData()
     }
 
     override fun getUserToken(): String? {
@@ -55,6 +56,26 @@ class DataRepository constructor(
         )
     }
 
+    override fun studentRegister(
+        name: String,
+        parent_name: String,
+        parent_phone: String,
+        diopter: String,
+        left_sight: String?,
+        right_sight: String?,
+        classId: String
+    ): Observable<BaseBean<UserBean>> {
+        return mHttpDataSource.studentRegister(
+            name,
+            parent_name,
+            parent_phone,
+            diopter,
+            left_sight,
+            right_sight,
+            classId
+        )
+    }
+
     override fun getMediaList(
         offset: Int,
         limit: Int,
@@ -72,9 +93,13 @@ class DataRepository constructor(
     override fun getStudentList(
         offset: Int,
         limit: Int,
-        rehab: Boolean
+        rehab: String?
     ): Observable<BaseBean<List<StudentBean>>> {
         return mHttpDataSource.getStudentList(offset, limit, rehab)
+    }
+
+    override fun getStoreInfo(): Observable<BaseBean<StoreBean>> {
+        return mHttpDataSource.getStoreInfo()
     }
 
 }

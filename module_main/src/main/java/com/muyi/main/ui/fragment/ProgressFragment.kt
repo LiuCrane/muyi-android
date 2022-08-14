@@ -3,6 +3,7 @@ package com.muyi.main.ui.fragment
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -14,6 +15,7 @@ import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.FragmentLoginBinding
 import com.muyi.main.databinding.FragmentProgressBinding
+import com.muyi.main.progress.ui.StudentTrackFragment
 import com.muyi.main.viewmodel.ProgressViewModel
 import me.yokeyword.fragmentation.SupportFragment
 import net.lucode.hackware.magicindicator.buildins.UIUtil
@@ -51,10 +53,19 @@ class ProgressFragment : BaseFragment<FragmentProgressBinding, ProgressViewModel
     }
 
     private fun initViewPager() {
-        val studentTrackFragment =
-            RouteCenter.navigate(AppConstants.Router.Progress.F_STUDENT_TRACK) as SupportFragment
-        val recoveryTrackFragment =
-            RouteCenter.navigate(AppConstants.Router.Progress.F_STUDENT_TRACK) as SupportFragment
+//        val bundle = Bundle()
+//        bundle.putString(AppConstants.IntentKey.REHAB_TYPE, "")
+        val studentTrackFragment = RouteCenter.navigateWithKey(
+            AppConstants.Router.Progress.F_STUDENT_TRACK,
+            ""
+        ) as SupportFragment
+
+//        val bundle2 = Bundle()
+//        bundle2.putString(AppConstants.IntentKey.REHAB_TYPE, "true")
+        val recoveryTrackFragment = RouteCenter.navigateWithKey(
+            AppConstants.Router.Progress.F_STUDENT_TRACK,
+            "true"
+        ) as SupportFragment
 
         val fragments = arrayListOf(studentTrackFragment, recoveryTrackFragment)
 
@@ -121,7 +132,7 @@ class ProgressFragment : BaseFragment<FragmentProgressBinding, ProgressViewModel
                 val lineHeight = navigatorHeight - 2 * borderWidth
                 indicator.lineWidth = UIUtil.dip2px(context, 90.0).toFloat()
                 indicator.lineHeight = lineHeight
-                indicator.roundRadius =  UIUtil.dip2px(context, 70.0).toFloat()
+                indicator.roundRadius = UIUtil.dip2px(context, 70.0).toFloat()
                 indicator.yOffset = borderWidth
                 indicator.setColors(Color.parseColor("#3461FD"))
                 return indicator

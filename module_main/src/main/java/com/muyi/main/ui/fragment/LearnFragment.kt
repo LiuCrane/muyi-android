@@ -61,7 +61,7 @@ class LearnFragment : BaseFragment<FragmentLearnBinding, LearnViewModel>() {
 
         binding.viewPager.apply {
             adapter = ViewPagerFmAdapter(childFragmentManager, lifecycle, fragments)
-            // 优化体验设置该属性后第一次将自动加载所有fragment 在子fragment内部添加懒加载机制
+            // 优化体验 设置该属性后第一次将自动加载所有fragment 在子fragment内部添加懒加载机制
             offscreenPageLimit = fragments.size
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

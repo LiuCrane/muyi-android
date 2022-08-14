@@ -1,5 +1,9 @@
 package com.czl.lib_base.event
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import com.jeremyliao.liveeventbus.LiveEventBus
+
 /**
  * @author Alwyn
  * @Date 2020/10/16
@@ -8,6 +12,13 @@ package com.czl.lib_base.event
  * sticky : post/observeSticky
  */
 object LiveBusCenter {
+    fun postTokenExpiredEvent(value: String?) {
+        LiveEventBus.get(TokenExpiredEvent::class.java).post(TokenExpiredEvent(value))
+    }
+
+    fun observeTokenExpiredEvent(owner: LifecycleOwner, observer: Observer<TokenExpiredEvent>) {
+        LiveEventBus.get(TokenExpiredEvent::class.java).observe(owner, observer)
+    }
 
 
 }

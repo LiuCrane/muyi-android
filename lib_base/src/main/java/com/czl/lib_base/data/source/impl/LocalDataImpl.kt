@@ -18,6 +18,13 @@ class LocalDataImpl : LocalDataSource {
         )
     }
 
+    override fun deleteUserData() {
+        SpHelper.removeValueForKey(AppConstants.SpKey.USER_TOKEN)
+        SpHelper.removeValueForKey(
+            AppConstants.SpKey.USER_JSON_DATA
+        )
+    }
+
     override fun getUserToken(): String {
         return SpHelper.decodeString(AppConstants.SpKey.USER_TOKEN)
     }

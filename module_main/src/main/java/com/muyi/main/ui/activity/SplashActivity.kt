@@ -1,11 +1,14 @@
 package com.muyi.main.ui.activity
 
 import android.Manifest
+import android.location.Location
 import android.widget.Toast
 import com.blankj.utilcode.util.LogUtils
+import com.czl.lib_base.base.AppManager
 import com.czl.lib_base.base.BaseActivity
 import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.route.RouteCenter
+import com.czl.lib_base.util.GPSUtils
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.ActivitySplashBinding
@@ -41,6 +44,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
             .permissions(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
             )
             .onExplainRequestReason { scope, deniedList ->
                 scope.showRequestReasonDialog(
@@ -50,7 +55,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                     "Cancel"
                 )
             }.onForwardToSettings { scope, deniedList ->
-                scope.showForwardToSettingsDialog(deniedList, "You need to allow necessary permissions in Settings manually", "OK", "Cancel")
+                scope.showForwardToSettingsDialog(
+                    deniedList,
+                    "You need to allow necessary permissions in Settings manually",
+                    "OK",
+                    "Cancel"
+                )
             }
             .request { allGranted, _, deniedList ->
                 if (allGranted) {
@@ -78,10 +88,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                     LogUtils.e("userToken=" + viewModel.model.getUserToken())
                     if (viewModel.model.getUserToken().isNullOrEmpty()) {
                         startContainerActivity(AppConstants.Router.Login.F_LOGIN)
-                        overridePendingTransition(
-                            me.yokeyword.fragmentation.R.anim.h_fragment_enter,
-                            0
-                        )
+//                        overridePendingTransition(
+//                            me.yokeyword.fragmentation.R.anim.h_fragment_enter,
+//                            0
+//                        )
                     } else {
                         RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
                     }

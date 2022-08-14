@@ -14,6 +14,9 @@ interface ApiService {
     @POST("/app/user/register")
     fun register(@Body body: Any): Observable<BaseBean<UserBean>>
 
+    @POST("/app/students")
+    fun studentRegister(@Body body: Any): Observable<BaseBean<UserBean>>
+
     @GET("/app/media")
     fun appMedia(
         @Query("offset") offset: Int? = 0,
@@ -29,11 +32,15 @@ interface ApiService {
         @Query("limit") limit: Int? = 20,
     ): Observable<BaseBean<List<ClassesBean>>>
 
-    @GET(" /app/students")
+    @GET("/app/students")
     fun appStudents(
         @Query("offset") offset: Int? = 0,
         @Query("limit") limit: Int? = 20,
-        @Query("rehab") rehab: Boolean,
+        @Query("rehab") rehab: String?,
         ): Observable<BaseBean<List<StudentBean>>>
+
+    @GET("/app/store")
+    fun appStore(): Observable<BaseBean<StoreBean>>
+
 
 }

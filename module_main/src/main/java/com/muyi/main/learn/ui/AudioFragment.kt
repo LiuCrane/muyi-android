@@ -50,7 +50,7 @@ class AudioFragment : BaseFragment<FragmentAudioBinding, AudioViewModel>() {
         // 接收加载完成的数据
         viewModel.uc.refreshCompleteEvent.observe(this, Observer {
 
-            if (it == null) {
+            if (it.isNullOrEmpty()) {
                 binding.smartCommon.finishRefresh(500)
                 binding.smartCommon.finishLoadMore(false)
                 return@Observer

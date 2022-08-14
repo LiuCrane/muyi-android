@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.czl.lib_base.R
+import com.makeramen.roundedimageview.RoundedImageView
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.CropTransformation
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
@@ -36,10 +37,23 @@ fun ImageView.loadImage(url: String) {
 fun ImageView.loadUrl(
     url: String?,
     placeHolderRes: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder),
-    errorHolder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_error_placeholder)
+    errorHolder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder)
 ) {
     Glide.with(this)
         .load(url)
+        .apply(
+            RequestOptions().placeholder(placeHolderRes).error(errorHolder)
+        )
+        .into(this)
+}
+
+fun ImageView.loadImageRes(
+    @DrawableRes imgRes: Int,
+    placeHolderRes: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder),
+    errorHolder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder)
+) {
+    Glide.with(this)
+        .load(imgRes)
         .apply(
             RequestOptions().placeholder(placeHolderRes).error(errorHolder)
         )
@@ -68,15 +82,6 @@ fun ImageView.loadImage(uri: String?, width: Int, height: Int) {
     Glide.with(this).load(uri).apply(RequestOptions.bitmapTransform(multi).dontAnimate()).into(this)
 }
 
-fun ImageView.loadImageCenterCrop(uri: String?, @DrawableRes holder: Int? = null) {
-    Glide.with(this).load(uri)
-        .apply(RequestOptions().dontAnimate().dontTransform().centerCrop().apply {
-            if (holder != null) {
-                this.placeholder(holder)
-            }
-        }).into(this)
-}
-
 fun ImageView.loadGif(
     uri: String?,
     requestListener: RequestListener<GifDrawable?>? = null,
@@ -99,14 +104,28 @@ fun ImageView.loadGif(
 }
 
 fun ImageView.loadCircleImage(url: String?, @DrawableRes holder: Int? = null) {
-    if (url.isNullOrBlank()) {
-        if (holder != null) {
-            setImageResource(holder)
-        }
+    if (url.isNullOrBlank() && holder != null) {
+        setImageResource(holder)
+        Glide.with(this).load(holder).apply(RequestOptions().circleCrop())
+            .into(this)
     } else if (holder == null) {
         Glide.with(this).load(url).apply(RequestOptions().circleCrop()).into(this)
     } else {
         Glide.with(this).load(url).apply(RequestOptions().placeholder(holder).circleCrop())
+            .into(this)
+    }
+}
+
+fun ImageView.loadCircleImage(
+    url: String?, holder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder)
+) {
+    if (url.isNullOrBlank() && holder != null) {
+        setImageDrawable(holder)
+    } else if (holder == null) {
+        Glide.with(this).load(url).apply(RequestOptions().circleCrop()).into(this)
+    } else {
+        Glide.with(this).asBitmap().load(url)
+            .apply(RequestOptions().placeholder(holder).circleCrop())
             .into(this)
     }
 }
@@ -119,10 +138,11 @@ fun ImageView.loadCircleImageRes(resId: Int, @DrawableRes holder: Int? = null) {
     } else if (holder == null) {
         Glide.with(this).load(resId).apply(RequestOptions().circleCrop()).into(this)
     } else {
-        Glide.with(this).load(resId).apply(RequestOptions().placeholder(holder).circleCrop())
+        Glide.with(this).load(resId).placeholder(holder).apply(RequestOptions().circleCrop())
             .into(this)
     }
 }
+
 
 fun ImageView.loadRoundImage(
     url: String?,
@@ -133,13 +153,22 @@ fun ImageView.loadRoundImage(
         setImageDrawable(holder)
     } else if (holder == null) {
         Glide.with(this).load(url)
-            .apply(RequestOptions().transform(CenterCrop(),RoundedCornersTransformation(UIUtil.dip2px(context, radius), 0)))
+            .apply(
+                RequestOptions().transform(
+                    CenterCrop(),
+                    RoundedCornersTransformation(UIUtil.dip2px(context, radius), 0)
+                )
+            )
             .into(this)
     } else {
 
-        Glide.with(this).load(url)
-            .apply(RequestOptions().transform(CenterCrop(),RoundedCornersTransformation(UIUtil.dip2px(context, radius), 0))
-                .placeholder(holder))
+        Glide.with(this).load(url).placeholder(holder)
+            .apply(
+                RequestOptions().transform(
+                    CenterCrop(),
+                    RoundedCornersTransformation(UIUtil.dip2px(context, radius), 0)
+                )
+            )
             .into(this)
     }
 }

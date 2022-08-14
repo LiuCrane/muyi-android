@@ -76,6 +76,7 @@ ext {
             'autosize'                             : "me.jessyan:autosize:1.1.2",
             'xpopup'                               : 'com.lxj:xpopup:2.2.5',
             'MagicIndicator'                       : 'com.github.hackware1993:MagicIndicator:1.7.0',
+            'round_imageview'                      : 'com.makeramen:roundedimageview:2.3.0',
             'gsyVideoPlayer-java'                  :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.3.3-release-jitpack',
             'gsyVideoPlayer-ex_so'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.3.3-release-jitpack',
             'gsyVideoPlayer-arm64'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-arm64:v8.3.3-release-jitpack',

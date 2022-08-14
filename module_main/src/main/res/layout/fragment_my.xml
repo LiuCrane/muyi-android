@@ -1,21 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.muyi.main.viewmodel.MyViewModel" />
+
+        <variable
+            name="data"
+            type="com.czl.lib_base.data.bean.StoreBean" />
     </data>
 
-    <RelativeLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_common"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:srlEnableLoadMore="false"
+        binding:onRefreshCommand="@{viewModel.onRefreshCommand}">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_tab_my"
-            android:textSize="20sp"
-            android:textColor="@color/md_theme_blue"
-            android:layout_centerInParent="true" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
 
-    </RelativeLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="90dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_placeholder"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_border_color="@color/theme_blue_20"
+                    app:riv_border_width="1dp"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/TextViewStyle"
+                    android:layout_marginStart="20dp"
+                    android:text="@{data.name}"
+                    android:textColor="@color/theme_blue"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+                    app:layout_constraintLeft_toRightOf="@id/iv_avatar"
+                    app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+                <LinearLayout
+                    android:id="@+id/ll_store"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_blue_30"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="26dp"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_avatar">
+
+                    <TextView
+                        style="@style/TextViewSmallStyle"
+                        android:text="店铺地址"
+                        android:textColor="#44FFFFFF" />
+
+                    <TextView
+                        style="@style/TextViewBigStyle"
+                        android:layout_marginTop="4dp"
+                        android:text="@{data.address}"
+                        android:textColor="#FFFFFF" />
+
+                    <TextView
+                        style="@style/TextViewSmallStyle"
+                        android:layout_marginTop="20dp"
+                        android:text="店铺编号"
+                        android:textColor="#44FFFFFF" />
+
+                    <TextView
+                        style="@style/TextViewBigStyle"
+                        android:layout_marginTop="4dp"
+                        android:text="@{data.number}"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_alliance"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_store">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_alliance_list" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="24dp"
+                        android:text="加盟商列表"
+                        android:textColor="@color/theme_blue" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_progress"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_store"
+                    app:layout_constraintTop_toTopOf="@id/ll_alliance">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_big_progress" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="24dp"
+                        android:text="进度跟踪"
+                        android:textColor="@color/theme_blue" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_registration"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_alliance"
+                    binding:onClickCommand="@{viewModel.registrationClick}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_new_registration" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="24dp"
+                        android:text="新学员登记"
+                        android:textColor="@color/theme_blue" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
 </layout>

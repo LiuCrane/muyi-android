@@ -6,6 +6,11 @@ package com.czl.lib_base.config
  * @Description 常量管理类
  */
 interface AppConstants {
+    object IntentKey{
+        const val KEY_STRING = "keyString"
+        const val REHAB_TYPE = "rehab_type"
+
+    }
     object SpKey {
         const val USER_TOKEN: String = "user_token"
         const val USER_JSON_DATA: String = "user_json_data"
@@ -27,21 +32,24 @@ interface AppConstants {
 
         }
 
+
         object Login {
             const val F_LOGIN = "/login/LoginFragment"
             const val F_REGISTER = "/login/RegisterFragment"
         }
 
         object Learn {
-            const val F_AUDIO = "/main/AudioFragment"
-            const val F_VIDEO = "/main/VideoFragment"
-            const val F_CLASS = "/main/ClassFragment"
+            const val F_AUDIO = "/learn/AudioFragment"
+            const val F_VIDEO = "/learn/VideoFragment"
+            const val F_CLASS = "/learn/ClassFragment"
+        }
+        object Progress{
+            const val F_STUDENT_TRACK = "/progress/StudentTrackFragment"
+
         }
 
-        object Progress {
-            const val F_STUDENT_TRACK = "/main/StudentTrackFragment"
-
+        object My {
+            const val F_REGISTRATION= "/my/StudentRegisterFragment"
         }
-
     }
 }
