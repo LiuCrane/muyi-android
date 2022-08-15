@@ -59,18 +59,19 @@
         <item name="android:gravity">start|center_vertical</item>
     </style>
 
-    <style name="SmallTextViewStyle" parent="AppTheme">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/black</item>
-    </style>
-
     <style name="TextViewStyle" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextViewSmallStyle" parent="TextViewStyle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextViewBigStyle" parent="TextViewStyle">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="TextViewTitleStyle" parent="TextViewStyle">
@@ -84,7 +85,7 @@
     <style name="ButtonBlueStyle" parent="AppTheme">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">57dp</item>
-        <item name="android:background">@drawable/bg_btn_blue</item>
+        <item name="android:background">@drawable/bg_blue_12</item>
         <item name="android:layout_marginStart">26dp</item>
         <item name="android:layout_marginEnd">26dp</item>
         <item name="android:textSize">16sp</item>

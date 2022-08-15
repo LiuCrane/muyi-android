@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:binding="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -21,16 +21,67 @@
         android:layout_height="260dp"
         android:layout_marginHorizontal="5dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/bg_radius_30"
+        android:background="@drawable/bg_gray_30"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/TextViewStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewSmallStyle"
             android:layout_marginTop="14dp"
             android:text="@{data.currentCourse}" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="14dp"
+            android:scaleType="centerCrop"
+            app:riv_border_color="@color/theme_blue_20"
+            app:riv_border_width="1dp"
+            app:riv_oval="true" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/TextViewStyle"
+            android:layout_marginTop="10dp"
+            android:text="@{data.parent_name}"
+            android:textColor="@color/theme_blue" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            style="@style/TextViewStyle"
+            android:layout_marginTop="4dp"
+            android:text="@{data.parent_phone}"
+            android:textColor="@color/theme_blue_40" />
+
+        <RelativeLayout
+            android:layout_width="78dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp">
+
+            <TextView
+                android:id="@+id/tv_left"
+                style="@style/TextViewSmallStyle"
+                android:layout_alignParentStart="true"
+                android:text="L 4.0" />
+
+            <TextView
+                android:id="@+id/tv_right"
+                style="@style/TextViewSmallStyle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="10dp"
+                android:text="R 4.0" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_improve"
+            style="@style/TextViewStyle"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:textColor="@color/white" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>

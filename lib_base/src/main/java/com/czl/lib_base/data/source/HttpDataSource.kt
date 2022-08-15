@@ -1,10 +1,7 @@
 package com.czl.lib_base.data.source
 
 import com.czl.lib_base.base.BaseBean
-import com.czl.lib_base.data.bean.ClassesBean
-import com.czl.lib_base.data.bean.MediaBean
-import com.czl.lib_base.data.bean.StudentBean
-import com.czl.lib_base.data.bean.UserBean
+import com.czl.lib_base.data.bean.*
 import io.reactivex.Observable
 
 /**
@@ -25,6 +22,16 @@ interface HttpDataSource {
         store_lng: String
     ): Observable<BaseBean<UserBean>>
 
+    fun studentRegister(
+        name: String,
+        parent_name: String,
+        parent_phone: String,
+        diopter: String,
+        left_sight: String?,
+        right_sight: String?,
+        classId: String
+    ): Observable<BaseBean<UserBean>>
+
     fun getMediaList(
         offset: Int,
         limit: Int,
@@ -41,8 +48,9 @@ interface HttpDataSource {
     fun getStudentList(
         offset: Int,
         limit: Int,
-        rehab: Boolean
+        rehab: String?
     ): Observable<BaseBean<List<StudentBean>>>
 
+    fun getStoreInfo(): Observable<BaseBean<StoreBean>>
 
 }

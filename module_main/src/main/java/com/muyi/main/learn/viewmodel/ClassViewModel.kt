@@ -1,5 +1,6 @@
 package com.muyi.main.learn.viewmodel
 
+import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseViewModel
 import com.czl.lib_base.base.MyApplication
@@ -25,6 +26,7 @@ class ClassViewModel(application: MyApplication, model: DataRepository) :
     }
 
     val onRefreshCommand: BindingCommand<Void> = BindingCommand(BindingAction {
+        LogUtils.e("ClassViewModel onRefreshCommand")
         currentPage = 0
         getMediaList()
     })

@@ -117,6 +117,7 @@ dependencies {
     api rootProject.ext.dependencies["navigation"]
     api rootProject.ext.dependencies["xpopup"]
     api rootProject.ext.dependencies["MagicIndicator"]
+    api rootProject.ext.dependencies["round_imageview"]
     api rootProject.ext.dependencies["refresh-header"]
     api rootProject.ext.dependencies["refresh-footer-ball"]
     api rootProject.ext.dependencies["refresh-footer-classic"]

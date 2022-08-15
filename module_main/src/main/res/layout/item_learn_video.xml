@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:binding="http://schemas.android.com/apk/res-auto">
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,16 +23,16 @@
         android:layout_marginBottom="18dp"
         >
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_image"
             android:layout_width="170dp"
             android:layout_height="120dp"
             android:paddingHorizontal="2dp"
+            android:scaleType="centerCrop"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            binding:placeholderRes="@{@drawable/ic_placeholder}"
-            binding:radiusUrl="@{data.img}"
-            binding:radius="@{16}" />
+            app:riv_corner_radius="16dp" />
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_play"
@@ -54,8 +55,6 @@
             <TextView
                 android:id="@+id/tv_title"
                 style="@style/TextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
                 android:text="@{data.title}" />
@@ -63,8 +62,6 @@
             <TextView
                 android:id="@+id/tv_duration"
                 style="@style/TextViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="10dp"
                 android:text="@{TextUtils.isEmpty(data.duration)?adapter.tvDuration:data.duration}"
@@ -72,7 +69,5 @@
 
 
         </RelativeLayout>
-
-
     </RelativeLayout>
 </layout>

@@ -121,6 +121,7 @@
         <attr name="onFailureCommand" format="reference" />
         <attr name="radius" format="integer"/>
         <attr name="radiusUrl" format="string"/>
+        <attr name="circleUrl" format="string"/>
 
     </declare-styleable>
 

@@ -7,12 +7,15 @@ import com.czl.lib_base.adapter.ViewPagerFmAdapter
 import com.czl.lib_base.base.AppManager
 import com.czl.lib_base.base.BaseActivity
 import com.czl.lib_base.config.AppConstants
+import com.czl.lib_base.data.DataRepository
+import com.czl.lib_base.event.LiveBusCenter
 import com.czl.lib_base.route.RouteCenter
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.ActivityMainBinding
 import com.muyi.main.viewmodel.MainViewModel
 import me.yokeyword.fragmentation.SupportFragment
+import org.koin.android.ext.android.inject
 
 /**
  * Created by hq on 2022/7/28.
@@ -34,6 +37,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initViewObservable() {
+        LiveBusCenter.observeTokenExpiredEvent(this) {
+            val dataRepository: DataRepository by inject()
+            dataRepository.deleteUserData()
+            startContainerActivity(AppConstants.Router.Login.F_LOGIN)
+            AppManager.instance.finishAllActivity()
+
+        }
         viewModel.uc.tabChangeLiveEvent.observe(this) {
             binding.viewPager2.setCurrentItem(it, false)
         }
@@ -71,25 +81,25 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
                 BottomNavigationItem(
                     R.drawable.ic_learn_on,
                     getString(R.string.main_tab_learn)
-                ).setActiveColorResource(R.color.md_theme_blue)
+                ).setActiveColorResource(R.color.theme_blue)
                     .setInactiveIconResource(R.drawable.ic_learn_off)
-                    .setInActiveColorResource(R.color.md_theme_blue_20)
+                    .setInActiveColorResource(R.color.theme_blue_20)
             )
             addItem(
                 BottomNavigationItem(
                     R.drawable.ic_progress_on,
                     getString(R.string.main_tab_progress)
-                ).setActiveColorResource(R.color.md_theme_blue)
+                ).setActiveColorResource(R.color.theme_blue)
                     .setInactiveIconResource(R.drawable.ic_progress_off)
-                    .setInActiveColorResource(R.color.md_theme_blue_20)
+                    .setInActiveColorResource(R.color.theme_blue_20)
             )
             addItem(
                 BottomNavigationItem(
                     R.drawable.ic_my_on,
                     getString(R.string.main_tab_my)
-                ).setActiveColorResource(R.color.md_theme_blue)
+                ).setActiveColorResource(R.color.theme_blue)
                     .setInactiveIconResource(R.drawable.ic_my_off)
-                    .setInActiveColorResource(R.color.md_theme_blue_20)
+                    .setInActiveColorResource(R.color.theme_blue_20)
             )
 
             setFirstSelectedPosition(0)

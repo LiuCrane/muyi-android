@@ -13,7 +13,6 @@ import com.muyi.main.learn.ui.ClassFragment
  **/
 class LearnClassAdapter(val mFragment: ClassFragment) :
     BaseQuickAdapter<ClassesBean, BaseDataBindingHolder<ItemLearnClassBinding>>(R.layout.item_learn_class) {
-    val tvDuration = "00:00"
 
     override fun convert(holder: BaseDataBindingHolder<ItemLearnClassBinding>, item: ClassesBean) {
         holder.dataBinding?.apply {

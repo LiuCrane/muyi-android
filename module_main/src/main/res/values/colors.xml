@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="md_theme_blue">#3461FD</color>
-    <color name="md_theme_blue_20">#333461FD</color>
+    <color name="theme_blue">#3461FD</color>
+    <color name="theme_blue_20">#333461FD</color>
+    <color name="theme_blue_40">#663461FD</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="hint">#BFBFBF</color>

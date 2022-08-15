@@ -2,6 +2,7 @@ package com.czl.lib_base.data.net
 
 import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.base.BaseBean
+import com.czl.lib_base.event.LiveBusCenter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Interceptor
@@ -62,8 +63,9 @@ class ResponseInterceptor : Interceptor {
 //                    }
                 }
                 401 -> {
-                    // token/cookie失效 ApiSubscriberHelper 已在ApiSubscriberHelper网络业务层处理
-                    // LiveBusCenter.postTokenExpiredEvent(baseBean.errorMsg)
+                    // token/cookie失效
+                    // ApiSubscriberHelper 已在ApiSubscriberHelper网络业务层处理
+                     LiveBusCenter.postTokenExpiredEvent(baseBean.msg)
                 }
 
             }
