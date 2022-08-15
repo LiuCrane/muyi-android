@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.muyi.main.viewmodel.LoginViewModel" />
+            type="com.muyi.main.viewmodel.CreateClassViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
             android:id="@+id/tvLogo"
             style="@style/TextViewTitleStyle"
             android:layout_marginTop="6dp"
-            android:text="目益视力"
+            android:text="创建班级"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivLogo" />
@@ -38,7 +38,7 @@
             android:id="@+id/tvNameLabel"
             style="@style/TextViewLabelStyle"
             android:layout_marginTop="40dp"
-            android:text="用户名"
+            android:text="班级名"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvLogo" />
 
@@ -46,53 +46,26 @@
             android:id="@+id/etName"
             style="@style/EditTextStyle"
             android:layout_marginTop="14dp"
-            android:hint="输入手机号"
-            android:inputType="number"
+            android:hint="输入班级名"
+            android:inputType="text"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvNameLabel"
-            binding:textChanged="@{viewModel.onUserNameChangeCommand}" />
+            binding:textChanged="@{viewModel.onAccountChangeCommand}" />
 
-        <TextView
-            android:id="@+id/tvPasswordLabel"
-            style="@style/TextViewLabelStyle"
-            android:layout_marginTop="20dp"
-            android:text="密码"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etName" />
 
-        <com.czl.lib_base.widget.EditTextWithDel
-            android:id="@+id/etPassword"
-            style="@style/EditTextStyle"
-            android:layout_marginTop="14dp"
-            android:hint="输入密码"
-            android:inputType="textPassword"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
-            binding:textChanged="@{viewModel.onPwdChangeCommand}" />
 
         <Button
             android:id="@+id/btn_login"
             style="@style/ButtonBlueStyle"
             android:layout_marginTop="70dp"
-            android:text="登录"
+            android:text="确定"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etPassword"
+            app:layout_constraintTop_toBottomOf="@id/etName"
             binding:onClickCommand="@{viewModel.btnLoginClick}" />
 
-        <TextView
-            android:id="@+id/tvRegister"
-            style="@style/TextViewStyle"
-            android:layout_marginTop="21dp"
-            android:padding="10dp"
-            android:text="注册"
-            android:textColor="@color/theme_blue"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login"
-            binding:onClickCommand="@{viewModel.registerClickCommand}" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

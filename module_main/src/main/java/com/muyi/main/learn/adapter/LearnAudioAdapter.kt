@@ -13,7 +13,7 @@ import com.muyi.main.learn.ui.AudioFragment
  **/
 class LearnAudioAdapter(val mFragment: AudioFragment) :
     BaseQuickAdapter<MediaBean, BaseDataBindingHolder<ItemLearnAudioBinding>>(R.layout.item_learn_audio) {
-    val tvDuration = "00:00"
+    val tvDuration = "00:00:00"
 
     override fun convert(holder: BaseDataBindingHolder<ItemLearnAudioBinding>, item: MediaBean) {
         holder.dataBinding?.apply {

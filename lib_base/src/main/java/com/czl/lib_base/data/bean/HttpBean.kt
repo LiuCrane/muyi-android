@@ -31,6 +31,8 @@ data class ClassesBean(
     val id: String,
     @SerializedName("name")
     val name: String,
+    @SerializedName("teacher")
+    val teacher: String,
     @SerializedName("current_course")
     val current_course: String,
     @SerializedName("store_name")
@@ -39,6 +41,8 @@ data class ClassesBean(
     val store_number: String,
     @SerializedName("study_progress")
     val study_progress: String,
+    @SerializedName("student_num")
+    val student_num: Int
 )
 
 data class StudentBean(
@@ -52,12 +56,21 @@ data class StudentBean(
     val parent_name: String,
     @SerializedName("parent_phone")
     val parent_phone: String,
-    @SerializedName("stageStatus")
-    val stageStatus: String,
     @SerializedName("improved")
     val improved: Boolean,
-    @SerializedName("diopters")
-    val diopters: List<String>? = null
+    @SerializedName("eyesightList")
+    val eyesightList: List<EyesightBean>? = null
+)
+
+data class EyesightBean(
+    @SerializedName("createdAt")
+    val createdAt: String,
+    @SerializedName("improved")
+    val improved: Boolean,
+    @SerializedName("leftVision")
+    val leftVision: String,
+    @SerializedName("rightVision")
+    val rightVision: String
 )
 
 data class StoreBean(

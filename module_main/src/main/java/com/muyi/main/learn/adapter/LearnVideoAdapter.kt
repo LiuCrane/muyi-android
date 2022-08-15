@@ -15,7 +15,7 @@ import com.muyi.main.learn.ui.VideoFragment
  **/
 class LearnVideoAdapter(val mFragment: VideoFragment) :
     BaseQuickAdapter<MediaBean, BaseDataBindingHolder<ItemLearnVideoBinding>>(R.layout.item_learn_video) {
-    val tvDuration = "00:00"
+    val tvDuration = "00:00:00"
 
     override fun convert(holder: BaseDataBindingHolder<ItemLearnVideoBinding>, item: MediaBean) {
         holder.dataBinding?.apply {

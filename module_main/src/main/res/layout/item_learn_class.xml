@@ -39,16 +39,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_duration"
                 style="@style/TextViewSmallStyle"
                 android:text="@{data.store_name}"
                 android:textColor="#3461FD" />
 
             <TextView
-                android:id="@+id/tv_title"
                 style="@style/TextViewStyle"
                 android:layout_marginTop="3dp"
-                android:text="@{data.current_course}" />
+                android:text="@{data.name}" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

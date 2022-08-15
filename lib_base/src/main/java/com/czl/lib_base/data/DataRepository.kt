@@ -30,8 +30,10 @@ class DataRepository constructor(
         return mLocalDataSource.getUserToken()
     }
 
-    override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
-        return mHttpDataSource.userLogin(username, password)
+    override fun userLogin(
+        username: String, password: String, lat: String, lng: String
+    ): Observable<BaseBean<UserBean>> {
+        return mHttpDataSource.userLogin(username, password, lat, lng)
     }
 
     override fun userRegister(
@@ -43,7 +45,7 @@ class DataRepository constructor(
         store_address: String,
         store_lat: String,
         store_lng: String
-    ): Observable<BaseBean<UserBean>> {
+    ): Observable<BaseBean<String>> {
         return mHttpDataSource.userRegister(
             name,
             password,
@@ -60,19 +62,21 @@ class DataRepository constructor(
         name: String,
         parent_name: String,
         parent_phone: String,
-        diopter: String,
-        left_sight: String?,
-        right_sight: String?,
-        classId: String
-    ): Observable<BaseBean<UserBean>> {
+        left_diopter: String,
+        right_diopter: String,
+        left_vision: String,
+        right_vision: String,
+        class_id: String
+    ): Observable<BaseBean<String>> {
         return mHttpDataSource.studentRegister(
             name,
             parent_name,
             parent_phone,
-            diopter,
-            left_sight,
-            right_sight,
-            classId
+            left_diopter,
+            right_diopter,
+            left_vision,
+            right_vision,
+            class_id
         )
     }
 
@@ -88,6 +92,10 @@ class DataRepository constructor(
 
     override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
         return mHttpDataSource.getClassList(offset, limit)
+    }
+
+    override fun createClass(name: String): Observable<BaseBean<String>> {
+        return mHttpDataSource.createClass(name)
     }
 
     override fun getStudentList(

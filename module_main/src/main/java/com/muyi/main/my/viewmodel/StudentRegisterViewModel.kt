@@ -21,7 +21,8 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
     var studentName = ObservableField("")
     var parentName = ObservableField("")
     var parentPhone = ObservableField("")
-    var userDegree = ObservableField("")
+    var leftDiopter = ObservableField("")
+    var rightDiopter = ObservableField("")
     var leftSight = ObservableField("")
     var rightSight = ObservableField("")
     var studentClass = ObservableField("")
@@ -35,8 +36,11 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
     val onParentPhoneChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         parentPhone.set(it)
     })
-    val onDegreeChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
-        userDegree.set(it)
+    val onLeftDiopterChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        leftDiopter.set(it)
+    })
+    val onRightDiopterChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        rightDiopter.set(it)
     })
     val onLeftSightChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         leftSight.set(it)
@@ -61,7 +65,8 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
         model.apply {
             if (studentName.get().isNullOrBlank() || parentName.get()
                     .isNullOrBlank() || parentPhone.get().isNullOrBlank() ||
-                userDegree.get().isNullOrBlank() || leftSight.get()
+                leftDiopter.get().isNullOrBlank() || rightDiopter.get()
+                    .isNullOrBlank() || leftSight.get()
                     .isNullOrBlank() || rightSight.get().isNullOrBlank() ||
                 studentClass.get().isNullOrBlank()
             ) {
@@ -72,18 +77,19 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
                 studentName.get()!!,
                 parentName.get()!!,
                 parentPhone.get()!!,
-                userDegree.get()!!,
+                leftSight.get()!!,
+                rightSight.get()!!,
                 leftSight.get()!!,
                 rightSight.get()!!,
                 studentClass.get()!!
             ).compose(RxThreadHelper.rxSchedulerHelper(this@StudentRegisterViewModel))
                 .doOnSubscribe { showLoading() }
-                .subscribe(object : ApiSubscriberHelper<BaseBean<UserBean>>() {
-                    override fun onResult(result: BaseBean<UserBean>) {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<*>>() {
+                    override fun onResult(result: BaseBean<*>) {
                         dismissLoading()
                         if (result.code == 200) {
                             showNormalToast("学员注册成功")
-                            uc.successLiveEvent.call()
+                            finish()
                         }
                     }
 

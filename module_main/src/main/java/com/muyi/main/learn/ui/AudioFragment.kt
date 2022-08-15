@@ -59,11 +59,11 @@ class AudioFragment : BaseFragment<FragmentAudioBinding, AudioViewModel>() {
             firstLoad = false
             binding.smartCommon.finishRefresh(500)
 
-//            if (it.over) {
-//                binding.smartCommon.finishLoadMoreWithNoMoreData()
-//            } else {
+            if (it.size < AppConstants.Common.PAGE_SIZE) {
+                binding.smartCommon.finishLoadMoreWithNoMoreData()
+            } else {
                 binding.smartCommon.finishLoadMore(true)
-//            }
+            }
             if (viewModel.currentPage > 1) {
                 mAdapter.addData(it)
                 return@Observer

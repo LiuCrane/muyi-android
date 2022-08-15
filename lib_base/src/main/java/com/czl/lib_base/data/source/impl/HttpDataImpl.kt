@@ -9,10 +9,17 @@ import io.reactivex.Observable
 
 class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
 
-    override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
+    override fun userLogin(
+        username: String,
+        password: String,
+        lat: String,
+        lng: String
+    ): Observable<BaseBean<UserBean>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("username", username)
         jsonObject.addProperty("password", password)
+        jsonObject.addProperty("lat", lat)
+        jsonObject.addProperty("lng", lng)
         return apiService.login(jsonObject)
     }
 
@@ -25,7 +32,7 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         store_address: String,
         store_lat: String,
         store_lng: String
-    ): Observable<BaseBean<UserBean>> {
+    ): Observable<BaseBean<String>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("name", name)
         jsonObject.addProperty("password", password)
@@ -42,21 +49,24 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         name: String,
         parent_name: String,
         parent_phone: String,
-        diopter: String,
-        left_sight: String?,
-        right_sight: String?,
-        classId: String
-    ): Observable<BaseBean<UserBean>> {
+        left_diopter: String,
+        right_diopter: String,
+        left_vision: String,
+        right_vision: String,
+        class_id: String
+    ): Observable<BaseBean<String>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("name", name)
         jsonObject.addProperty("parent_name", parent_name)
         jsonObject.addProperty("parent_phone", parent_phone)
-        jsonObject.addProperty("diopter", diopter)
-//        jsonObject.addProperty("left_sight", left_sight)
-//        jsonObject.addProperty("right_sight", right_sight)
-        jsonObject.addProperty("classId", classId)
+        jsonObject.addProperty("left_diopter", left_diopter)
+        jsonObject.addProperty("right_diopter", right_diopter)
+        jsonObject.addProperty("left_vision", left_vision)
+        jsonObject.addProperty("right_vision", right_vision)
+        jsonObject.addProperty("class_id", class_id)
         return apiService.studentRegister(jsonObject)
     }
+
 
     override fun getMediaList(
         offset: Int,
@@ -70,6 +80,12 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
 
     override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
         return apiService.appClasses(offset, limit)
+    }
+
+    override fun createClass(name: String): Observable<BaseBean<String>> {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("name", name)
+        return apiService.createAppClass(jsonObject)
     }
 
     override fun getStudentList(

@@ -14,7 +14,7 @@ object RouteCenter {
     fun navigateWithKey(path: String, key: String? = null): Any? {
         val build = ARouter.getInstance().build(path)
         return if (key == null) build.navigation() else build.withString(
-            AppConstants.IntentKey.KEY_STRING,
+            AppConstants.BundleKey.KEY_STRING,
             key
         ).navigation()
     }

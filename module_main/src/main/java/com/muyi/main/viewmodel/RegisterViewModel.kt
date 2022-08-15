@@ -27,6 +27,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     var userIdCard = ObservableField("")
     var storeName = ObservableField("")
     var storeLocation = ObservableField("")
+    var hasGetLocation = false
 
     val onUserNameChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         userName.set(it)
@@ -69,10 +70,15 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     }
 
     private fun register(latitude: Double?, longitude: Double?) {
+        if (hasGetLocation)
+            return
+
         if (latitude == null || longitude == null) {
-            showNormalToast("位置信息未获取，请打开手机定位服务")
+            showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
             return
         }
+
+        hasGetLocation = true
         GPSUtils.getInstance(Utils.getApp())?.removeListener()
 
         if (userName.get().isNullOrBlank() || userPhone.get().isNullOrBlank() ||
@@ -95,15 +101,10 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
                 longitude.toString()
             ).compose(RxThreadHelper.rxSchedulerHelper(this@RegisterViewModel))
                 .doOnSubscribe { showLoading() }
-                .subscribe(object : ApiSubscriberHelper<BaseBean<UserBean>>() {
-                    override fun onResult(result: BaseBean<UserBean>) {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<*>>() {
+                    override fun onResult(result: BaseBean<*>) {
                         dismissLoading()
                         if (result.code == 200) {
-//                            result.data?.let {
-//                                saveUserData(it)
-//                            }
-//                            RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
-//                            AppManager.instance.finishAllActivity()
                             uc.successLiveEvent.call()
                         }
                     }

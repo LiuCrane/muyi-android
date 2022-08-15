@@ -28,6 +28,12 @@ class MyViewModel(application: MyApplication, model: DataRepository) :
         getStoreInfo()
     })
 
+    var allianceClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        startContainerActivity(AppConstants.Router.Main.F_CREATE_CLASS)
+    })
+    var progressClick: BindingCommand<Any> = BindingCommand(BindingAction {
+//        startContainerActivity(AppConstants.Router.My.F_REGISTRATION)
+    })
     var registrationClick: BindingCommand<Any> = BindingCommand(BindingAction {
         startContainerActivity(AppConstants.Router.My.F_REGISTRATION)
     })

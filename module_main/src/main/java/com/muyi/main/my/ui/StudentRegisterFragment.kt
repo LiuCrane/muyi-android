@@ -28,15 +28,6 @@ class StudentRegisterFragment :
         return false
     }
 
-    override fun initViewObservable() {
-        viewModel.uc.successLiveEvent.observe(this) {
-            DialogHelper.showNoCancelDialog(requireContext(), "注册成功", "您的注册信息正在审核中，请稍后在登录页登录。") {
-                this@StudentRegisterFragment.back()
-            }
-
-        }
-
-    }
 
     override fun initData() {
 

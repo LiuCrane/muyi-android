@@ -60,57 +60,17 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
             if (it.isNullOrEmpty()) {
                 binding.smartCommon.finishRefresh(500)
                 binding.smartCommon.finishLoadMore(false)
-                val list = mutableListOf<StudentBean>()
-//                ENDED, IN_PROGRESS, NOT_STARTED, REHAB_TRAINING
-                list.add(
-                    StudentBean(
-                        "11",
-                        "https://lmg.jj20.com/up/allimg/tp03/1Z922164FBG0-0-lp.jpg",
-                        "20220801第一期",
-                        "测试姓名",
-                        "13651743096",
-                        "ENDED",
-                        true,
-                        null
-                    )
-                )
-                list.add(
-                    StudentBean(
-                        "12",
-                        "",
-                        "20220801第二期",
-                        "测试姓名",
-                        "13651743096",
-                        "ENDED",
-                        false,
-                        null
-                    )
-                )
-                list.add(
-                    StudentBean(
-                        "13",
-                        "",
-                        "20220801第二期",
-                        "测试姓名",
-                        "13651743096",
-                        "ENDED",
-                        false,
-                        null
-                    )
-                )
-
-                mAdapter.setNewInstance(list)
                 return@Observer
             }
             // 成功加载数据后关闭懒加载开关
             firstLoad = false
             binding.smartCommon.finishRefresh(500)
 
-//            if (it.over) {
-//                binding.smartCommon.finishLoadMoreWithNoMoreData()
-//            } else {
-            binding.smartCommon.finishLoadMore(true)
-//            }
+            if (it.size < AppConstants.Common.PAGE_SIZE) {
+                binding.smartCommon.finishLoadMoreWithNoMoreData()
+            } else {
+                binding.smartCommon.finishLoadMore(true)
+            }
             if (viewModel.currentPage > 1) {
                 mAdapter.addData(it)
                 return@Observer

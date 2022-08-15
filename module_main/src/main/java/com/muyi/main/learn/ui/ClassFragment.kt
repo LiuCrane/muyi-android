@@ -53,21 +53,17 @@ class ClassFragment : BaseFragment<FragmentClassBinding, ClassViewModel>() {
             if (it.isNullOrEmpty()) {
                 binding.smartCommon.finishRefresh(500)
                 binding.smartCommon.finishLoadMore(false)
-                val list = mutableListOf<ClassesBean>()
-                list.add(ClassesBean("11", "aaa", "20220801第一期", "鲁001店", "", ""))
-                list.add(ClassesBean("12", "aaa", "20220801第二期", "鲁021店", "", ""))
-                mAdapter.setDiffNewData(list)
                 return@Observer
             }
             // 成功加载数据后关闭懒加载开关
             firstLoad = false
             binding.smartCommon.finishRefresh(500)
 
-//            if (it.over) {
-//                binding.smartCommon.finishLoadMoreWithNoMoreData()
-//            } else {
-            binding.smartCommon.finishLoadMore(true)
-//            }
+            if (it.size < AppConstants.Common.PAGE_SIZE) {
+                binding.smartCommon.finishLoadMoreWithNoMoreData()
+            } else {
+                binding.smartCommon.finishLoadMore(true)
+            }
             if (viewModel.currentPage > 1) {
                 mAdapter.addData(it)
                 return@Observer

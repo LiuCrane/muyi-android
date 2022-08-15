@@ -10,7 +10,10 @@ import io.reactivex.Observable
  * @Description
  */
 interface HttpDataSource {
-    fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>>
+    fun userLogin(
+        username: String, password: String, lat: String, lng: String
+    ): Observable<BaseBean<UserBean>>
+
     fun userRegister(
         name: String,
         password: String,
@@ -20,17 +23,18 @@ interface HttpDataSource {
         store_address: String,
         store_lat: String,
         store_lng: String
-    ): Observable<BaseBean<UserBean>>
+    ): Observable<BaseBean<String>>
 
     fun studentRegister(
         name: String,
         parent_name: String,
         parent_phone: String,
-        diopter: String,
-        left_sight: String?,
-        right_sight: String?,
-        classId: String
-    ): Observable<BaseBean<UserBean>>
+        left_diopter: String,
+        right_diopter: String,
+        left_vision: String,
+        right_vision: String,
+        class_id: String
+    ): Observable<BaseBean<String>>
 
     fun getMediaList(
         offset: Int,
@@ -44,6 +48,10 @@ interface HttpDataSource {
         offset: Int,
         limit: Int
     ): Observable<BaseBean<List<ClassesBean>>>
+
+    fun createClass(
+        name: String,
+    ): Observable<BaseBean<String>>
 
     fun getStudentList(
         offset: Int,

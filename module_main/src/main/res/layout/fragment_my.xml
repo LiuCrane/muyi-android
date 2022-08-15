@@ -101,7 +101,8 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_store">
+                    app:layout_constraintTop_toBottomOf="@id/ll_store"
+                    binding:onClickCommand="@{viewModel.allianceClick}">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="40dp"
@@ -124,7 +125,8 @@
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ll_store"
-                    app:layout_constraintTop_toTopOf="@id/ll_alliance">
+                    app:layout_constraintTop_toTopOf="@id/ll_alliance"
+                    binding:onClickCommand="@{viewModel.progressClick}">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="40dp"

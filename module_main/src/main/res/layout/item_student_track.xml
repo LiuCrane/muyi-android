@@ -29,7 +29,7 @@
             android:id="@+id/tv_title"
             style="@style/TextViewSmallStyle"
             android:layout_marginTop="14dp"
-            android:text="@{data.currentCourse}" />
+            android:text="@{data.class_name}" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_avatar"
@@ -61,17 +61,15 @@
             android:layout_marginTop="14dp">
 
             <TextView
-                android:id="@+id/tv_left"
+                android:id="@+id/tv_left_vision"
                 style="@style/TextViewSmallStyle"
-                android:layout_alignParentStart="true"
-                android:text="L 4.0" />
+                android:layout_alignParentStart="true" />
 
             <TextView
-                android:id="@+id/tv_right"
+                android:id="@+id/tv_right_vision"
                 style="@style/TextViewSmallStyle"
                 android:layout_alignParentEnd="true"
-                android:layout_marginLeft="10dp"
-                android:text="R 4.0" />
+                android:layout_marginStart="10dp" />
         </RelativeLayout>
 
         <TextView

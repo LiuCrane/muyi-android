@@ -64,14 +64,26 @@
             <TextView
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="20dp"
-                android:text="度数" />
+                android:text="左眼度数" />
 
             <com.czl.lib_base.widget.EditTextWithDel
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
-                android:hint="输入学员度数"
+                android:hint="输入学员左眼度数"
                 android:inputType="text"
-                binding:textChanged="@{viewModel.onDegreeChangeCommand}" />
+                binding:textChanged="@{viewModel.onLeftDiopterChangeCommand}" />
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="右眼度数" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入学员右眼度数"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onRightDiopterChangeCommand}" />
 
             <TextView
                 style="@style/TextViewLabelStyle"
