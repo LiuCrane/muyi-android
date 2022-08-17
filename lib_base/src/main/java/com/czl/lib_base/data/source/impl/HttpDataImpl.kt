@@ -69,17 +69,18 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
 
 
     override fun getMediaList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         type: String,
-        course_id: Int,
-        public: Boolean
-    ): Observable<BaseBean<List<MediaBean>>> {
-        return apiService.appMedia(offset, limit, type, course_id, public)
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return apiService.appMedia(page_num, page_size, type)
     }
 
-    override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
-        return apiService.appClasses(offset, limit)
+    override fun getClassList(
+        page_num: Int,
+        page_size: Int
+    ): Observable<BaseBean<ListDataBean<ClassesBean>>> {
+        return apiService.appClasses(page_num, page_size)
     }
 
     override fun createClass(name: String): Observable<BaseBean<String>> {
@@ -89,11 +90,11 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
     }
 
     override fun getStudentList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         rehab: String?
-    ): Observable<BaseBean<List<StudentBean>>> {
-        return apiService.appStudents(offset, limit, rehab)
+    ): Observable<BaseBean<ListDataBean<StudentBean>>> {
+        return apiService.appStudents(page_num, page_size, rehab)
     }
 
     override fun getStoreInfo(): Observable<BaseBean<StoreBean>> {

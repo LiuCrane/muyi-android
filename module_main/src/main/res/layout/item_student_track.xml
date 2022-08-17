@@ -45,7 +45,6 @@
             android:id="@+id/tv_name"
             style="@style/TextViewStyle"
             android:layout_marginTop="10dp"
-            android:text="@{data.parent_name}"
             android:textColor="@color/theme_blue" />
 
         <TextView

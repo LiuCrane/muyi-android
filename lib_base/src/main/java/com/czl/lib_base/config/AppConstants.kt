@@ -7,7 +7,7 @@ package com.czl.lib_base.config
  */
 interface AppConstants {
     object Common {
-        const val PAGE_SIZE = 20
+        const val PAGE_SIZE = 10
 
     }
 

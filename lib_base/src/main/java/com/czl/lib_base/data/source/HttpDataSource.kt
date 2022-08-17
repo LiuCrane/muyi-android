@@ -37,27 +37,25 @@ interface HttpDataSource {
     ): Observable<BaseBean<String>>
 
     fun getMediaList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         type: String,
-        course_id: Int,
-        public: Boolean
-    ): Observable<BaseBean<List<MediaBean>>>
+    ): Observable<BaseBean<ListDataBean<MediaBean>>>
 
     fun getClassList(
-        offset: Int,
-        limit: Int
-    ): Observable<BaseBean<List<ClassesBean>>>
+        page_num: Int,
+        page_size: Int,
+    ): Observable<BaseBean<ListDataBean<ClassesBean>>>
 
     fun createClass(
         name: String,
     ): Observable<BaseBean<String>>
 
     fun getStudentList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         rehab: String?
-    ): Observable<BaseBean<List<StudentBean>>>
+    ): Observable<BaseBean<ListDataBean<StudentBean>>>
 
     fun getStoreInfo(): Observable<BaseBean<StoreBean>>
 

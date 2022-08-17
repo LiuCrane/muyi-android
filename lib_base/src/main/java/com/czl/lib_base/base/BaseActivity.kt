@@ -13,8 +13,10 @@ import com.czl.lib_base.R
 import com.czl.lib_base.mvvm.ui.ContainerFmActivity
 import com.czl.lib_base.route.RouteCenter
 import com.czl.lib_base.util.DayModeUtil
+import com.czl.lib_base.util.DialogHelper
 import com.czl.lib_base.util.ToastHelper
 import com.gyf.immersionbar.ImmersionBar
+import com.lxj.xpopup.core.BasePopupView
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
@@ -31,6 +33,7 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
     protected lateinit var binding: V
     lateinit var viewModel: VM
     private var viewModelId = 0
+    private var dialog: BasePopupView? = null
     private var rootBinding: ViewDataBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -155,12 +158,13 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
         ) { onBackPressedSupport() }
     }
 
-    fun showLoading(title: String?) {
-        // todo 加载中
+
+    private fun showLoading(title: String?) {
+        dialog = DialogHelper.showLoadingDialog(this, title)
     }
 
-    fun dismissLoading() {
-        // todo 关闭加载
+    private fun dismissLoading() {
+        dialog?.smartDismiss()
     }
 
     fun showErrorToast(msg: String?) {

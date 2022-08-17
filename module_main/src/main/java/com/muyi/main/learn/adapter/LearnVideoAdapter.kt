@@ -23,7 +23,7 @@ class LearnVideoAdapter(val mFragment: VideoFragment) :
             adapter = this@LearnVideoAdapter
             executePendingBindings()
 
-            if (item.img.isEmpty()){
+            if (item.img.isNullOrEmpty()){
                 ivImage.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
             }else{
                 ivImage.loadUrl(item.img)

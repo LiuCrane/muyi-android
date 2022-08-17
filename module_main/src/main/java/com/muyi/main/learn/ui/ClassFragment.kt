@@ -64,7 +64,7 @@ class ClassFragment : BaseFragment<FragmentClassBinding, ClassViewModel>() {
             } else {
                 binding.smartCommon.finishLoadMore(true)
             }
-            if (viewModel.currentPage > 1) {
+            if (viewModel.currentPage > 2) {
                 mAdapter.addData(it)
                 return@Observer
             }

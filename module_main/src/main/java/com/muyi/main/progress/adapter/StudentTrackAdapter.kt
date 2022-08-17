@@ -15,7 +15,6 @@ import com.muyi.main.progress.ui.StudentTrackFragment
  **/
 class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
     BaseQuickAdapter<StudentBean, BaseDataBindingHolder<ItemStudentTrackBinding>>(R.layout.item_student_track) {
-
     override fun convert(
         holder: BaseDataBindingHolder<ItemStudentTrackBinding>,
         item: StudentBean
@@ -25,13 +24,13 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
             adapter = this@StudentTrackAdapter
             executePendingBindings()
 
-            if (item.class_name.isEmpty()) {
+            if (item.avatar_url.isNullOrEmpty()) {
                 ivAvatar.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
             } else {
-                ivAvatar.loadUrl(item.class_name)
+                ivAvatar.loadUrl(item.avatar_url)
             }
 
-            if (item.improved) {
+            if (item.improved == true) {
                 tvImprove.setBackgroundResource(R.drawable.bg_sight_improved)
                 tvImprove.text = "有提升"
             } else {
@@ -39,10 +38,14 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
                 tvImprove.text = "无提升"
             }
 
-            item.eyesightList?.get(0)?.let {
-                tvLeftVision.text = "L " + it.leftVision
-                tvRightVision.text = "R " + it.leftVision
-            }
+            if (item.name.isNullOrEmpty())
+                tvName.text = "学员"
+            else
+                tvName.text = item.name
+
+            tvLeftVision.text = "L " + item.left_vision
+            tvRightVision.text = "R " + item.right_vision
+
 
         }
     }
@@ -59,7 +62,7 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
             oldItem: StudentBean,
             newItem: StudentBean
         ): Boolean {
-            return oldItem.currentCourse == newItem.currentCourse
+            return oldItem.current_course == newItem.current_course
         }
     }
 }

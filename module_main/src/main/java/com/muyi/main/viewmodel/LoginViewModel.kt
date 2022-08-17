@@ -89,15 +89,17 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
                         if (result.code == 200) {
                             result.data?.let {
                                 saveUserData(it)
+                                RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
+                                AppManager.instance.finishAllActivity()
                             }
-                            RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
-                            AppManager.instance.finishAllActivity()
                         }
+                        hasGetLocation = false
                     }
 
                     override fun onFailed(msg: String?) {
                         dismissLoading()
                         showErrorToast(msg)
+                        hasGetLocation = false
                     }
                 })
         }

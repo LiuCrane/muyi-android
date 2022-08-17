@@ -13,8 +13,10 @@ import com.czl.lib_base.R
 import com.czl.lib_base.mvvm.ui.ContainerFmActivity
 import com.czl.lib_base.route.RouteCenter
 import com.czl.lib_base.util.DayModeUtil
+import com.czl.lib_base.util.DialogHelper
 import com.czl.lib_base.util.ToastHelper
 import com.gyf.immersionbar.ImmersionBar
+import com.lxj.xpopup.core.BasePopupView
 import me.yokeyword.fragmentation.SupportFragment
 import org.koin.android.ext.android.get
 import java.lang.reflect.ParameterizedType
@@ -28,6 +30,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
     lateinit var binding: V
     lateinit var viewModel: VM
     private var viewModelId = 0
+    private var dialog: BasePopupView? = null
     private lateinit var rootView: View
     protected var rootBinding: ViewDataBinding? = null
 
@@ -196,11 +199,11 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
     }
 
     fun showLoading(title: String?) {
-        // todo 加载中
+        dialog = DialogHelper.showLoadingDialog(requireContext(), title)
     }
 
     fun dismissLoading() {
-        // todo 关闭加载
+        dialog?.smartDismiss()
     }
 
     fun showErrorToast(msg: String?) {

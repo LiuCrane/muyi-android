@@ -10,6 +10,7 @@ import com.czl.lib_base.bus.event.SingleLiveEvent
 import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.DataRepository
 import com.czl.lib_base.data.bean.ClassesBean
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.util.RxThreadHelper
 
@@ -18,7 +19,7 @@ import com.czl.lib_base.util.RxThreadHelper
  **/
 class ClassViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
-    var currentPage = 0
+    var currentPage = 1
 
     val uc = UiChangeEvent()
 
@@ -28,7 +29,7 @@ class ClassViewModel(application: MyApplication, model: DataRepository) :
 
     val onRefreshCommand: BindingCommand<Void> = BindingCommand(BindingAction {
         LogUtils.e("ClassViewModel onRefreshCommand")
-        currentPage = 0
+        currentPage = 1
         getMediaList()
     })
 
@@ -42,12 +43,11 @@ class ClassViewModel(application: MyApplication, model: DataRepository) :
                 currentPage,
                 AppConstants.Common.PAGE_SIZE
             ).compose(RxThreadHelper.rxSchedulerHelper(this@ClassViewModel))
-                .doOnSubscribe { showLoading() }
-                .subscribe(object : ApiSubscriberHelper<BaseBean<List<ClassesBean>>>() {
-                    override fun onResult(result: BaseBean<List<ClassesBean>>) {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<ClassesBean>>>() {
+                    override fun onResult(result: BaseBean<ListDataBean<ClassesBean>>) {
                         if (result.code == 200) {
                             currentPage++
-                            uc.refreshCompleteEvent.postValue(result.data)
+                            uc.refreshCompleteEvent.postValue(result.data?.list)
                         } else {
                             uc.refreshCompleteEvent.postValue(null)
                         }

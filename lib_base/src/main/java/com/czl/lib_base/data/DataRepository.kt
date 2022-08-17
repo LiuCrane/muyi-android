@@ -81,17 +81,18 @@ class DataRepository constructor(
     }
 
     override fun getMediaList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         type: String,
-        course_id: Int,
-        public: Boolean
-    ): Observable<BaseBean<List<MediaBean>>> {
-        return mHttpDataSource.getMediaList(offset, limit, type, course_id, public)
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return mHttpDataSource.getMediaList(page_num, page_size, type)
     }
 
-    override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
-        return mHttpDataSource.getClassList(offset, limit)
+    override fun getClassList(
+        page_num: Int,
+        page_size: Int
+    ): Observable<BaseBean<ListDataBean<ClassesBean>>> {
+        return mHttpDataSource.getClassList(page_num, page_size)
     }
 
     override fun createClass(name: String): Observable<BaseBean<String>> {
@@ -99,11 +100,11 @@ class DataRepository constructor(
     }
 
     override fun getStudentList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         rehab: String?
-    ): Observable<BaseBean<List<StudentBean>>> {
-        return mHttpDataSource.getStudentList(offset, limit, rehab)
+    ): Observable<BaseBean<ListDataBean<StudentBean>>> {
+        return mHttpDataSource.getStudentList(page_num, page_size, rehab)
     }
 
     override fun getStoreInfo(): Observable<BaseBean<StoreBean>> {

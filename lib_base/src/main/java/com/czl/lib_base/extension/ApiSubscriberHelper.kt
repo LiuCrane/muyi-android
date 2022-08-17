@@ -37,7 +37,14 @@ abstract class ApiSubscriberHelper<T : Any> : DisposableObserver<T>() {
                 onFailed("连接失败，请检查网络后再试")
             }
             is RuntimeException -> {
-                onFailed(throwable.message)
+                throwable.message.apply {
+
+                }
+                var failMessage = throwable.message
+                if (failMessage != null && failMessage.contains("HTTP")) {
+                    failMessage = throwable.message!!.substring(9)
+                }
+                onFailed(failMessage)
             }
             is SocketTimeoutException -> {
                 onFailed("连接超时，请重试")

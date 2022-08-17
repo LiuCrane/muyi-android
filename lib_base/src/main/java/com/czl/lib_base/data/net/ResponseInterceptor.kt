@@ -45,7 +45,7 @@ class ResponseInterceptor : Interceptor {
                 503, 504, 500, 404, 403, 400 -> {
 //                    response = response.newBuilder().code(response.code()).message("连接服务器失败，请稍后再试").build()
                     response =
-                        response.newBuilder().message(baseBean.msg ?: "连接服务器失败，请稍后再试").build()
+                        response.newBuilder().code(response.code()).message((""+baseBean.msg) ?: "连接服务器失败，请稍后再试").build()
                 }
                 200 -> {
 //                    val source = responseBody.source()

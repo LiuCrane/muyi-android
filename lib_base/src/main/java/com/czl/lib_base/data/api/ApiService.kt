@@ -19,18 +19,16 @@ interface ApiService {
 
     @GET("/app/media")
     fun appMedia(
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = AppConstants.Common.PAGE_SIZE,
+        @Query("page_num") page_num: Int? = 0,
+        @Query("page_size") page_size: Int? = AppConstants.Common.PAGE_SIZE,
         @Query("type") type: String,
-        @Query("course_id") course_id: Int,
-        @Query("public") public: Boolean
-    ): Observable<BaseBean<List<MediaBean>>>
+    ): Observable<BaseBean<ListDataBean<MediaBean>>>
 
     @GET("/app/classes")
     fun appClasses(
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = AppConstants.Common.PAGE_SIZE,
-    ): Observable<BaseBean<List<ClassesBean>>>
+        @Query("page_num") page_num: Int? = 0,
+        @Query("page_size") page_size: Int? = AppConstants.Common.PAGE_SIZE,
+    ): Observable<BaseBean<ListDataBean<ClassesBean>>>
 
     @POST("/app/classes")
     fun createAppClass(
@@ -40,10 +38,10 @@ interface ApiService {
 
     @GET("/app/students")
     fun appStudents(
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = AppConstants.Common.PAGE_SIZE,
+        @Query("page_num") page_num: Int? = 0,
+        @Query("page_size") page_size: Int? = AppConstants.Common.PAGE_SIZE,
         @Query("rehab") rehab: String?,
-    ): Observable<BaseBean<List<StudentBean>>>
+    ): Observable<BaseBean<ListDataBean<StudentBean>>>
 
     @GET("/app/store")
     fun appStore(): Observable<BaseBean<StoreBean>>

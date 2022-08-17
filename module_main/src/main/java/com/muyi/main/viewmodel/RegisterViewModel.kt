@@ -107,11 +107,13 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
                         if (result.code == 200) {
                             uc.successLiveEvent.call()
                         }
+                        hasGetLocation = false
                     }
 
                     override fun onFailed(msg: String?) {
                         dismissLoading()
                         showNormalToast(msg)
+                        hasGetLocation = false
                     }
                 })
         }
