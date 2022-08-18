@@ -34,11 +34,14 @@ class MyFragment : BaseFragment<FragmentMyBinding, MyViewModel>() {
 
     override fun initData() {
         viewModel.getStoreInfo()
+        binding.smartCommon.setEnableLoadMore(false)
+
     }
 
     override fun initViewObservable() {
         viewModel.uc.getStoreInfoCompleteEvent.observe(this){
             binding.smartCommon.finishRefresh(500)
+
             binding.data=it
         }
     }

@@ -57,14 +57,14 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
         // 接收加载完成的数据
         viewModel.uc.refreshCompleteEvent.observe(this, Observer {
 
+            binding.smartCommon.finishRefresh(500)
+
             if (it.isNullOrEmpty()) {
-                binding.smartCommon.finishRefresh(500)
                 binding.smartCommon.finishLoadMore(false)
                 return@Observer
             }
             // 成功加载数据后关闭懒加载开关
             firstLoad = false
-            binding.smartCommon.finishRefresh(500)
 
             if (it.size < AppConstants.Common.PAGE_SIZE) {
                 binding.smartCommon.finishLoadMoreWithNoMoreData()

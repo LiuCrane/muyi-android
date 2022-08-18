@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:binding="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,44 +9,32 @@
 
         <variable
             name="data"
-            type="com.czl.lib_base.data.bean.MediaBean" />
+            type="com.czl.lib_base.data.bean.CourseBean" />
 
         <variable
             name="adapter"
-            type="com.muyi.main.learn.adapter.LearnVideoAdapter" />
+            type="com.muyi.main.classes.adapter.CourseListAdapter" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="180dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="18dp"
-        >
+        android:layout_marginBottom="18dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_image"
-            android:layout_width="170dp"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
+            android:layout_width="140dp"
+            android:layout_height="180dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
             app:riv_corner_radius="16dp" />
 
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_play"
-            android:layout_width="24dp"
-            android:layout_height="20dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_video_player" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="180dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/iv_image">
@@ -61,11 +49,20 @@
             <TextView
                 android:id="@+id/tv_duration"
                 style="@style/TextViewStyle"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@id/tv_title"
                 android:layout_marginBottom="10dp"
                 android:text="@{TextUtils.isEmpty(data.duration)?adapter.tvDuration:data.duration}"
                 android:textColor="#33000000" />
 
+
+            <TextView
+                android:id="@+id/tv_status"
+                style="@style/TextViewStyle"
+                android:layout_width="90dp"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

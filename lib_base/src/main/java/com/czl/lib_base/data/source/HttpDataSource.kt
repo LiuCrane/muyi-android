@@ -3,6 +3,7 @@ package com.czl.lib_base.data.source
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.data.bean.*
 import io.reactivex.Observable
+import retrofit2.http.Path
 
 /**
  * @author Alwyn
@@ -59,4 +60,15 @@ interface HttpDataSource {
 
     fun getStoreInfo(): Observable<BaseBean<StoreBean>>
 
+    fun getClassStudents(
+        class_id: String
+    ): Observable<BaseBean<List<StudentBean>>>
+
+    fun getClassDetail(
+        class_id: String
+    ): Observable<BaseBean<ClassesBean>>
+
+    fun getClassCourses(
+        class_id: String
+    ): Observable<BaseBean<List<CourseBean>>>
 }

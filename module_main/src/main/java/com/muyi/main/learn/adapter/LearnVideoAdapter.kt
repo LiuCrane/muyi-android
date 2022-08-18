@@ -27,7 +27,6 @@ class LearnVideoAdapter(val mFragment: VideoFragment) :
                 ivImage.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
             }else{
                 ivImage.loadUrl(item.img)
-
             }
         }
     }

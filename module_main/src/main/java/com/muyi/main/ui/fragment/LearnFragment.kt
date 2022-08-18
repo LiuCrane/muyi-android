@@ -2,9 +2,6 @@ package com.muyi.main.ui.fragment
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.widget.LinearLayout
-import androidx.core.view.marginLeft
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.adapter.ViewPagerFmAdapter

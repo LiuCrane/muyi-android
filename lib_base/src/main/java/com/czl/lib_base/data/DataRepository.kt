@@ -111,4 +111,16 @@ class DataRepository constructor(
         return mHttpDataSource.getStoreInfo()
     }
 
+    override fun getClassStudents(class_id: String): Observable<BaseBean<List<StudentBean>>> {
+        return mHttpDataSource.getClassStudents(class_id)
+    }
+
+    override fun getClassDetail(class_id: String): Observable<BaseBean<ClassesBean>> {
+        return mHttpDataSource.getClassDetail(class_id)
+    }
+
+    override fun getClassCourses(class_id: String): Observable<BaseBean<List<CourseBean>>> {
+        return mHttpDataSource.getClassCourses(class_id)
+    }
+
 }

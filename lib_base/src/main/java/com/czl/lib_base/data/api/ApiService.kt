@@ -47,4 +47,20 @@ interface ApiService {
     fun appStore(): Observable<BaseBean<StoreBean>>
 
 
+    @GET("/app/classes/{class_id}/students")
+    fun getClassStudents(
+        @Path("class_id") class_id: String
+    ): Observable<BaseBean<List<StudentBean>>>
+
+    @GET("/app/classes/{id}")
+    fun getClassDetail(
+        @Path("id") class_id: String
+    ): Observable<BaseBean<ClassesBean>>
+
+
+    @GET("/app/classes/{class_id}/courses")
+    fun getClassCourses(
+        @Path("class_id") class_id: String
+    ): Observable<BaseBean<List<CourseBean>>>
+
 }

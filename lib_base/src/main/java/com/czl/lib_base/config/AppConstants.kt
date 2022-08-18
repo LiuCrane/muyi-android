@@ -58,5 +58,15 @@ interface AppConstants {
         object My {
             const val F_REGISTRATION = "/my/StudentRegisterFragment"
         }
+
+        object ClassManage {
+            const val F_CLASS_MANAGE = "/class/ClassManageFragment"
+            const val F_SIGN_IN = "/class/SignInFragment"
+            const val F_CLASS_DETAIL = "/class/ClassDetailFragment"
+            const val F_COURSE_LIST = "/class/CourseListFragment"
+
+
+
+        }
     }
 }
