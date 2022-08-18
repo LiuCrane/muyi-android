@@ -68,6 +68,16 @@ class CourseListFragment : BaseFragment<FragmentCourseListBinding, CourseListVie
             firstLoad = false
             mAdapter.setDiffNewData(it as MutableList<CourseBean>)
         })
+        viewModel.uc.applyCourseSuccessEvent.observe(this) { courseId ->
+            val index = mAdapter.data.indexOfFirst {
+                it.id == courseId
+            }
+            if (index > -1) {
+                val courseBean = mAdapter.data[index]
+                courseBean.status = "UNDER_APPLICATION"
+                mAdapter.notifyItemChanged(index)
+            }
+        }
 
     }
 

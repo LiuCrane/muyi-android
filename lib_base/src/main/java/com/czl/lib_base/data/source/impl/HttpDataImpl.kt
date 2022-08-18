@@ -114,4 +114,8 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.getClassCourses(class_id)
     }
 
+    override fun applyCourse(class_id: String, course_id: String): Observable<BaseBean<String>> {
+        return apiService.applyCourse(class_id, course_id)
+    }
+
 }

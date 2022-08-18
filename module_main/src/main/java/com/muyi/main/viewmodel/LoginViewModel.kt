@@ -1,6 +1,7 @@
 package com.muyi.main.viewmodel
 
 import android.location.Location
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
@@ -11,11 +12,13 @@ import com.czl.lib_base.base.MyApplication
 import com.czl.lib_base.binding.command.BindingAction
 import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.binding.command.BindingConsumer
+import com.czl.lib_base.bus.event.SingleLiveEvent
 import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.DataRepository
 import com.czl.lib_base.data.bean.UserBean
 import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.route.RouteCenter
+import com.czl.lib_base.util.DialogHelper
 import com.czl.lib_base.util.GPSUtils
 import com.czl.lib_base.util.RxThreadHelper
 
@@ -28,6 +31,13 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
     var pwd = ObservableField("")
     var hasGetLocation = false
 
+    val uc = UiChangeEvent()
+
+    inner class UiChangeEvent {
+        val successLiveEvent: SingleLiveEvent<BaseBean<UserBean>> = SingleLiveEvent()
+    }
+
+
     val onUserNameChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         userName.set(it)
     })
@@ -37,6 +47,7 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
     })
 
     var btnLoginClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        hasGetLocation = false
         getLocation()
     })
 
@@ -63,13 +74,13 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
         if (hasGetLocation)
             return
 
+        hasGetLocation = true
+        GPSUtils.getInstance(Utils.getApp())?.removeListener()
+
         if (latitude == null || longitude == null) {
             showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
             return
         }
-
-        hasGetLocation = true
-        GPSUtils.getInstance(Utils.getApp())?.removeListener()
 
         model.apply {
             if (userName.get().isNullOrBlank() || pwd.get().isNullOrBlank()) {
@@ -86,20 +97,12 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
                 .subscribe(object : ApiSubscriberHelper<BaseBean<UserBean>>() {
                     override fun onResult(result: BaseBean<UserBean>) {
                         dismissLoading()
-                        if (result.code == 200) {
-                            result.data?.let {
-                                saveUserData(it)
-                                RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
-                                AppManager.instance.finishAllActivity()
-                            }
-                        }
-                        hasGetLocation = false
+                        uc.successLiveEvent.value=result
                     }
 
                     override fun onFailed(msg: String?) {
                         dismissLoading()
                         showErrorToast(msg)
-                        hasGetLocation = false
                     }
                 })
         }

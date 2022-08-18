@@ -51,7 +51,7 @@ class MyViewModel(application: MyApplication, model: DataRepository) :
                     }
 
                     override fun onFailed(msg: String?) {
-                        showNormalToast(msg)
+                        showErrorToast(msg)
                     }
                 })
         }

@@ -11,6 +11,7 @@ import com.czl.lib_base.binding.command.BindingAction
 import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.event.callback.UIChangeLiveData
 import com.czl.lib_base.util.ToastHelper
+import com.kingja.loadsir.core.LoadService
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -24,7 +25,7 @@ import java.lang.ref.WeakReference
  */
 open class BaseViewModel<M : BaseModel>(application: MyApplication, val model: M) :
     AndroidViewModel(application), IBaseViewModel, Consumer<Disposable?> {
-
+    lateinit var loadService: LoadService<BaseBean<*>?>
     val uC: UIChangeLiveData = UIChangeLiveData()
 
     // 标题栏标题

@@ -123,4 +123,8 @@ class DataRepository constructor(
         return mHttpDataSource.getClassCourses(class_id)
     }
 
+    override fun applyCourse(class_id: String, course_id: String): Observable<BaseBean<String>> {
+        return mHttpDataSource.applyCourse(class_id, course_id)
+    }
+
 }

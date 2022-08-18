@@ -10,12 +10,19 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.czl.lib_base.R
+import com.czl.lib_base.callback.ErrorCallback
+import com.czl.lib_base.callback.LoadingCallback
 import com.czl.lib_base.mvvm.ui.ContainerFmActivity
 import com.czl.lib_base.route.RouteCenter
 import com.czl.lib_base.util.DayModeUtil
 import com.czl.lib_base.util.DialogHelper
 import com.czl.lib_base.util.ToastHelper
 import com.gyf.immersionbar.ImmersionBar
+import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.callback.SuccessCallback
+import com.kingja.loadsir.core.Convertor
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 import com.lxj.xpopup.core.BasePopupView
 import me.yokeyword.fragmentation.SupportFragment
 import org.koin.android.ext.android.get
@@ -33,6 +40,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
     private var dialog: BasePopupView? = null
     private lateinit var rootView: View
     protected var rootBinding: ViewDataBinding? = null
+    lateinit var loadService: LoadService<BaseBean<*>?>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,19 +54,50 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val loadSir = LoadSir.Builder()
+            .addCallback(ErrorCallback())
+            .addCallback(LoadingCallback())
+            .setDefaultCallback(SuccessCallback::class.java)
+            .build()
+
         if (useBaseLayout()) {
             rootView = inflater.inflate(R.layout.activity_base, null, false)
                 .findViewById(R.id.activity_root)
             rootBinding = DataBindingUtil.bind(rootView)
             binding =
                 DataBindingUtil.inflate(inflater, initContentView(), rootView as ViewGroup, true)
+            // 有标题栏情况下绑定内容View
+            loadService = loadSir.register(binding.root,
+                Callback.OnReloadListener { reload() },
+                Convertor<BaseBean<*>?> { t ->
+                    if (t == null || t.code != 200) {
+                        ErrorCallback::class.java
+                    } else {
+                        SuccessCallback::class.java
+                    }
+                }) as LoadService<BaseBean<*>?>
             return rootView
         } else {
             binding = DataBindingUtil.inflate(inflater, initContentView(), container, false)
-            return binding.root
+            loadService = loadSir.register(binding.root,
+                Callback.OnReloadListener { reload() },
+                Convertor<BaseBean<*>?> { t ->
+                    if (t == null || t.code !=200) {
+                        ErrorCallback::class.java
+                    } else {
+                        SuccessCallback::class.java
+                    }
+                }) as LoadService<BaseBean<*>?>
+            return loadService.loadLayout
         }
     }
 
+    /**
+     * 子类重写页面重试加载逻辑
+     */
+    open fun reload() {
+        loadService.showCallback(LoadingCallback::class.java)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -134,6 +174,8 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
         lifecycle.addObserver(viewModel)
         //注入RxLifecycle生命周期
         viewModel.injectLifecycleProvider(this)
+        //传入VM层交由M层数据驱动处理UI状态
+        viewModel.loadService = loadService
     }
 
     /**
@@ -217,6 +259,19 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
     fun showSuccessToast(msg: String?) {
         ToastHelper.showSuccessToast(msg)
     }
+
+    fun showErrorStatePage() {
+        loadService.showCallback(ErrorCallback::class.java)
+    }
+
+    fun showLoadingStatePage() {
+        loadService.showCallback(LoadingCallback::class.java)
+    }
+
+    fun showSuccessStatePage() {
+        loadService.showCallback(SuccessCallback::class.java)
+    }
+
 
     /**
      * 跳转页面

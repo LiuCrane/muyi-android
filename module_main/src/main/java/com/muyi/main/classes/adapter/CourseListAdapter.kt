@@ -1,8 +1,13 @@
 package com.muyi.main.classes.adapter
 
+import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.czl.lib_base.binding.command.BindingCommand
+import com.czl.lib_base.binding.command.BindingConsumer
+import com.czl.lib_base.config.AppConstants
+import com.czl.lib_base.data.bean.ClassesBean
 import com.czl.lib_base.data.bean.CourseBean
 import com.czl.lib_base.extension.loadImageRes
 import com.czl.lib_base.extension.loadUrl
@@ -13,7 +18,7 @@ import com.muyi.main.databinding.ItemCourseBinding
 /**
  * Created by hq on 2022/8/12.
  **/
-class CourseListAdapter(val mFragment: CourseListFragment) :
+class CourseListAdapter(private val mFragment: CourseListFragment) :
     BaseQuickAdapter<CourseBean, BaseDataBindingHolder<ItemCourseBinding>>(R.layout.item_course) {
     val tvDuration = "00:00:00"
 
@@ -33,7 +38,7 @@ class CourseListAdapter(val mFragment: CourseListFragment) :
             when (item.status) {
                 "APPLICABLE" -> {
                     tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
-                    tvStatus.text = "可申请"
+                    tvStatus.text = "申请课程"
                 }
                 "UN_APPLICABLE" -> {
                     tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_apha20_70)
@@ -59,6 +64,15 @@ class CourseListAdapter(val mFragment: CourseListFragment) :
         }
     }
 
+    val onItemClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
+        if (it is CourseBean) {
+            if (it.status == "APPLICABLE") {
+                mFragment.viewModel.applyCourse(it.id)
+            }
+        }
+    })
+
+
     val diffConfig = object : DiffUtil.ItemCallback<CourseBean>() {
         override fun areItemsTheSame(
             oldItem: CourseBean,
@@ -71,7 +85,7 @@ class CourseListAdapter(val mFragment: CourseListFragment) :
             oldItem: CourseBean,
             newItem: CourseBean
         ): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.title == newItem.title && oldItem.status == newItem.status
         }
     }
 }

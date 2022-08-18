@@ -63,4 +63,11 @@ interface ApiService {
         @Path("class_id") class_id: String
     ): Observable<BaseBean<List<CourseBean>>>
 
+    @POST("/app/classes/{class_id}/courses/{id}/apply")
+    fun applyCourse(
+        @Path("class_id") class_id: String,
+        @Path("id") course_id: String
+    ): Observable<BaseBean<String>>
+
+
 }

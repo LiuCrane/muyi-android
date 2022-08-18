@@ -8,6 +8,7 @@ import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.bus.event.SingleLiveEvent
 import com.czl.lib_base.data.DataRepository
 import com.czl.lib_base.data.bean.CourseBean
+import com.czl.lib_base.data.bean.StoreBean
 import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.util.RxThreadHelper
 
@@ -22,6 +23,7 @@ class CourseListViewModel(application: MyApplication, model: DataRepository) :
 
     class UiChangeEvent {
         val refreshCompleteEvent: SingleLiveEvent<List<CourseBean>> = SingleLiveEvent()
+        val applyCourseSuccessEvent: SingleLiveEvent<String> = SingleLiveEvent()
     }
 
     val onRefreshCommand: BindingCommand<Void> = BindingCommand(BindingAction {
@@ -51,6 +53,31 @@ class CourseListViewModel(application: MyApplication, model: DataRepository) :
                     override fun onFailed(msg: String?) {
                         showErrorToast(msg)
                         uc.refreshCompleteEvent.postValue(null)
+                    }
+                })
+        }
+    }
+
+    fun applyCourse(courseId: String?) {
+        if (classId.isNullOrEmpty() || courseId.isNullOrEmpty()) {
+            showErrorToast("班级Id为空或者课程Id为空")
+            return
+        }
+
+        model.apply {
+            applyCourse(
+                classId!!,
+                courseId
+            ).compose(RxThreadHelper.rxSchedulerHelper(this@CourseListViewModel))
+                .subscribe(object : ApiSubscriberHelper<BaseBean<String>>() {
+                    override fun onResult(result: BaseBean<String>) {
+                        if (result.code == 200) {
+                            uc.applyCourseSuccessEvent.value = courseId
+                        }
+                    }
+
+                    override fun onFailed(msg: String?) {
+                        showErrorToast(msg)
                     }
                 })
         }

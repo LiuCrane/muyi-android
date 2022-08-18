@@ -64,7 +64,7 @@ data class CourseBean(
     @SerializedName("title")
     val title: String?,
     @SerializedName("status")
-    val status: String?
+    var status: String?
     //状态(APPLICABLE:可申请, UN_APPLICABLE:不可申请, UNDER_APPLICATION:申请中, ACCESSIBLE:可进入课程, COMPLETED:已完成)
 )
 

@@ -16,12 +16,13 @@ import com.muyi.main.databinding.ActivityMainBinding
 import com.muyi.main.viewmodel.MainViewModel
 import me.yokeyword.fragmentation.SupportFragment
 import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
 
 /**
  * Created by hq on 2022/7/28.
  **/
 @Route(path = AppConstants.Router.Main.A_MAIN)
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), KoinComponent {
     private var touchTime: Long = 0L
 
     override fun initContentView(): Int {

@@ -71,4 +71,9 @@ interface HttpDataSource {
     fun getClassCourses(
         class_id: String
     ): Observable<BaseBean<List<CourseBean>>>
+
+    fun applyCourse(
+        class_id: String,
+        course_id: String
+    ): Observable<BaseBean<String>>
 }

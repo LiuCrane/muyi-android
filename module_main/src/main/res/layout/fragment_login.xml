@@ -5,94 +5,100 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.muyi.main.viewmodel.LoginViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".mvvm.ui.activity.LoginActivity">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="90dp"
-            android:src="@drawable/ic_big_eye"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".mvvm.ui.activity.LoginActivity">
 
-        <TextView
-            android:id="@+id/tvLogo"
-            style="@style/TextViewTitleStyle"
-            android:layout_marginTop="6dp"
-            android:text="目益视力"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="90dp"
+                android:src="@drawable/ic_big_eye"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvNameLabel"
-            style="@style/TextViewLabelStyle"
-            android:layout_marginTop="40dp"
-            android:text="用户名"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvLogo" />
+            <TextView
+                android:id="@+id/tvLogo"
+                style="@style/TextViewTitleStyle"
+                android:layout_marginTop="6dp"
+                android:text="目益视力"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
-        <com.czl.lib_base.widget.EditTextWithDel
-            android:id="@+id/etName"
-            style="@style/EditTextStyle"
-            android:layout_marginTop="14dp"
-            android:hint="输入手机号"
-            android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNameLabel"
-            binding:textChanged="@{viewModel.onUserNameChangeCommand}" />
+            <TextView
+                android:id="@+id/tvNameLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="40dp"
+                android:text="用户名"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLogo" />
 
-        <TextView
-            android:id="@+id/tvPasswordLabel"
-            style="@style/TextViewLabelStyle"
-            android:layout_marginTop="20dp"
-            android:text="密码"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etName" />
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etName"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入手机号"
+                android:inputType="number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNameLabel"
+                binding:textChanged="@{viewModel.onUserNameChangeCommand}" />
 
-        <com.czl.lib_base.widget.EditTextWithDel
-            android:id="@+id/etPassword"
-            style="@style/EditTextStyle"
-            android:layout_marginTop="14dp"
-            android:hint="输入密码"
-            android:inputType="textPassword"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
-            binding:textChanged="@{viewModel.onPwdChangeCommand}" />
+            <TextView
+                android:id="@+id/tvPasswordLabel"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="密码"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etName" />
 
-        <Button
-            android:id="@+id/btn_login"
-            style="@style/ButtonBlueStyle"
-            android:layout_marginTop="70dp"
-            android:text="登录"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etPassword"
-            binding:onClickCommand="@{viewModel.btnLoginClick}" />
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etPassword"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入密码"
+                android:inputType="textPassword"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
+                binding:textChanged="@{viewModel.onPwdChangeCommand}" />
 
-        <TextView
-            android:id="@+id/tvRegister"
-            style="@style/TextViewStyle"
-            android:layout_marginTop="21dp"
-            android:padding="10dp"
-            android:text="注册"
-            android:textColor="@color/theme_blue"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_login"
-            binding:onClickCommand="@{viewModel.registerClickCommand}" />
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/ButtonBlueStyle"
+                android:layout_marginTop="70dp"
+                android:text="登录"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etPassword"
+                binding:onClickCommand="@{viewModel.btnLoginClick}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvRegister"
+                style="@style/TextViewStyle"
+                android:layout_marginTop="21dp"
+                android:padding="10dp"
+                android:text="注册"
+                android:textColor="@color/theme_blue"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_login"
+                binding:onClickCommand="@{viewModel.registerClickCommand}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

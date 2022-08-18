@@ -45,6 +45,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
         storeLocation.set(it)
     })
     var btnRegisterClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        hasGetLocation = false
         getLocation()
     })
 
@@ -73,13 +74,13 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
         if (hasGetLocation)
             return
 
+        hasGetLocation = true
+        GPSUtils.getInstance(Utils.getApp())?.removeListener()
+
         if (latitude == null || longitude == null) {
             showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
             return
         }
-
-        hasGetLocation = true
-        GPSUtils.getInstance(Utils.getApp())?.removeListener()
 
         if (userName.get().isNullOrBlank() || userPhone.get().isNullOrBlank() ||
             userIdCard.get().isNullOrBlank() || storeName.get().isNullOrBlank() ||
@@ -107,13 +108,11 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
                         if (result.code == 200) {
                             uc.successLiveEvent.call()
                         }
-                        hasGetLocation = false
                     }
 
                     override fun onFailed(msg: String?) {
                         dismissLoading()
-                        showNormalToast(msg)
-                        hasGetLocation = false
+                        showErrorToast(msg)
                     }
                 })
         }
