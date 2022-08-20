@@ -1,13 +1,10 @@
 package com.muyi.main.classes.adapter
 
-import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.binding.command.BindingConsumer
-import com.czl.lib_base.config.AppConstants
-import com.czl.lib_base.data.bean.ClassesBean
 import com.czl.lib_base.data.bean.CourseBean
 import com.czl.lib_base.extension.loadImageRes
 import com.czl.lib_base.extension.loadUrl
@@ -28,13 +25,6 @@ class CourseListAdapter(private val mFragment: CourseListFragment) :
             adapter = this@CourseListAdapter
             executePendingBindings()
 
-            if (item.img.isNullOrEmpty()) {
-//                ivImage.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
-                ivImage.loadImageRes(R.mipmap.audio_image)
-
-            } else {
-                ivImage.loadUrl(item.img)
-            }
             when (item.status) {
                 "APPLICABLE" -> {
                     tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)

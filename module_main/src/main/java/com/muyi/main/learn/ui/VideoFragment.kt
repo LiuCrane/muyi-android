@@ -85,4 +85,9 @@ class VideoFragment : BaseFragment<FragmentVideoBinding, VideoViewModel>() {
     private fun refreshData() {
         binding.smartCommon.autoRefresh()
     }
+
+    override fun reload() {
+        super.reload()
+        binding.smartCommon.autoRefresh()
+    }
 }

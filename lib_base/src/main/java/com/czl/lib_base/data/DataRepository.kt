@@ -95,8 +95,8 @@ class DataRepository constructor(
         return mHttpDataSource.getClassList(page_num, page_size)
     }
 
-    override fun createClass(name: String): Observable<BaseBean<String>> {
-        return mHttpDataSource.createClass(name)
+    override fun createClass(name: String, teacher: String): Observable<BaseBean<String>> {
+        return mHttpDataSource.createClass(name, teacher)
     }
 
     override fun getStudentList(
@@ -111,7 +111,7 @@ class DataRepository constructor(
         return mHttpDataSource.getStoreInfo()
     }
 
-    override fun getClassStudents(class_id: String): Observable<BaseBean<List<StudentBean>>> {
+    override fun getClassStudents(class_id: String): Observable<BaseBean<ListDataBean<StudentBean>>> {
         return mHttpDataSource.getClassStudents(class_id)
     }
 
@@ -119,7 +119,7 @@ class DataRepository constructor(
         return mHttpDataSource.getClassDetail(class_id)
     }
 
-    override fun getClassCourses(class_id: String): Observable<BaseBean<List<CourseBean>>> {
+    override fun getClassCourses(class_id: String): Observable<BaseBean<ListDataBean<CourseBean>>> {
         return mHttpDataSource.getClassCourses(class_id)
     }
 

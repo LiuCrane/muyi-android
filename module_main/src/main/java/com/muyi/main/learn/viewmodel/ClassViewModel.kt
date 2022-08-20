@@ -43,7 +43,7 @@ class ClassViewModel(application: MyApplication, model: DataRepository) :
                 currentPage,
                 AppConstants.Common.PAGE_SIZE
             ).compose(RxThreadHelper.rxSchedulerHelper(this@ClassViewModel))
-                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<ClassesBean>>>() {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<ClassesBean>>>(loadService) {
                     override fun onResult(result: BaseBean<ListDataBean<ClassesBean>>) {
                         if (result.code == 200) {
                             currentPage++

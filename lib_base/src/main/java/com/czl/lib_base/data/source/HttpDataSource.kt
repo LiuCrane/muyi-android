@@ -3,7 +3,6 @@ package com.czl.lib_base.data.source
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.data.bean.*
 import io.reactivex.Observable
-import retrofit2.http.Path
 
 /**
  * @author Alwyn
@@ -50,6 +49,7 @@ interface HttpDataSource {
 
     fun createClass(
         name: String,
+        teacher: String
     ): Observable<BaseBean<String>>
 
     fun getStudentList(
@@ -62,7 +62,7 @@ interface HttpDataSource {
 
     fun getClassStudents(
         class_id: String
-    ): Observable<BaseBean<List<StudentBean>>>
+    ): Observable<BaseBean<ListDataBean<StudentBean>>>
 
     fun getClassDetail(
         class_id: String
@@ -70,7 +70,7 @@ interface HttpDataSource {
 
     fun getClassCourses(
         class_id: String
-    ): Observable<BaseBean<List<CourseBean>>>
+    ): Observable<BaseBean<ListDataBean<CourseBean>>>
 
     fun applyCourse(
         class_id: String,

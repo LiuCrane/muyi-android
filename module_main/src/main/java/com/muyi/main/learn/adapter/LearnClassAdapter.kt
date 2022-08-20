@@ -15,7 +15,7 @@ import com.muyi.main.learn.ui.ClassFragment
 /**
  * Created by hq on 2022/8/12.
  **/
-class LearnClassAdapter(val mFragment: ClassFragment) :
+class LearnClassAdapter(private val mFragment: ClassFragment) :
     BaseQuickAdapter<ClassesBean, BaseDataBindingHolder<ItemLearnClassBinding>>(R.layout.item_learn_class) {
 
 

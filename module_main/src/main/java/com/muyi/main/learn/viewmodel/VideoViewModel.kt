@@ -42,7 +42,7 @@ class VideoViewModel(application: MyApplication, model: DataRepository) :
                 AppConstants.Common.PAGE_SIZE,
                 "VIDEO",
             ).compose(RxThreadHelper.rxSchedulerHelper(this@VideoViewModel))
-                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<MediaBean>>>() {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<MediaBean>>>(loadService) {
                     override fun onResult(result: BaseBean<ListDataBean<MediaBean>>) {
                         if (result.code == 200) {
                             currentPage++

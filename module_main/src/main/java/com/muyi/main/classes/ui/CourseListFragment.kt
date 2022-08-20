@@ -93,4 +93,9 @@ class CourseListFragment : BaseFragment<FragmentCourseListBinding, CourseListVie
     private fun refreshData() {
         binding.smartCommon.autoRefresh()
     }
+
+    override fun reload() {
+        super.reload()
+        binding.smartCommon.autoRefresh()
+    }
 }

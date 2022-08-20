@@ -24,12 +24,6 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
             adapter = this@StudentTrackAdapter
             executePendingBindings()
 
-            if (item.avatar_url.isNullOrEmpty()) {
-                ivAvatar.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
-            } else {
-                ivAvatar.loadUrl(item.avatar_url)
-            }
-
             if (item.improved == true) {
                 tvImprove.setBackgroundResource(R.drawable.bg_sight_improved)
                 tvImprove.text = "有提升"
@@ -62,7 +56,7 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
             oldItem: StudentBean,
             newItem: StudentBean
         ): Boolean {
-            return oldItem.current_course == newItem.current_course
+            return false
         }
     }
 }

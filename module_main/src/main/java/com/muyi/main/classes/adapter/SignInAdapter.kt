@@ -22,12 +22,6 @@ class SignInAdapter(val mFragment: SignInFragment) :
             adapter = this@SignInAdapter
             executePendingBindings()
 
-            if (item.avatar_url.isNullOrEmpty()) {
-                ivAvatar.loadImageRes(com.czl.lib_base.R.drawable.ic_placeholder)
-            } else {
-                ivAvatar.loadUrl(item.avatar_url)
-            }
-
             if (item.improved == true) {
                 tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
                 tvStatus.text = "已签到"

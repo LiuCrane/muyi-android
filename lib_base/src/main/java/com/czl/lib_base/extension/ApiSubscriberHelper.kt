@@ -2,6 +2,7 @@ package com.czl.lib_base.extension
 
 import android.net.ParseException
 import com.czl.lib_base.base.BaseBean
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.event.LiveBusCenter
 import com.czl.lib_base.util.ToastHelper.showErrorToast
 import com.google.gson.JsonParseException
@@ -21,12 +22,12 @@ import java.net.UnknownHostException
  * @Description RxJava 处理Api异常
  * 不自动处理状态页的不传构造即可
  */
-abstract class ApiSubscriberHelper<T : Any>(private val loadService: LoadService<BaseBean<*>?>? = null) :
+abstract class ApiSubscriberHelper<T : Any>(private val loadService: LoadService<BaseBean<ListDataBean<*>>?>? = null) :
     DisposableObserver<T>() {
 
     override fun onNext(t: T) {
-        if (t is BaseBean<*>) {
-            loadService?.showWithConvertor(t)
+        if (t is BaseBean<*> && t.data is ListDataBean<*>) {
+            loadService?.showWithConvertor(t as BaseBean<ListDataBean<*>>)
         }
         if (t is BaseBean<*> && t.code == 400101) {
             LiveBusCenter.postTokenExpiredEvent(t.msg)
@@ -67,6 +68,7 @@ abstract class ApiSubscriberHelper<T : Any>(private val loadService: LoadService
                 onFailed(throwable.message)
             }
         }
+        loadService?.showWithConvertor(null)
     }
 
     protected abstract fun onResult(result: T)

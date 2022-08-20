@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -37,8 +38,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="14dp"
             android:scaleType="centerCrop"
-            app:riv_border_color="@color/theme_blue_20"
-            app:riv_border_width="1dp"
+            binding:url="@{data.avatar_url}"
+            binding:placeholderRes="@{@drawable/ic_avatar_holder}"
             app:riv_oval="true" />
 
         <TextView

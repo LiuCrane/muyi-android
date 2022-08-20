@@ -19,40 +19,7 @@ object ViewAdapter {
         placeholderRes: Drawable? = null,
         errorRes: Drawable? = null
     ) {
-        if (!TextUtils.isEmpty(url)) {
-            imageView.loadUrl(url, placeholderRes, errorRes)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(
-        value = ["radiusUrl", "radius", "placeholderRes"],
-        requireAll = false
-    )
-    fun setImageUrRadius(
-        imageView: ImageView,
-        radiusUrl: String?,
-        radius: Double,
-        placeholderRes: Drawable? = null,
-    ) {
-        if (!TextUtils.isEmpty(radiusUrl)) {
-            imageView.loadRoundImage(radiusUrl, radius, placeholderRes)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(
-        value = ["circleUrl", "placeholderRes"],
-        requireAll = false
-    )
-    fun setImageUrCircle(
-        imageView: ImageView,
-        circleUrl: String?,
-        placeholderRes: Drawable? = null,
-    ) {
-        if (!TextUtils.isEmpty(circleUrl)) {
-            imageView.loadCircleImage(circleUrl, placeholderRes)
-        }
+        imageView.loadUrl(url, placeholderRes, errorRes)
     }
 
     @JvmStatic

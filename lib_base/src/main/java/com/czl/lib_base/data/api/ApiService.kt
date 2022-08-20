@@ -50,7 +50,7 @@ interface ApiService {
     @GET("/app/classes/{class_id}/students")
     fun getClassStudents(
         @Path("class_id") class_id: String
-    ): Observable<BaseBean<List<StudentBean>>>
+    ): Observable<BaseBean<ListDataBean<StudentBean>>>
 
     @GET("/app/classes/{id}")
     fun getClassDetail(
@@ -61,7 +61,7 @@ interface ApiService {
     @GET("/app/classes/{class_id}/courses")
     fun getClassCourses(
         @Path("class_id") class_id: String
-    ): Observable<BaseBean<List<CourseBean>>>
+    ): Observable<BaseBean<ListDataBean<CourseBean>>>
 
     @POST("/app/classes/{class_id}/courses/{id}/apply")
     fun applyCourse(

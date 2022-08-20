@@ -43,7 +43,7 @@ class StudentTrackViewModel(application: MyApplication, model: DataRepository) :
                 AppConstants.Common.PAGE_SIZE,
                 rehabType
             ).compose(RxThreadHelper.rxSchedulerHelper(this@StudentTrackViewModel))
-                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<StudentBean>>>() {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<StudentBean>>>(loadService) {
                     override fun onResult(result: BaseBean<ListDataBean<StudentBean>>) {
                         if (result.code == 200) {
                             currentPage++

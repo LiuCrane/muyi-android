@@ -3,7 +3,6 @@ package com.muyi.main.my.ui
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
-import com.czl.lib_base.util.DialogHelper
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.FragmentStudentRegisterBinding

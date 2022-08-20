@@ -85,4 +85,9 @@ class AudioFragment : BaseFragment<FragmentAudioBinding, AudioViewModel>() {
     private fun refreshData() {
         binding.smartCommon.autoRefresh()
     }
+
+    override fun reload() {
+        super.reload()
+        refreshData()
+    }
 }

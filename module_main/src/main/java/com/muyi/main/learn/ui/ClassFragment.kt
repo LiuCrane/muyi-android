@@ -85,4 +85,9 @@ class ClassFragment : BaseFragment<FragmentClassBinding, ClassViewModel>() {
     private fun refreshData() {
         binding.smartCommon.autoRefresh()
     }
+
+    override fun reload() {
+        super.reload()
+        binding.smartCommon.autoRefresh()
+    }
 }

@@ -30,6 +30,8 @@
             android:scaleType="centerCrop"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            binding:url="@{data.img}"
+            binding:placeholderRes="@{@drawable/ic_video_holder}"
             app:riv_corner_radius="16dp" />
 
 

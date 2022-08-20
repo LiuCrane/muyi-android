@@ -9,14 +9,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.R
+import com.czl.lib_base.callback.EmptyCallback
 import com.czl.lib_base.callback.ErrorCallback
 import com.czl.lib_base.callback.LoadingCallback
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.mvvm.ui.ContainerFmActivity
 import com.czl.lib_base.route.RouteCenter
 import com.czl.lib_base.util.DayModeUtil
 import com.czl.lib_base.util.DialogHelper
 import com.czl.lib_base.util.ToastHelper
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.reflect.TypeToken
 import com.gyf.immersionbar.ImmersionBar
 import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.callback.SuccessCallback
@@ -40,7 +46,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
     private var dialog: BasePopupView? = null
     private lateinit var rootView: View
     protected var rootBinding: ViewDataBinding? = null
-    lateinit var loadService: LoadService<BaseBean<*>?>
+    lateinit var loadService: LoadService<BaseBean<ListDataBean<*>>?>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +61,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
         savedInstanceState: Bundle?
     ): View {
         val loadSir = LoadSir.Builder()
+            .addCallback(EmptyCallback())
             .addCallback(ErrorCallback())
             .addCallback(LoadingCallback())
             .setDefaultCallback(SuccessCallback::class.java)
@@ -69,25 +76,32 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
             // 有标题栏情况下绑定内容View
             loadService = loadSir.register(binding.root,
                 Callback.OnReloadListener { reload() },
-                Convertor<BaseBean<*>?> { t ->
-                    if (t == null || t.code != 200) {
+                Convertor<BaseBean<ListDataBean<*>>?> { result ->
+                    if (result == null || result.code != 200) {
                         ErrorCallback::class.java
+                    } else if (result.data == null || result.data!!.list.isNullOrEmpty()) {
+                        EmptyCallback::class.java
                     } else {
                         SuccessCallback::class.java
                     }
-                }) as LoadService<BaseBean<*>?>
+                }) as LoadService<BaseBean<ListDataBean<*>>?>
             return rootView
         } else {
             binding = DataBindingUtil.inflate(inflater, initContentView(), container, false)
             loadService = loadSir.register(binding.root,
                 Callback.OnReloadListener { reload() },
-                Convertor<BaseBean<*>?> { t ->
-                    if (t == null || t.code !=200) {
+                Convertor<BaseBean<ListDataBean<*>>?> { result ->
+                    if (result == null || result.code != 200) {
+                        LogUtils.e("ErrorCallback")
                         ErrorCallback::class.java
+                    } else if (result.data == null || result.data!!.list.isNullOrEmpty()) {
+                        LogUtils.e("EmptyCallback")
+                        EmptyCallback::class.java
                     } else {
+                        LogUtils.e("SuccessCallback")
                         SuccessCallback::class.java
                     }
-                }) as LoadService<BaseBean<*>?>
+                }) as LoadService<BaseBean<ListDataBean<*>>?>
             return loadService.loadLayout
         }
     }
@@ -262,6 +276,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
 
     fun showErrorStatePage() {
         loadService.showCallback(ErrorCallback::class.java)
+    }
+
+    fun showEmptyStatePage() {
+        loadService.showCallback(EmptyCallback::class.java)
     }
 
     fun showLoadingStatePage() {

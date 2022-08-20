@@ -83,9 +83,10 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.appClasses(page_num, page_size)
     }
 
-    override fun createClass(name: String): Observable<BaseBean<String>> {
+    override fun createClass(name: String, teacher: String): Observable<BaseBean<String>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("name", name)
+        jsonObject.addProperty("teacher", teacher)
         return apiService.createAppClass(jsonObject)
     }
 
@@ -101,7 +102,7 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.appStore()
     }
 
-    override fun getClassStudents(class_id: String): Observable<BaseBean<List<StudentBean>>> {
+    override fun getClassStudents(class_id: String): Observable<BaseBean<ListDataBean<StudentBean>>> {
         return apiService.getClassStudents(class_id)
 
     }
@@ -110,7 +111,7 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.getClassDetail(class_id)
     }
 
-    override fun getClassCourses(class_id: String): Observable<BaseBean<List<CourseBean>>> {
+    override fun getClassCourses(class_id: String): Observable<BaseBean<ListDataBean<CourseBean>>> {
         return apiService.getClassCourses(class_id)
     }
 

@@ -53,8 +53,8 @@ data class ClassesBean(
 data class CourseBean(
     @SerializedName("id")
     val id: String?,
-    @SerializedName("img")
-    val img: String?,
+    @SerializedName("cover_url")
+    val cover_url: String?,
     @SerializedName("description")
     val description: String?,
     @SerializedName("duration")

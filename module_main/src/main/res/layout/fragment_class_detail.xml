@@ -36,19 +36,18 @@
                     android:layout_height="60dp"
                     android:layout_marginTop="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_placeholder"
+                    binding:url="@{data.teacher}"
+                    binding:placeholderRes="@{@drawable/ic_avatar_holder}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:riv_border_color="@color/theme_blue_20"
-                    app:riv_border_width="1dp"
                     app:riv_oval="true" />
 
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/TextViewStyle"
                     android:layout_marginTop="20dp"
-                    android:text="老师名称"
+                    android:text="@{data.teacher}"
                     android:textColor="@color/theme_blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

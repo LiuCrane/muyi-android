@@ -8,7 +8,7 @@ import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.bus.event.SingleLiveEvent
 import com.czl.lib_base.data.DataRepository
 import com.czl.lib_base.data.bean.CourseBean
-import com.czl.lib_base.data.bean.StoreBean
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.util.RxThreadHelper
 
@@ -41,10 +41,11 @@ class CourseListViewModel(application: MyApplication, model: DataRepository) :
             getClassCourses(
                 classId!!,
             ).compose(RxThreadHelper.rxSchedulerHelper(this@CourseListViewModel))
-                .subscribe(object : ApiSubscriberHelper<BaseBean<List<CourseBean>>>() {
-                    override fun onResult(result: BaseBean<List<CourseBean>>) {
+                .subscribe(object :
+                    ApiSubscriberHelper<BaseBean<ListDataBean<CourseBean>>>(loadService) {
+                    override fun onResult(result: BaseBean<ListDataBean<CourseBean>>) {
                         if (result.code == 200) {
-                            uc.refreshCompleteEvent.postValue(result.data)
+                            uc.refreshCompleteEvent.postValue(result.data?.list)
                         } else {
                             uc.refreshCompleteEvent.postValue(null)
                         }
@@ -69,14 +70,17 @@ class CourseListViewModel(application: MyApplication, model: DataRepository) :
                 classId!!,
                 courseId
             ).compose(RxThreadHelper.rxSchedulerHelper(this@CourseListViewModel))
+                .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<String>>() {
                     override fun onResult(result: BaseBean<String>) {
+                        dismissLoading()
                         if (result.code == 200) {
                             uc.applyCourseSuccessEvent.value = courseId
                         }
                     }
 
                     override fun onFailed(msg: String?) {
+                        dismissLoading()
                         showErrorToast(msg)
                     }
                 })

@@ -39,12 +39,22 @@ fun ImageView.loadUrl(
     placeHolderRes: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder),
     errorHolder: Drawable? = ResourceUtils.getDrawable(R.drawable.ic_placeholder)
 ) {
-    Glide.with(this)
-        .load(url)
-        .apply(
-            RequestOptions().placeholder(placeHolderRes).error(errorHolder)
-        )
-        .into(this)
+    if (url.isNullOrBlank() && placeHolderRes != null) {
+        setImageDrawable(placeHolderRes)
+    } else if (placeHolderRes == null) {
+        Glide.with(this)
+            .load(url)
+            .into(this)
+    } else {
+        Glide.with(this)
+            .load(url)
+            .apply(
+                RequestOptions().placeholder(placeHolderRes).error(errorHolder)
+            )
+            .into(this)
+    }
+
+
 }
 
 fun ImageView.loadImageRes(

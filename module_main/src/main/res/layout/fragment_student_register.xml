@@ -22,7 +22,7 @@
                 android:id="@+id/tvTitle"
                 style="@style/TextViewTitleStyle"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="100dp"
                 android:text="新店学员登记" />
 
             <TextView
