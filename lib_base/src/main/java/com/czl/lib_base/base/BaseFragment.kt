@@ -332,6 +332,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : BaseViewModel<*>> :
             startActivityForResult(intent, reqCode)
     }
 
+
     //刷新布局
     fun refreshLayout() {
         binding.setVariable(viewModelId, viewModel)

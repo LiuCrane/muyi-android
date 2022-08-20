@@ -124,6 +124,7 @@ open class BaseViewModel<M : BaseModel>(application: MyApplication, val model: M
         uC.startContainerActivityEvent.postValue(params)
     }
 
+
     /**
      * 关闭界面
      */

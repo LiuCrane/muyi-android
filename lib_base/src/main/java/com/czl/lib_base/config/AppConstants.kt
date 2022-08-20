@@ -34,7 +34,6 @@ interface AppConstants {
             const val F_PROGRESS = "/main/ProgressFragment"
             const val F_MY = "/main/MyFragment"
             const val A_DETAIL = "/main/DetailActivity"
-            const val F_CREATE_CLASS = "/main/CreateClassFragment"
 
         }
 
@@ -57,6 +56,8 @@ interface AppConstants {
 
         object My {
             const val F_REGISTRATION = "/my/StudentRegisterFragment"
+            const val F_CREATE_CLASS = "/my/CreateClassFragment"
+            const val F_CHOOSE_CLASS = "/my/ChooseClassFragment"
         }
 
         object ClassManage {

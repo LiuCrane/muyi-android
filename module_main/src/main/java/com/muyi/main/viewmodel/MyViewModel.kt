@@ -39,7 +39,7 @@ class MyViewModel(application: MyApplication, model: DataRepository) :
     })
 
     var createClassClick: BindingCommand<Any> = BindingCommand(BindingAction {
-        startContainerActivity(AppConstants.Router.Main.F_CREATE_CLASS)
+        startContainerActivity(AppConstants.Router.My.F_CREATE_CLASS)
     })
 
     fun getStoreInfo() {

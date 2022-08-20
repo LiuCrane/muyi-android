@@ -11,7 +11,7 @@ import com.muyi.main.my.viewmodel.CreateClassViewModel
 /**
  * Created by hq on 2022/7/30.
  **/
-@Route(path = AppConstants.Router.Main.F_CREATE_CLASS)
+@Route(path = AppConstants.Router.My.F_CREATE_CLASS)
 class CreateClassFragment : BaseFragment<FragmentCreateClassBinding, CreateClassViewModel>() {
     override fun initContentView(): Int {
         return R.layout.fragment_create_class

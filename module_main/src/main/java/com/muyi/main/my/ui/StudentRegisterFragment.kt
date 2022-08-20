@@ -1,6 +1,9 @@
 package com.muyi.main.my.ui
 
+import android.content.Intent
+import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
 import com.muyi.main.BR
@@ -31,4 +34,15 @@ class StudentRegisterFragment :
     override fun initData() {
 
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val classId = data?.getStringExtra("classId")
+        val className = data?.getStringExtra("className")
+        viewModel.classId.set(classId)
+        viewModel.className.set(className)
+
+    }
+
 }

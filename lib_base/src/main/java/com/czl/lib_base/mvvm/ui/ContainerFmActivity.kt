@@ -1,6 +1,8 @@
 package com.czl.lib_base.mvvm.ui
 
+import android.content.Intent
 import android.os.Bundle
+import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.BR
 import com.czl.lib_base.R
 import com.czl.lib_base.base.BaseActivity
@@ -8,6 +10,8 @@ import com.czl.lib_base.databinding.CommonContainerBinding
 import com.czl.lib_base.mvvm.viewmodel.CommonViewModel
 import com.czl.lib_base.route.RouteCenter
 import me.yokeyword.fragmentation.SupportFragment
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator
+
 
 /**
  * @author Alwyn
@@ -42,5 +46,7 @@ class ContainerFmActivity : BaseActivity<CommonContainerBinding, CommonViewModel
         if (findFragment(fragment::class.java) == null) {
             loadRootFragment(R.id.fl_container, fragment)
         }
+        fragmentAnimator = DefaultNoAnimator()
     }
+
 }

@@ -1,4 +1,4 @@
-package com.muyi.main.learn.viewmodel
+package com.muyi.main.my.viewmodel
 
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseViewModel
@@ -16,7 +16,7 @@ import com.czl.lib_base.util.RxThreadHelper
 /**
  * Created by hq on 2022/8/3.
  **/
-class ClassViewModel(application: MyApplication, model: DataRepository) :
+class ChooseClassViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
     var currentPage = 1
 
@@ -40,7 +40,7 @@ class ClassViewModel(application: MyApplication, model: DataRepository) :
             getClassList(
                 currentPage,
                 AppConstants.Common.PAGE_SIZE
-            ).compose(RxThreadHelper.rxSchedulerHelper(this@ClassViewModel))
+            ).compose(RxThreadHelper.rxSchedulerHelper(this@ChooseClassViewModel))
                 .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<ClassesBean>>>(loadService) {
                     override fun onResult(result: BaseBean<ListDataBean<ClassesBean>>) {
                         if (result.code == 200) {

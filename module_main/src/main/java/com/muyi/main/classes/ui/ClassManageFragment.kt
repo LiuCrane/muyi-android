@@ -46,8 +46,6 @@ class ClassManageFragment : BaseFragment<FragmentClassManageBinding, ClassManage
 
     override fun initData() {
         classId = arguments?.getString(AppConstants.BundleKey.KEY_STRING)
-        LogUtils.e("classId=$classId")
-
 
         viewModel.tvTitle.set("班级管理")
 

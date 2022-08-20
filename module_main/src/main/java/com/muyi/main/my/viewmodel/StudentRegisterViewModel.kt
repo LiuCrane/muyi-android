@@ -1,5 +1,6 @@
 package com.muyi.main.my.viewmodel
 
+import android.os.Bundle
 import androidx.databinding.ObservableField
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseViewModel
@@ -8,8 +9,8 @@ import com.czl.lib_base.binding.command.BindingAction
 import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.binding.command.BindingConsumer
 import com.czl.lib_base.bus.event.SingleLiveEvent
+import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.DataRepository
-import com.czl.lib_base.data.bean.UserBean
 import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.util.RxThreadHelper
 
@@ -25,7 +26,8 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
     var rightDiopter = ObservableField("")
     var leftSight = ObservableField("")
     var rightSight = ObservableField("")
-    var studentClass = ObservableField("")
+    var classId = ObservableField("")
+    var className = ObservableField("")
 
     val onStudentNameChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         studentName.set(it)
@@ -48,8 +50,10 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
     val onRightSightChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         rightSight.set(it)
     })
-    val onClassChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
-        studentClass.set(it)
+    val onClassChooseCommand: BindingCommand<Any> = BindingCommand(BindingAction {
+        val bundle = Bundle()
+        bundle.putString("classId", "1")
+        startContainerActivity(AppConstants.Router.My.F_CHOOSE_CLASS, bundle, 100001)
     })
     var btnRegisterClick: BindingCommand<Any> = BindingCommand(BindingAction {
         register()
@@ -68,7 +72,7 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
                 leftDiopter.get().isNullOrBlank() || rightDiopter.get()
                     .isNullOrBlank() || leftSight.get()
                     .isNullOrBlank() || rightSight.get().isNullOrBlank() ||
-                studentClass.get().isNullOrBlank()
+                classId.get().isNullOrBlank()
             ) {
                 showNormalToast("学员注册各项不能为空")
                 return
@@ -81,7 +85,7 @@ class StudentRegisterViewModel(application: MyApplication, model: DataRepository
                 rightSight.get()!!,
                 leftSight.get()!!,
                 rightSight.get()!!,
-                studentClass.get()!!
+                classId.get()!!
             ).compose(RxThreadHelper.rxSchedulerHelper(this@StudentRegisterViewModel))
                 .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<*>>() {

@@ -114,12 +114,33 @@
                 android:layout_marginTop="20dp"
                 android:text="班级" />
 
-            <com.czl.lib_base.widget.EditTextWithDel
-                style="@style/EditTextStyle"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="26dp"
+                android:paddingHorizontal="20dp"
+                android:layout_height="57dp"
                 android:layout_marginTop="14dp"
-                android:hint="请选择班级"
-                android:inputType="text"
-                binding:textChanged="@{viewModel.onClassChangeCommand}" />
+                android:background="@drawable/bg_input_selector"
+                binding:onClickCommand="@{viewModel.onClassChooseCommand}">
+
+                <TextView
+                    android:id="@+id/tv_class_name"
+                    style="@style/TextViewStyle"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择班级"
+                    android:textColorHint="@color/hint"
+                    android:textColor="@color/black"
+                    android:text="@{viewModel.className}"
+                    android:layout_alignParentStart="true" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_down_blue" />
+            </RelativeLayout>
+
 
             <Button
                 android:id="@+id/btn_login"
