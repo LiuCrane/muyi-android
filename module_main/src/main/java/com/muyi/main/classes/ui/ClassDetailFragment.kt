@@ -41,6 +41,13 @@ class ClassDetailFragment : BaseFragment<FragmentClassDetailBinding, ClassDetail
         viewModel.uc.getStoreInfoCompleteEvent.observe(this) {
             binding.smartCommon.finishRefresh(500)
             binding.data = it
+            binding.tvCurrent.text = when (it.study_progress) {
+                "NOT_STARTED" -> "未开始"
+                "IN_PROGRESS" -> it.current_course
+                "REHAB_TRAINING" -> "复训中"
+                "ENDED" -> "已完结"
+                else -> "未开始"
+            }
         }
     }
 }

@@ -124,9 +124,9 @@
                         android:textColor="#663461FD" />
 
                     <TextView
+                        android:id="@+id/tv_current"
                         style="@style/TextViewStyle"
                         android:layout_alignParentBottom="true"
-                        android:text="@{data.current_course}"
                         android:textColor="@color/theme_blue" />
                 </RelativeLayout>
 

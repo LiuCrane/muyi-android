@@ -84,20 +84,22 @@ data class StudentBean(
     @SerializedName("parent_phone")
     val parent_phone: String?,
     @SerializedName("improved")
-    val improved: Boolean?,
+    val improved: String?,
     @SerializedName("left_vision")
     val left_vision: String?,
     @SerializedName("right_vision")
     val right_vision: String?,
-    @SerializedName("eyesightList")
-    val eyesightList: List<EyesightBean>?
+    @SerializedName("eyesight_list")
+    val eyesight_list: MutableList<EyesightBean>?,
+    @SerializedName("signIn")
+    val signIn: String?
 )
 
 data class EyesightBean(
-    @SerializedName("createdAt")
-    val createdAt: String?,
+    @SerializedName("created_at")
+    val created_at: Long?,
     @SerializedName("improved")
-    val improved: Boolean?,
+    val improved: String?,
     @SerializedName("left_vision")
     val left_vision: String?,
     @SerializedName("right_vision")

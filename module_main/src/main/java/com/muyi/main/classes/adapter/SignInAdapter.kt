@@ -22,7 +22,7 @@ class SignInAdapter(val mFragment: SignInFragment) :
             adapter = this@SignInAdapter
             executePendingBindings()
 
-            if (item.improved == true) {
+            if (item.signIn == "true") {
                 tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
                 tvStatus.text = "已签到"
             } else {

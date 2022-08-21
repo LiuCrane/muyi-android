@@ -24,7 +24,9 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_gray_30"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        binding:onRvItemCommand="@{adapter.onItemClickCommand}"
+        binding:rvItemBean="@{data}">
 
         <TextView
             android:id="@+id/tv_title"
@@ -46,6 +48,7 @@
             android:id="@+id/tv_name"
             style="@style/TextViewStyle"
             android:layout_marginTop="10dp"
+            android:text="@{data.name}"
             android:textColor="@color/theme_blue" />
 
         <TextView
@@ -76,7 +79,7 @@
             android:id="@+id/tv_improve"
             style="@style/TextViewStyle"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="38dp"
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:textColor="@color/white" />

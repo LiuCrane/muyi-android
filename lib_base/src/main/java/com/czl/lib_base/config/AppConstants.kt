@@ -51,13 +51,14 @@ interface AppConstants {
 
         object Progress {
             const val F_STUDENT_TRACK = "/progress/StudentTrackFragment"
-
+            const val F_STUDENT_DETAIL= "/progress/StudentDetailFragment"
         }
 
         object My {
             const val F_REGISTRATION = "/my/StudentRegisterFragment"
             const val F_CREATE_CLASS = "/my/CreateClassFragment"
             const val F_CHOOSE_CLASS = "/my/ChooseClassFragment"
+            const val F_PROGRESS_TRACK = "/my/ProgressTrackFragment"
         }
 
         object ClassManage {
@@ -65,9 +66,6 @@ interface AppConstants {
             const val F_SIGN_IN = "/class/SignInFragment"
             const val F_CLASS_DETAIL = "/class/ClassDetailFragment"
             const val F_COURSE_LIST = "/class/CourseListFragment"
-
-
-
         }
     }
 }

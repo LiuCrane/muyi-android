@@ -32,6 +32,7 @@ class MyViewModel(application: MyApplication, model: DataRepository) :
     })
 
     var progressClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        startContainerActivity(AppConstants.Router.My.F_PROGRESS_TRACK)
     })
 
     var registrationClick: BindingCommand<Any> = BindingCommand(BindingAction {

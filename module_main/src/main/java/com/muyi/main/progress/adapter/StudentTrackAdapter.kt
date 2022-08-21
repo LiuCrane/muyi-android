@@ -1,11 +1,13 @@
 package com.muyi.main.progress.adapter
 
+import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.czl.lib_base.binding.command.BindingCommand
+import com.czl.lib_base.binding.command.BindingConsumer
+import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.bean.StudentBean
-import com.czl.lib_base.extension.loadImageRes
-import com.czl.lib_base.extension.loadUrl
 import com.muyi.main.R
 import com.muyi.main.databinding.ItemStudentTrackBinding
 import com.muyi.main.progress.ui.StudentTrackFragment
@@ -13,7 +15,7 @@ import com.muyi.main.progress.ui.StudentTrackFragment
 /**
  * Created by hq on 2022/8/12.
  **/
-class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
+class StudentTrackAdapter(private val mFragment: StudentTrackFragment) :
     BaseQuickAdapter<StudentBean, BaseDataBindingHolder<ItemStudentTrackBinding>>(R.layout.item_student_track) {
     override fun convert(
         holder: BaseDataBindingHolder<ItemStudentTrackBinding>,
@@ -24,7 +26,7 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
             adapter = this@StudentTrackAdapter
             executePendingBindings()
 
-            if (item.improved == true) {
+            if (item.improved == "true") {
                 tvImprove.setBackgroundResource(R.drawable.bg_sight_improved)
                 tvImprove.text = "有提升"
             } else {
@@ -32,17 +34,19 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
                 tvImprove.text = "无提升"
             }
 
-            if (item.name.isNullOrEmpty())
-                tvName.text = "学员"
-            else
-                tvName.text = item.name
-
             tvLeftVision.text = "L " + item.left_vision
             tvRightVision.text = "R " + item.right_vision
 
-
         }
     }
+
+    val onItemClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
+        if (it is StudentBean) {
+            mFragment.startContainerActivity(
+                AppConstants.Router.Progress.F_STUDENT_DETAIL,
+                Bundle().apply { putString(AppConstants.BundleKey.KEY_STRING, it.id) })
+        }
+    })
 
     val diffConfig = object : DiffUtil.ItemCallback<StudentBean>() {
         override fun areItemsTheSame(
@@ -56,7 +60,7 @@ class StudentTrackAdapter(val mFragment: StudentTrackFragment) :
             oldItem: StudentBean,
             newItem: StudentBean
         ): Boolean {
-            return false
+            return oldItem.name == newItem.name && oldItem.current_course == newItem.current_course
         }
     }
 }

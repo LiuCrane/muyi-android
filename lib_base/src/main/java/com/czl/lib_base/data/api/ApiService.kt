@@ -43,6 +43,12 @@ interface ApiService {
         @Query("rehab") rehab: String?,
     ): Observable<BaseBean<ListDataBean<StudentBean>>>
 
+
+    @GET("/app/students/{id}")
+    fun getStudentDetail(
+        @Path("id") student_id: String
+    ): Observable<BaseBean<StudentBean>>
+
     @GET("/app/store")
     fun appStore(): Observable<BaseBean<StoreBean>>
 

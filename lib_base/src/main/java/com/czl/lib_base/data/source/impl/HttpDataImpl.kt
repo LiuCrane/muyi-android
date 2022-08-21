@@ -98,6 +98,10 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.appStudents(page_num, page_size, rehab)
     }
 
+    override fun getStudentDetail(student_id: String): Observable<BaseBean<StudentBean>> {
+        return apiService.getStudentDetail(student_id)
+    }
+
     override fun getStoreInfo(): Observable<BaseBean<StoreBean>> {
         return apiService.appStore()
     }
