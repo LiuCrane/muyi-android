@@ -7,12 +7,17 @@ package com.czl.lib_base.config
  */
 interface AppConstants {
     object Common {
-        const val PAGE_SIZE = 10
+        const val PAGE_SIZE = 100
 
     }
 
     object BundleKey {
-        const val KEY_STRING = "keyString"
+        const val KEY_REHAB_TYPE = "rehabType"
+        const val KEY_ClASS_ID = "classId"
+        const val KEY_COURSE_ID = "courseId"
+        const val KEY_MEDIA_ID = "mediaId"
+        const val KEY_MEDIA_TYPE = "mediaType"
+
 
     }
 
@@ -33,10 +38,11 @@ interface AppConstants {
             const val F_LEARN = "/main/LearnFragment"
             const val F_PROGRESS = "/main/ProgressFragment"
             const val F_MY = "/main/MyFragment"
-            const val A_DETAIL = "/main/DetailActivity"
-
         }
 
+        object Detail {
+            const val F_DETAIL = "/main/DetailFragment"
+        }
 
         object Login {
             const val F_LOGIN = "/login/LoginFragment"
@@ -51,7 +57,7 @@ interface AppConstants {
 
         object Progress {
             const val F_STUDENT_TRACK = "/progress/StudentTrackFragment"
-            const val F_STUDENT_DETAIL= "/progress/StudentDetailFragment"
+            const val F_STUDENT_DETAIL = "/progress/StudentDetailFragment"
         }
 
         object My {

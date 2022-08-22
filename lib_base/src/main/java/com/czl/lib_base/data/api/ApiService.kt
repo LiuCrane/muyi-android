@@ -76,4 +76,9 @@ interface ApiService {
     ): Observable<BaseBean<String>>
 
 
+    @GET("/app/classes/{class_id}/courses/{course_id}/media")
+    fun getCCourseMediaList(
+        @Path("class_id") class_id: String,
+        @Path("course_id") course_id: String
+    ): Observable<BaseBean<ListDataBean<MediaBean>>>
 }

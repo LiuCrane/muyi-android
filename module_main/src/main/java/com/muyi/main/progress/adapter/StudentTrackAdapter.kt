@@ -44,7 +44,7 @@ class StudentTrackAdapter(private val mFragment: StudentTrackFragment) :
         if (it is StudentBean) {
             mFragment.startContainerActivity(
                 AppConstants.Router.Progress.F_STUDENT_DETAIL,
-                Bundle().apply { putString(AppConstants.BundleKey.KEY_STRING, it.id) })
+                Bundle().apply { putString(AppConstants.BundleKey.KEY_ClASS_ID, it.id) })
         }
     })
 

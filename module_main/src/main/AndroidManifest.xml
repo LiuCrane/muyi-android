@@ -17,7 +17,7 @@
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.activity.DetailActivity"
+            android:name=".detail.ui.DetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
 

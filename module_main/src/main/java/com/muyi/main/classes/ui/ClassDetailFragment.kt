@@ -17,7 +17,7 @@ class ClassDetailFragment : BaseFragment<FragmentClassDetailBinding, ClassDetail
 
     @JvmField
     @Autowired
-    var keyString: String? = null
+    var classId: String? = null
 
     override fun initContentView(): Int {
         return R.layout.fragment_class_detail
@@ -32,7 +32,7 @@ class ClassDetailFragment : BaseFragment<FragmentClassDetailBinding, ClassDetail
     }
 
     override fun initData() {
-        viewModel.classId = keyString
+        viewModel.classId = classId
         viewModel.getClassDetailInfo()
         binding.smartCommon.setEnableLoadMore(false)
     }

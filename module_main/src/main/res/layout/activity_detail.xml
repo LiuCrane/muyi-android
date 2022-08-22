@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:binding="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.muyi.main.viewmodel.DetailViewModel" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

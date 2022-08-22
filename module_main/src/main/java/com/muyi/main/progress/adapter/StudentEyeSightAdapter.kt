@@ -8,8 +8,6 @@ import com.czl.lib_base.util.DateUtils
 import com.muyi.main.R
 import com.muyi.main.databinding.ItemStudentEyeSightBinding
 import com.muyi.main.progress.ui.StudentDetailFragment
-import org.apache.commons.lang3.time.DateFormatUtils
-import java.util.*
 
 /**
  * Created by hq on 2022/8/12.

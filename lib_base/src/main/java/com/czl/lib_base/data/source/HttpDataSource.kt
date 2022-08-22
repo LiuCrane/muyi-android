@@ -81,4 +81,9 @@ interface HttpDataSource {
         class_id: String,
         course_id: String
     ): Observable<BaseBean<String>>
+
+    fun getCCourseMediaList(
+        class_id: String,
+        course_id: String
+    ): Observable<BaseBean<ListDataBean<MediaBean>>>
 }

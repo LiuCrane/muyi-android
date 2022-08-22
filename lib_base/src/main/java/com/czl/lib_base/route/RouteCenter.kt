@@ -11,14 +11,6 @@ import com.czl.lib_base.config.AppConstants
  */
 object RouteCenter {
 
-    fun navigateWithKey(path: String, key: String? = null): Any? {
-        val build = ARouter.getInstance().build(path)
-        return if (key == null) build.navigation() else build.withString(
-            AppConstants.BundleKey.KEY_STRING,
-            key
-        ).navigation()
-    }
-
     fun navigate(path: String, bundle: Bundle? = null): Any? {
         val build = ARouter.getInstance().build(path)
         return if (bundle == null) build.navigation() else build.with(bundle).navigation()

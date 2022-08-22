@@ -22,7 +22,7 @@ class CourseListFragment : BaseFragment<FragmentCourseListBinding, CourseListVie
 
     @JvmField
     @Autowired
-    var keyString: String? = null
+    var classId: String? = null
 
     private var firstLoad = true
     lateinit var mAdapter: CourseListAdapter
@@ -41,7 +41,7 @@ class CourseListFragment : BaseFragment<FragmentCourseListBinding, CourseListVie
     }
 
     override fun initData() {
-        viewModel.classId = keyString
+        viewModel.classId = classId
         initAdapter()
     }
 

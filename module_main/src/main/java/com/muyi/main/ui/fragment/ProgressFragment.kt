@@ -2,6 +2,7 @@ package com.muyi.main.ui.fragment
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.adapter.ViewPagerFmAdapter
@@ -48,18 +49,18 @@ class ProgressFragment : BaseFragment<FragmentProgressBinding, ProgressViewModel
     }
 
     private fun initViewPager() {
-//        val bundle = Bundle()
-//        bundle.putString(AppConstants.IntentKey.REHAB_TYPE, "")
-        val studentTrackFragment = RouteCenter.navigateWithKey(
+        val studentTrackFragment = RouteCenter.navigate(
             AppConstants.Router.Progress.F_STUDENT_TRACK,
-            ""
+            Bundle().apply {
+                putString(AppConstants.BundleKey.KEY_REHAB_TYPE, "")
+            }
         ) as SupportFragment
 
-//        val bundle2 = Bundle()
-//        bundle2.putString(AppConstants.IntentKey.REHAB_TYPE, "true")
-        val recoveryTrackFragment = RouteCenter.navigateWithKey(
+        val recoveryTrackFragment = RouteCenter.navigate(
             AppConstants.Router.Progress.F_STUDENT_TRACK,
-            "true"
+            Bundle().apply {
+                putString(AppConstants.BundleKey.KEY_REHAB_TYPE, "true")
+            }
         ) as SupportFragment
 
         val fragments = arrayListOf(studentTrackFragment, recoveryTrackFragment)

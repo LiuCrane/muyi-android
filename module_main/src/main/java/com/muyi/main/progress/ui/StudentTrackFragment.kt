@@ -1,6 +1,5 @@
 package com.muyi.main.progress.ui
 
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -22,7 +21,7 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
 
     @JvmField
     @Autowired
-    var keyString: String? = null
+    var rehabType: String? = null
 
     private var firstLoad = true
     lateinit var mAdapter: StudentTrackAdapter
@@ -40,7 +39,7 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
     }
 
     override fun initData() {
-        viewModel.rehabType = keyString
+        viewModel.rehabType = rehabType
         initAdapter()
     }
 

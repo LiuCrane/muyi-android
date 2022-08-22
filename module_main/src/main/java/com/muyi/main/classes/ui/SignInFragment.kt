@@ -22,7 +22,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel>() {
 
     @JvmField
     @Autowired
-    var keyString: String? = null
+    var classId: String? = null
 
     private var firstLoad = true
     lateinit var mAdapter: SignInAdapter
@@ -41,7 +41,7 @@ class SignInFragment : BaseFragment<FragmentSignInBinding, SignInViewModel>() {
     }
 
     override fun initData() {
-        viewModel.classId = keyString
+        viewModel.classId = classId
         initAdapter()
     }
 

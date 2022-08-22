@@ -2,9 +2,9 @@ package com.muyi.main.classes.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.adapter.ViewPagerFmAdapter
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
@@ -13,7 +13,6 @@ import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.classes.viewmodel.ClassManageViewModel
 import com.muyi.main.databinding.FragmentClassManageBinding
-import com.muyi.main.databinding.FragmentLearnBinding
 import me.yokeyword.fragmentation.SupportFragment
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -45,7 +44,7 @@ class ClassManageFragment : BaseFragment<FragmentClassManageBinding, ClassManage
     }
 
     override fun initData() {
-        classId = arguments?.getString(AppConstants.BundleKey.KEY_STRING)
+        classId = arguments?.getString(AppConstants.BundleKey.KEY_ClASS_ID)
 
         viewModel.tvTitle.set("班级管理")
 
@@ -55,19 +54,25 @@ class ClassManageFragment : BaseFragment<FragmentClassManageBinding, ClassManage
 
     private fun initViewPager() {
         val signInFragment =
-            RouteCenter.navigateWithKey(
+            RouteCenter.navigate(
                 AppConstants.Router.ClassManage.F_SIGN_IN,
-                classId
+                Bundle().apply {
+                    putString(AppConstants.BundleKey.KEY_ClASS_ID,classId)
+                }
             ) as SupportFragment
         val classDetailFragment =
-            RouteCenter.navigateWithKey(
+            RouteCenter.navigate(
                 AppConstants.Router.ClassManage.F_CLASS_DETAIL,
-                classId
+                Bundle().apply {
+                    putString(AppConstants.BundleKey.KEY_ClASS_ID,classId)
+                }
             ) as SupportFragment
         val courseListFragment =
-            RouteCenter.navigateWithKey(
+            RouteCenter.navigate(
                 AppConstants.Router.ClassManage.F_COURSE_LIST,
-                classId
+                Bundle().apply {
+                    putString(AppConstants.BundleKey.KEY_ClASS_ID,classId)
+                }
             ) as SupportFragment
         val fragments = arrayListOf(signInFragment, classDetailFragment, courseListFragment)
 

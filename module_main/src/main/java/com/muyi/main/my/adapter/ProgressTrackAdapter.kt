@@ -42,7 +42,7 @@ class ProgressTrackAdapter(private val mFragment: ProgressTrackFragment) :
         if (it is ClassesBean) {
             mFragment.startContainerActivity(
                 AppConstants.Router.ClassManage.F_CLASS_MANAGE,
-                Bundle().apply { putString(AppConstants.BundleKey.KEY_STRING, it.id) })
+                Bundle().apply { putString(AppConstants.BundleKey.KEY_ClASS_ID, it.id) })
         }
     })
 

@@ -54,6 +54,7 @@
         </provider>
         <activity
             android:name=".mvvm.ui.ContainerFmActivity"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
     </application>
 

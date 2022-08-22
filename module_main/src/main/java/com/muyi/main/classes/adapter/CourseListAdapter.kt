@@ -1,16 +1,18 @@
 package com.muyi.main.classes.adapter
 
+import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
+import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.binding.command.BindingConsumer
+import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.bean.CourseBean
-import com.czl.lib_base.extension.loadImageRes
-import com.czl.lib_base.extension.loadUrl
 import com.muyi.main.R
 import com.muyi.main.classes.ui.CourseListFragment
 import com.muyi.main.databinding.ItemCourseBinding
+import com.muyi.main.detail.ui.DetailActivity
 
 /**
  * Created by hq on 2022/8/12.
@@ -55,6 +57,28 @@ class CourseListAdapter(private val mFragment: CourseListFragment) :
     }
 
     val onItemClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
+        LogUtils.e("onItemClickCommand")
+        if (it is CourseBean) {
+//            if (it.status == "ACCESSIBLE") {
+//        }
+            mFragment.startActivity(
+                DetailActivity::class.java,
+                Bundle().apply {
+                    putString(
+                        AppConstants.BundleKey.KEY_ClASS_ID,
+                        mFragment.viewModel.classId
+                    )
+                    putString(
+                        AppConstants.BundleKey.KEY_COURSE_ID,
+                        it.id
+                    )
+                })
+        }
+    })
+
+    val onStatusClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
+        LogUtils.e("onStatusClickCommand")
+
         if (it is CourseBean) {
             if (it.status == "APPLICABLE") {
                 mFragment.viewModel.applyCourse(it.id)

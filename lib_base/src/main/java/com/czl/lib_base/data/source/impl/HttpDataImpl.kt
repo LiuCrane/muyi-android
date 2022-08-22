@@ -123,4 +123,11 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.applyCourse(class_id, course_id)
     }
 
+    override fun getCCourseMediaList(
+        class_id: String,
+        course_id: String
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return apiService.getCCourseMediaList(class_id, course_id)
+    }
+
 }

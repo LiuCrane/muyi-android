@@ -31,7 +31,7 @@ class LearnClassAdapter(private val mFragment: ClassFragment) :
         if (it is ClassesBean) {
             mFragment.startContainerActivity(
                 AppConstants.Router.ClassManage.F_CLASS_MANAGE,
-                Bundle().apply { putString(AppConstants.BundleKey.KEY_STRING, it.id) })
+                Bundle().apply { putString(AppConstants.BundleKey.KEY_ClASS_ID, it.id) })
         }
     })
 
@@ -47,7 +47,7 @@ class LearnClassAdapter(private val mFragment: ClassFragment) :
             oldItem: ClassesBean,
             newItem: ClassesBean
         ): Boolean {
-            return oldItem.name == newItem.name && oldItem.study_progress == newItem.study_progress
+            return oldItem.name == newItem.name && oldItem.study_progress == newItem.study_progress && oldItem.current_course == newItem.current_course
         }
     }
 }

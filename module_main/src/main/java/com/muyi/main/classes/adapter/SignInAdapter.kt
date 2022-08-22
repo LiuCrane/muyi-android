@@ -4,8 +4,6 @@ import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.czl.lib_base.data.bean.StudentBean
-import com.czl.lib_base.extension.loadImageRes
-import com.czl.lib_base.extension.loadUrl
 import com.muyi.main.R
 import com.muyi.main.classes.ui.SignInFragment
 import com.muyi.main.databinding.ItemSignInBinding

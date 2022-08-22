@@ -2,13 +2,11 @@ package com.muyi.main.ui.activity
 
 import android.content.res.Configuration
 import android.widget.ImageView
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.base.BaseActivity
-import com.czl.lib_base.config.AppConstants
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.ActivityDetailBinding
-import com.muyi.main.viewmodel.DetailViewModel
+import com.muyi.main.detail.viewmodel.DetailViewModel
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
@@ -19,7 +17,6 @@ import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 /**
  * Created by hq on 2022/8/3.
  **/
-@Route(path = AppConstants.Router.Main.A_DETAIL)
 class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
     private var orientationUtils: OrientationUtils?=null
     private var isPlay = false

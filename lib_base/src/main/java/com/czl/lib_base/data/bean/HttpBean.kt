@@ -9,7 +9,7 @@ data class UserBean(
 
 data class ListDataBean<T>(
     @SerializedName("list")
-    val list: List<T>?,
+    val list: MutableList<T>?,
 )
 
 data class MediaBean(
@@ -20,7 +20,7 @@ data class MediaBean(
     @SerializedName("title")
     val title: String?,
     @SerializedName("type")
-    val type: String?,
+    val type: String?,//(AUDIO:音频, VIDEO:视频)
     @SerializedName("url")
     val url: String?,
     @SerializedName("created_at")
