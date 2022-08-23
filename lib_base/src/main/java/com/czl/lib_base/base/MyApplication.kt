@@ -13,6 +13,7 @@ import com.czl.lib_base.BuildConfig
 import com.czl.lib_base.R
 import com.czl.lib_base.di.allModule
 import com.czl.lib_base.util.ToastHelper
+import com.lxj.xpopup.XPopup
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -71,7 +72,9 @@ open class MyApplication : Application() {
         }
         // 设置吐司不以队列循环展示
         Toasty.Config.getInstance().allowQueue(false).apply()
-        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
+        XPopup.setPrimaryColor(ContextCompat.getColor(this, R.color.mColorPrimary))
+
+//        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
 //        GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL)
 
     }

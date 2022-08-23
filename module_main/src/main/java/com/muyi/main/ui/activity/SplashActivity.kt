@@ -85,10 +85,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding, SplashViewModel>() {
                     LogUtils.e("userToken=" + viewModel.model.getUserToken())
                     if (viewModel.model.getUserToken().isNullOrEmpty()) {
                         startContainerActivity(AppConstants.Router.Login.F_LOGIN)
-//                        overridePendingTransition(
-//                            me.yokeyword.fragmentation.R.anim.h_fragment_enter,
-//                            0
-//                        )
                     } else {
                         RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
                     }

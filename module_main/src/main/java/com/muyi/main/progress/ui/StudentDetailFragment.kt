@@ -20,7 +20,7 @@ class StudentDetailFragment : BaseFragment<FragmentStudentDetailBinding, Student
 
     @JvmField
     @Autowired
-    var keyString: String? = null
+    var classId: String? = null
 
     lateinit var mAdapter: StudentEyeSightAdapter
 
@@ -38,7 +38,7 @@ class StudentDetailFragment : BaseFragment<FragmentStudentDetailBinding, Student
 
     override fun initData() {
         viewModel.tvTitle.set("学员信息")
-        viewModel.studentId = keyString
+        viewModel.studentId = classId
         viewModel.getClassDetailInfo()
         binding.smartCommon.setEnableLoadMore(false)
         initAdapter()
