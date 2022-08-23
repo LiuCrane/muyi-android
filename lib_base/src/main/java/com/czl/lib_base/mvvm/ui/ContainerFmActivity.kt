@@ -1,9 +1,6 @@
 package com.czl.lib_base.mvvm.ui
 
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.BR
 import com.czl.lib_base.R
 import com.czl.lib_base.base.BaseActivity
@@ -48,10 +45,5 @@ class ContainerFmActivity : BaseActivity<CommonContainerBinding, CommonViewModel
             loadRootFragment(R.id.fl_container, fragment)
         }
         fragmentAnimator = DefaultNoAnimator()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        LogUtils.e("onConfigurationChanged "+this)
     }
 }

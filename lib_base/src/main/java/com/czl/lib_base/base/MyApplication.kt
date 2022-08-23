@@ -16,6 +16,8 @@ import com.czl.lib_base.util.ToastHelper
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.shuyu.gsyvideoplayer.player.IjkPlayerManager
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType
 import com.tencent.mmkv.MMKV
 import es.dmoral.toasty.Toasty
 import io.reactivex.plugins.RxJavaPlugins
@@ -25,6 +27,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 
 /**
@@ -54,7 +57,7 @@ open class MyApplication : Application() {
             .debug(BuildConfig.DEBUG)
             .install()
         // 屏幕适配
-        AutoSizeConfig.getInstance().setCustomFragment(true).setBaseOnWidth(true)
+        AutoSizeConfig.getInstance().setCustomFragment(true).isBaseOnWidth = true
         //是否开启日志打印
         LogUtils.getConfig().setLogSwitch(BuildConfig.DEBUG).setConsoleSwitch(BuildConfig.DEBUG)
         startKoin {
@@ -68,6 +71,9 @@ open class MyApplication : Application() {
         }
         // 设置吐司不以队列循环展示
         Toasty.Config.getInstance().allowQueue(false).apply()
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT)
+//        GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL)
+
     }
 
     companion object {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--系统默认背景色#fff3f3f3-->
+    <color name="ic_launcher_muyi_background">#FFFFFF</color>
     <color name="mColorPrimary">#3461FD</color>
     <color name="mColorPrimaryDark">#303030</color>
     <color name="mColorAccent">#3461FD</color>

@@ -11,20 +11,21 @@ import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.extension.loadUrl
 import com.muyi.main.BR
 import com.muyi.main.R
-import com.muyi.main.databinding.FragmentDetailBinding
+import com.muyi.main.databinding.ActivityDetailBinding
 import com.muyi.main.detail.adapter.DetailMediaAdapter
 import com.muyi.main.detail.viewmodel.DetailViewModel
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
+import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener
 import com.shuyu.gsyvideoplayer.utils.Debuger
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 
 /**
  * Created by hq on 2022/7/30.
  **/
-@Route(path = AppConstants.Router.Detail.F_DETAIL)
-class DetailActivity : BaseActivity<FragmentDetailBinding, DetailViewModel>() {
+@Route(path = AppConstants.Router.Detail.A_DETAIL)
+class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
 
     var classId: String? = null
     var courseId: String? = null
@@ -37,7 +38,7 @@ class DetailActivity : BaseActivity<FragmentDetailBinding, DetailViewModel>() {
     private var isPause = false
 
     override fun initContentView(): Int {
-        return R.layout.fragment_detail
+        return R.layout.activity_detail
     }
 
     override fun initVariableId(): Int {
@@ -110,7 +111,7 @@ class DetailActivity : BaseActivity<FragmentDetailBinding, DetailViewModel>() {
                         override fun onPrepared(url: String, vararg objects: Any) {
                             super.onPrepared(url, *objects)
                             //开始播放了才能旋转和全屏
-                            orientationUtils?.isEnable = true
+//                            orientationUtils?.isEnable = true
                             isPlay = true
                         }
 
@@ -123,6 +124,7 @@ class DetailActivity : BaseActivity<FragmentDetailBinding, DetailViewModel>() {
                     }).setLockClickListener { _, lock ->
                         orientationUtils?.isEnable = !lock
                     }.build(binding.detailPlayer)
+
             }
         }
     }
@@ -134,13 +136,37 @@ class DetailActivity : BaseActivity<FragmentDetailBinding, DetailViewModel>() {
         orientationUtils?.isEnable = false
 
 
-
-
         binding.detailPlayer.fullscreenButton.setOnClickListener { //直接横屏
             orientationUtils?.resolveByClick()
             //第一个true是否需要隐藏actionBar，第二个true是否需要隐藏statusBar
             binding.detailPlayer.startWindowFullscreen(this, true, true)
         }
+        binding.detailPlayer.setGSYVideoProgressListener(object : GSYVideoProgressListener {
+            private var preSecond: Long = 0
+            override fun onProgress(
+                progress: Long,
+                secProgress: Long,
+                currentPosition: Long,
+                duration: Long
+            ) {
+                //在5秒的时候弹出中间广告
+                val currentSecond = currentPosition / 1000
+                if (currentSecond == 5L && currentSecond != preSecond) {
+                    binding.detailPlayer.currentPlayer.onVideoPause()
+
+                }
+                preSecond = currentSecond
+            }
+        })
+
+        try {
+//            val time: Long = seekBar.getProgress() * getDuration() / 100
+//            binding.detailPlayer.seekTo(time)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
     }
 
 
@@ -174,18 +200,17 @@ class DetailActivity : BaseActivity<FragmentDetailBinding, DetailViewModel>() {
         orientationUtils?.releaseListener()
     }
 
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         //如果旋转了就全屏
-        if (isPlay && !isPause) {
-            binding.detailPlayer.onConfigurationChanged(
-                this,
-                newConfig,
-                orientationUtils,
-                true,
-                true
-            )
-        }
+//        if (isPlay && !isPause) {
+//            binding.detailPlayer.onConfigurationChanged(
+//                this,
+//                newConfig,
+//                orientationUtils,
+//                true,
+//                true
+//            )
+//        }
     }
 }

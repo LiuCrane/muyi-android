@@ -41,7 +41,7 @@ interface AppConstants {
         }
 
         object Detail {
-            const val F_DETAIL = "/main/DetailFragment"
+            const val A_DETAIL = "/main/DetailActivity"
         }
 
         object Login {
