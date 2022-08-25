@@ -60,7 +60,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
             ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
                 override fun onLocationResult(location: Location?) {
                     LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
-                    register(location?.latitude, location?.longitude)
+//                    register(location?.latitude, location?.longitude)
                 }
 
                 override fun onLocationChange(location: Location?) {

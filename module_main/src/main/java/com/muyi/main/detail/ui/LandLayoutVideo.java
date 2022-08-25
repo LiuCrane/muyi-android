@@ -6,8 +6,8 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
+import com.blankj.utilcode.util.Utils;
 import com.muyi.main.R;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
@@ -17,7 +17,6 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
  **/
 public class LandLayoutVideo extends StandardGSYVideoPlayer {
 
-    private boolean isLinkScroll = false;
 
     /**
      * 1.5.0开始加入，如果需要不同布局区分功能，需要重载
@@ -38,10 +37,11 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer {
     @Override
     protected void init(Context context) {
         super.init(context);
+
         post(new Runnable() {
             @Override
             public void run() {
-                gestureDetector = new GestureDetector(getContext().getApplicationContext(), new GestureDetector.SimpleOnGestureListener() {
+                gestureDetector = new GestureDetector(Utils.getApp(), new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
                         touchDoubleUp(e);
@@ -51,7 +51,7 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer {
                     @Override
                     public boolean onSingleTapConfirmed(MotionEvent e) {
                         if (!mChangePosition && !mChangeVolume && !mBrightness
-                            && mCurrentState != CURRENT_STATE_ERROR
+                                && mCurrentState != CURRENT_STATE_ERROR
                         ) {
                             onClickUiToggle(e);
                         }
@@ -71,37 +71,27 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer {
     @Override
     public int getLayoutId() {
         if (mIfCurrentIsFullscreen) {
-            return R.layout.sample_video_land;
+            return R.layout.layout_video_land;
         }
-        return R.layout.sample_video_normal;
+        return R.layout.layout_video_normal;
     }
 
-    @Override
-    protected void updateStartImage() {
-        if (mIfCurrentIsFullscreen) {
-            if (mStartButton instanceof ImageView) {
-                ImageView imageView = (ImageView) mStartButton;
-                if (mCurrentState == CURRENT_STATE_PLAYING) {
-                    imageView.setImageResource(com.shuyu.gsyvideoplayer.R.drawable.video_click_pause_selector);
-                } else if (mCurrentState == CURRENT_STATE_ERROR) {
-                    imageView.setImageResource(com.shuyu.gsyvideoplayer.R.drawable.video_click_play_selector);
-                } else {
-                    imageView.setImageResource(com.shuyu.gsyvideoplayer.R.drawable.video_click_play_selector);
-                }
-            }
-        } else {
-            super.updateStartImage();
-        }
-    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (isLinkScroll && !isIfCurrentIsFullscreen()) {
+        if (!isIfCurrentIsFullscreen()) {
             getParent().requestDisallowInterceptTouchEvent(true);
         }
         return super.onInterceptTouchEvent(ev);
     }
 
+    boolean getMHadPlay() {
+        return mHadPlay;
+    }
+
+    void clickStartButton(){
+        mStartButton.performClick();
+    }
 
     @Override
     protected void resolveNormalVideoShow(View oldF, ViewGroup vp, GSYVideoPlayer gsyVideoPlayer) {
@@ -112,25 +102,29 @@ public class LandLayoutVideo extends StandardGSYVideoPlayer {
         super.resolveNormalVideoShow(oldF, vp, gsyVideoPlayer);
     }
 
-    public void setLinkScroll(boolean linkScroll) {
-        isLinkScroll = linkScroll;
-    }
-
-
     /**
      * 定义结束后的显示
      */
     @Override
     protected void changeUiToCompleteClear() {
         super.changeUiToCompleteClear();
-        setTextAndProgress(0, true);
-        //changeUiToNormal();
+        setViewShowState(mBottomContainer, INVISIBLE);
     }
 
     @Override
     protected void changeUiToCompleteShow() {
         super.changeUiToCompleteShow();
-        setTextAndProgress(0, true);
-        //changeUiToNormal();
+        setViewShowState(mBottomContainer, INVISIBLE);
     }
+
+    @Override
+    public int getEnlargeImageRes() {
+        return com.czl.lib_base.R.mipmap.custom_enlarge;
+    }
+
+    @Override
+    public int getShrinkImageRes() {
+        return com.czl.lib_base.R.mipmap.custom_shrink;
+    }
+
 }

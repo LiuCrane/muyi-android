@@ -60,7 +60,7 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
             ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
                 override fun onLocationResult(location: Location?) {
                     LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
-                    loginByPwd(location?.latitude, location?.longitude)
+//                    loginByPwd(location?.latitude, location?.longitude)
                 }
 
                 override fun onLocationChange(location: Location?) {

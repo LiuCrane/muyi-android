@@ -2,12 +2,15 @@ package com.muyi.main.detail.ui
 
 import android.content.res.Configuration
 import android.widget.ImageView
+import android.widget.SeekBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ResourceUtils
 import com.czl.lib_base.base.BaseActivity
 import com.czl.lib_base.config.AppConstants
+import com.czl.lib_base.data.bean.MediaBean
 import com.czl.lib_base.extension.loadUrl
 import com.muyi.main.BR
 import com.muyi.main.R
@@ -17,9 +20,11 @@ import com.muyi.main.detail.viewmodel.DetailViewModel
 import com.shuyu.gsyvideoplayer.GSYVideoManager
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack
-import com.shuyu.gsyvideoplayer.listener.GSYVideoProgressListener
-import com.shuyu.gsyvideoplayer.utils.Debuger
+import com.shuyu.gsyvideoplayer.model.VideoOptionModel
+import com.shuyu.gsyvideoplayer.utils.CommonUtil
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
+import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
+import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 /**
  * Created by hq on 2022/7/30.
@@ -34,8 +39,13 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
 
     lateinit var mAdapter: DetailMediaAdapter
     private var orientationUtils: OrientationUtils? = null
+    private var gsyVideoOption: GSYVideoOptionBuilder = GSYVideoOptionBuilder()
     private var isPlay = false
     private var isPause = false
+
+    //seek touch
+    private var mHadSeekTouch = false
+    private var currentMediaIndex = 0
 
     override fun initContentView(): Int {
         return R.layout.activity_detail
@@ -78,97 +88,240 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = mAdapter
         }
+        mAdapter.setOnItemClickListener { _, _, position ->
+            if (currentMediaIndex != position) {
+                currentMediaIndex = position
+                chooseToPlay(currentMediaIndex, true)
+            }
+        }
     }
 
     override fun initViewObservable() {
         viewModel.uc.getMediaListCompleteEvent.observe(this) {
             binding.smartCommon.finishRefresh(500)
             if (it.list.isNullOrEmpty()) {
-
+                //
             } else {
-                binding.data = it.list?.get(0)
                 mAdapter.setDiffNewData(it.list)
-
-                //增加封面
-                val imageView = ImageView(this)
-                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                imageView.loadUrl(
-                    it.list?.get(0)!!.img,
-                    ResourceUtils.getDrawable(com.czl.lib_base.R.drawable.ic_video_holder)
-                )
-                val gsyVideoOption = GSYVideoOptionBuilder()
-                gsyVideoOption.setThumbImageView(imageView)
-                    .setIsTouchWiget(true)
-                    .setRotateViewAuto(false)
-                    .setLockLand(false)
-                    .setAutoFullWithSize(true)
-                    .setShowFullAnimation(false)
-                    .setNeedLockFull(true)
-                    .setUrl(it.list?.get(0)!!.url)
-                    .setCacheWithPlay(false)
-                    .setVideoTitle(it.list?.get(0)!!.title)
-                    .setVideoAllCallBack(object : GSYSampleCallBack() {
-                        override fun onPrepared(url: String, vararg objects: Any) {
-                            super.onPrepared(url, *objects)
-                            //开始播放了才能旋转和全屏
-//                            orientationUtils?.isEnable = true
-                            isPlay = true
-                        }
-
-                        override fun onQuitFullscreen(url: String, vararg objects: Any) {
-                            super.onQuitFullscreen(url, *objects)
-                            Debuger.printfError("***** onQuitFullscreen **** " + objects[0]) //title
-                            Debuger.printfError("***** onQuitFullscreen **** " + objects[1]) //当前非全屏player
-                            orientationUtils?.backToProtVideo()
-                        }
-                    }).setLockClickListener { _, lock ->
-                        orientationUtils?.isEnable = !lock
-                    }.build(binding.detailPlayer)
-
+                currentMediaIndex = 0
+                chooseToPlay(currentMediaIndex, false)
             }
         }
     }
 
     private fun initVideoPlayer() {
+
         //外部辅助的旋转，帮助全屏
         orientationUtils = OrientationUtils(this, binding.detailPlayer)
         //初始化不打开外部的旋转
         orientationUtils?.isEnable = false
 
+        //增加封面
+        val imageView = ImageView(this)
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imageView.setImageResource(com.czl.lib_base.R.drawable.ic_video_holder)
+        gsyVideoOption.setThumbImageView(imageView)
+            .setIsTouchWiget(true)
+            .setRotateViewAuto(false)
+            .setRotateWithSystem(false)
+            .setLockLand(true)
+            .setAutoFullWithSize(true)
+            .setShowFullAnimation(false)
+            .setNeedLockFull(true)
+            .setCacheWithPlay(false)
+            .setStartAfterPrepared(true)
+            .setVideoAllCallBack(object : GSYSampleCallBack() {
+                override fun onPrepared(url: String, vararg objects: Any) {
+                    super.onPrepared(url, *objects)
+                    LogUtils.e("onPrepared")
+                    //开始播放了才能旋转和全屏
+                    orientationUtils!!.isEnable = binding.detailPlayer.isRotateWithSystem
+                    isPlay = true
+                    binding.ivPause.setImageResource(R.drawable.ic_pause)
+                }
+
+                override fun onQuitFullscreen(url: String, vararg objects: Any) {
+                    super.onQuitFullscreen(url, *objects)
+                    orientationUtils?.backToProtVideo()
+                }
+
+                //点击了开始按键播放，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onClickStartIcon(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onClickStartIcon")
+                    binding.ivPause.setImageResource(R.drawable.ic_pause)
+                }
+
+                //点击了错误状态下的开始按键，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onClickStartError(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onClickStartError")
+                    binding.ivPause.setImageResource(R.drawable.ic_pause)
+                }
+
+                //点击了播放状态下的开始按键--->停止，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onClickStop(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onClickStop")
+                    binding.ivPause.setImageResource(R.drawable.ic_play)
+                }
+
+                //点击了全屏播放状态下的开始按键--->停止，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onClickStopFullscreen(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onClickStopFullscreen")
+                    binding.ivPause.setImageResource(R.drawable.ic_play)
+                }
+
+                //点击了暂停状态下的开始按键--->播放，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onClickResume(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onClickResume")
+                    binding.ivPause.setImageResource(R.drawable.ic_pause)
+                }
+
+                //点击了全屏暂停状态下的开始按键--->播放，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onClickResumeFullscreen(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onClickResumeFullscreen")
+                    binding.ivPause.setImageResource(R.drawable.ic_pause)
+                }
+
+                //播放完了，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onAutoComplete(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onAutoComplete")
+                    resetControlView()
+                }
+
+                //非正常播放完了，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onComplete(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onComplete")
+                    resetControlView()
+                }
+
+                //播放错误，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
+                override fun onPlayError(url: String?, vararg objects: Any?) {
+                    LogUtils.e("onPlayError")
+                    resetControlView()
+                }
+
+            }).setLockClickListener { _, lock ->
+                orientationUtils?.isEnable = !lock
+            }
+            .build(binding.detailPlayer)
+
+        val videoOptionModel =
+            VideoOptionModel(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "enable-accurate-seek", 1)
+        val list: MutableList<VideoOptionModel> = ArrayList()
+        list.add(videoOptionModel)
+        GSYVideoManager.instance().optionModelList = list
 
         binding.detailPlayer.fullscreenButton.setOnClickListener { //直接横屏
             orientationUtils?.resolveByClick()
             //第一个true是否需要隐藏actionBar，第二个true是否需要隐藏statusBar
             binding.detailPlayer.startWindowFullscreen(this, true, true)
         }
-        binding.detailPlayer.setGSYVideoProgressListener(object : GSYVideoProgressListener {
-            private var preSecond: Long = 0
-            override fun onProgress(
-                progress: Long,
-                secProgress: Long,
-                currentPosition: Long,
-                duration: Long
-            ) {
-                //在5秒的时候弹出中间广告
-                val currentSecond = currentPosition / 1000
-                if (currentSecond == 5L && currentSecond != preSecond) {
-                    binding.detailPlayer.currentPlayer.onVideoPause()
-
-                }
-                preSecond = currentSecond
-            }
-        })
-
-        try {
-//            val time: Long = seekBar.getProgress() * getDuration() / 100
-//            binding.detailPlayer.seekTo(time)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        binding.detailPlayer.setGSYVideoProgressListener { progress, secProgress, currentPosition, duration ->
+            if (currentPosition > 0)
+                binding.tvTime.text = CommonUtil.stringForTime(currentPosition)
+            binding.tvDuration.text = CommonUtil.stringForTime(duration)
+            if (progress > 0) binding.sbProgress.progress = progress.toInt()
         }
-
+        resetControlView()
+        handleForwardAndBackward()
+        binding.ivPause.setOnClickListener {
+            binding.detailPlayer.clickStartButton()
+        }
+//        binding.sbProgress.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+//            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+//                showDragProgressTextOnSeekBar(fromUser, progress)
+//            }
+//
+//            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+//                mHadSeekTouch = true
+//            }
+//
+//            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+//                if (binding.detailPlayer.mHadPlay)
+//                    try {
+//                        val time: Long = seekBar!!.progress * binding.detailPlayer.duration / 100
+//                        binding.detailPlayer.seekTo(time)
+//                    } catch (e: java.lang.Exception) {
+//                        e.printStackTrace()
+//                    }
+//
+//                mHadSeekTouch = false
+//            }
+//        })
 
     }
 
+    private fun resetControlView() {
+        binding.sbProgress.progress = 0
+        binding.tvTime.text = CommonUtil.stringForTime(0)
+        binding.ivPause.setImageResource(R.drawable.ic_play)
+    }
+
+
+    private fun play(mediaBean: MediaBean, isAutoPlay: Boolean) {
+        binding.sbProgress.progress = 0
+        binding.tvTime.text = CommonUtil.stringForTime(0)
+
+        //增加封面
+        val imageView = ImageView(this)
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imageView.loadUrl(
+            mediaBean.img,
+            ResourceUtils.getDrawable(com.czl.lib_base.R.drawable.ic_video_holder)
+        )
+        gsyVideoOption
+            .setThumbImageView(imageView)
+            .setUrl(mediaBean.url)
+            .setVideoTitle(mediaBean.title)
+            .build(binding.detailPlayer)
+
+        if (isAutoPlay)
+            binding.detailPlayer.clickStartButton()
+    }
+
+    private fun chooseToPlay(position: Int, isAutoPlay: Boolean) {
+        binding.data = mAdapter.data[position]
+        play(mAdapter.data[position], isAutoPlay)
+        mAdapter.setPlayPosition(position)
+        handleForwardAndBackward()
+    }
+
+    private fun handleForwardAndBackward() {
+        if (currentMediaIndex == 0) {
+            binding.ivBackward.setImageResource(R.drawable.ic_play_backward_unclicked)
+            binding.ivBackward.setOnClickListener(null)
+        } else {
+            binding.ivBackward.setImageResource(R.drawable.ic_play_backward)
+            binding.ivBackward.setOnClickListener {
+                currentMediaIndex--
+                chooseToPlay(currentMediaIndex, true)
+            }
+        }
+        if (currentMediaIndex == mAdapter.data.size - 1) {
+            binding.ivForward.setImageResource(R.drawable.ic_play_forward_unclicked)
+            binding.ivForward.setOnClickListener(null)
+        } else {
+            binding.ivForward.setImageResource(R.drawable.ic_play_forward)
+            binding.ivForward.setOnClickListener {
+                currentMediaIndex++
+                chooseToPlay(currentMediaIndex, true)
+            }
+        }
+
+    }
+
+
+    private fun getCurPlayer(): GSYVideoPlayer? {
+        return if (binding.detailPlayer.fullWindowPlayer != null) {
+            binding.detailPlayer.fullWindowPlayer
+        } else binding.detailPlayer
+    }
+
+    private fun showDragProgressTextOnSeekBar(fromUser: Boolean, progress: Int) {
+        if (fromUser) {
+            val duration: Long = binding.detailPlayer.duration
+            binding.tvTime.text = CommonUtil.stringForTime(progress * duration / 100)
+        }
+    }
 
     override fun onBackPressedSupport() {
         if (orientationUtils != null) {
@@ -181,13 +334,13 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
     }
 
     override fun onPause() {
-        binding.detailPlayer.currentPlayer.onVideoPause()
+        getCurPlayer()?.onVideoPause()
         super.onPause()
         isPause = true
     }
 
     override fun onResume() {
-        binding.detailPlayer.currentPlayer.onVideoResume(false)
+        getCurPlayer()?.onVideoResume(false)
         super.onResume()
         isPause = false
     }
@@ -195,22 +348,23 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
     override fun onDestroy() {
         super.onDestroy()
         if (isPlay) {
-            binding.detailPlayer.currentPlayer.release()
+            getCurPlayer()?.release()
         }
         orientationUtils?.releaseListener()
     }
 
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         //如果旋转了就全屏
-//        if (isPlay && !isPause) {
-//            binding.detailPlayer.onConfigurationChanged(
-//                this,
-//                newConfig,
-//                orientationUtils,
-//                true,
-//                true
-//            )
-//        }
+        if (isPlay && !isPause) {
+            binding.detailPlayer.onConfigurationChanged(
+                this,
+                newConfig,
+                orientationUtils,
+                true,
+                true
+            )
+        }
     }
 }

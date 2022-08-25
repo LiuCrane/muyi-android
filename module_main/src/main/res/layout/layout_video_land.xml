@@ -8,9 +8,7 @@
         android:id="@+id/surface_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
-
-    </FrameLayout>
+        android:gravity="center"/>
 
     <RelativeLayout
         android:id="@+id/thumb"
@@ -84,7 +82,7 @@
         android:max="100"
         android:progressDrawable="@drawable/video_progress" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/back_tiny"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -108,8 +106,7 @@
         android:layout_centerVertical="true"
         android:layout_gravity="center_vertical" />
 
-
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/small_close"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -157,6 +154,7 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/preview_layout"

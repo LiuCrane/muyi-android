@@ -35,9 +35,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
-                    app:cardCornerRadius="10dp">
+                    app:cardCornerRadius="30dp">
 
-                    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+                    <com.muyi.main.detail.ui.LandLayoutVideo
                         android:id="@+id/detail_player"
                         android:layout_width="match_parent"
                         android:layout_height="180dp" />
@@ -48,27 +48,47 @@
                     style="@style/TextViewBigStyle"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="目益视力"
+                    android:text="@{data.title}"
                     android:textColor="@color/mColorPrimary" />
 
-                <androidx.appcompat.widget.AppCompatSeekBar
+<!--                <androidx.appcompat.widget.AppCompatSeekBar-->
+<!--                    android:id="@+id/sb_progress"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginHorizontal="48dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:background="@null"-->
+<!--                    android:max="100"-->
+<!--                    android:maxHeight="6dp"-->
+<!--                    android:minHeight="6dp"-->
+<!--                    android:splitTrack="false"-->
+<!--                    android:progressDrawable="@drawable/player_seek_progress"-->
+<!--                    android:thumb="@drawable/player_seek_thumb"/>-->
+                <ProgressBar
                     android:id="@+id/sb_progress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="50dp"
-                    android:layout_marginTop="20dp" />
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_marginHorizontal="48dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@null"
+                    android:max="100"
+                    android:maxHeight="6dp"
+                    android:minHeight="6dp"
+                    android:progressDrawable="@drawable/player_seek_progress" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="6dp"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/tv_time"
                         style="@style/TextViewSmallStyle"
                         android:layout_gravity="center_horizontal"
-                        android:text="00:22"
+                        android:text="00:00"
                         android:textColor="@color/mColorPrimary" />
 
                     <TextView
@@ -81,7 +101,7 @@
                         android:id="@+id/tv_duration"
                         style="@style/TextViewSmallStyle"
                         android:layout_gravity="center_horizontal"
-                        android:text="04:22"
+                        android:text="00:00"
                         android:textColor="@color/mColorPrimary" />
 
 
@@ -90,34 +110,40 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp">
+                    android:layout_marginTop="40dp">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_backward"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="80dp"
+                        android:layout_marginStart="75dp"
+                        android:padding="5dp"
                         android:src="@drawable/ic_play_backward" />
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_forward"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="80dp"
+                        android:layout_marginEnd="75dp"
+                        android:padding="5dp"
                         android:src="@drawable/ic_play_forward" />
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_pause"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/ic_play_pause" />
+                        android:padding="5dp"
+                        android:src="@drawable/ic_play" />
 
                 </RelativeLayout>
 
                 <TextView
                     style="@style/TextViewBigStyle"
                     android:layout_marginStart="40dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="50dp"
                     android:text="播放列表" />
 
                 <androidx.recyclerview.widget.RecyclerView
