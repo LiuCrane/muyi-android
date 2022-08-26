@@ -27,6 +27,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     var userIdCard = ObservableField("")
     var storeName = ObservableField("")
     var storeLocation = ObservableField("")
+    var hasGetLocation = false
 
     val onUserNameChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         userName.set(it)
@@ -44,6 +45,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
         storeLocation.set(it)
     })
     var btnRegisterClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        hasGetLocation = false
         getLocation()
     })
 
@@ -58,7 +60,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
             ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
                 override fun onLocationResult(location: Location?) {
                     LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
-                    register(location?.latitude, location?.longitude)
+//                    register(location?.latitude, location?.longitude)
                 }
 
                 override fun onLocationChange(location: Location?) {
@@ -69,11 +71,16 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     }
 
     private fun register(latitude: Double?, longitude: Double?) {
+        if (hasGetLocation)
+            return
+
+        hasGetLocation = true
+        GPSUtils.getInstance(Utils.getApp())?.removeListener()
+
         if (latitude == null || longitude == null) {
-            showNormalToast("位置信息未获取，请打开手机定位服务")
+            showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
             return
         }
-        GPSUtils.getInstance(Utils.getApp())?.removeListener()
 
         if (userName.get().isNullOrBlank() || userPhone.get().isNullOrBlank() ||
             userIdCard.get().isNullOrBlank() || storeName.get().isNullOrBlank() ||
@@ -95,22 +102,17 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
                 longitude.toString()
             ).compose(RxThreadHelper.rxSchedulerHelper(this@RegisterViewModel))
                 .doOnSubscribe { showLoading() }
-                .subscribe(object : ApiSubscriberHelper<BaseBean<UserBean>>() {
-                    override fun onResult(result: BaseBean<UserBean>) {
+                .subscribe(object : ApiSubscriberHelper<BaseBean<*>>() {
+                    override fun onResult(result: BaseBean<*>) {
                         dismissLoading()
                         if (result.code == 200) {
-//                            result.data?.let {
-//                                saveUserData(it)
-//                            }
-//                            RouteCenter.navigate(AppConstants.Router.Main.A_MAIN)
-//                            AppManager.instance.finishAllActivity()
                             uc.successLiveEvent.call()
                         }
                     }
 
                     override fun onFailed(msg: String?) {
                         dismissLoading()
-                        showNormalToast(msg)
+                        showErrorToast(msg)
                     }
                 })
         }

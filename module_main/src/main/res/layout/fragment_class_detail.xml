@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.muyi.main.classes.viewmodel.ClassDetailViewModel" />
+
+        <variable
+            name="data"
+            type="com.czl.lib_base.data.bean.ClassesBean" />
+    </data>
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_common"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        binding:onRefreshCommand="@{viewModel.onRefreshCommand}">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="30dp"
+                    android:scaleType="centerCrop"
+                    binding:url="@{data.teacher}"
+                    binding:placeholderRes="@{@drawable/ic_avatar_holder}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_oval="true" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/TextViewStyle"
+                    android:layout_marginTop="20dp"
+                    android:text="@{data.teacher}"
+                    android:textColor="@color/theme_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_class"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name">
+
+                    <TextView
+                        style="@style/TextViewSmallStyle"
+                        android:text="班级"
+                        android:textColor="#663461FD" />
+
+                    <TextView
+                        android:id="@+id/tv_class_name"
+                        style="@style/TextViewStyle"
+                        android:layout_alignParentBottom="true"
+                        android:text="@{data.name}"
+                        android:textColor="@color/theme_blue" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_above="@id/tv_class_name"
+                        android:text="@{data.store_name}"
+                        android:visibility="gone"
+                        android:textColor="@color/theme_blue" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_store"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/rl_class">
+
+                    <TextView
+                        style="@style/TextViewSmallStyle"
+                        android:text="门店"
+                        android:textColor="#663461FD" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_alignParentBottom="true"
+                        android:text="@{data.store_name}"
+                        android:textColor="@color/theme_blue" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_stage"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rl_class">
+
+                    <TextView
+                        style="@style/TextViewSmallStyle"
+                        android:text="阶段"
+                        android:textColor="#663461FD" />
+
+                    <TextView
+                        android:id="@+id/tv_current"
+                        style="@style/TextViewStyle"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/theme_blue" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_num"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/rl_stage">
+
+                    <TextView
+                        style="@style/TextViewSmallStyle"
+                        android:text="学生数"
+                        android:textColor="#663461FD" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_alignParentBottom="true"
+                        android:text="@{data.student_num}"
+                        android:textColor="@color/theme_blue" />
+                </RelativeLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+</layout>

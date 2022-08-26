@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -23,13 +24,15 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_gray_30"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        binding:onRvItemCommand="@{adapter.onItemClickCommand}"
+        binding:rvItemBean="@{data}">
 
         <TextView
             android:id="@+id/tv_title"
             style="@style/TextViewSmallStyle"
             android:layout_marginTop="14dp"
-            android:text="@{data.currentCourse}" />
+            android:text="@{data.class_name}" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/iv_avatar"
@@ -37,15 +40,15 @@
             android:layout_height="50dp"
             android:layout_marginTop="14dp"
             android:scaleType="centerCrop"
-            app:riv_border_color="@color/theme_blue_20"
-            app:riv_border_width="1dp"
+            binding:url="@{data.avatar_url}"
+            binding:placeholderRes="@{@drawable/ic_avatar_holder}"
             app:riv_oval="true" />
 
         <TextView
             android:id="@+id/tv_name"
             style="@style/TextViewStyle"
             android:layout_marginTop="10dp"
-            android:text="@{data.parent_name}"
+            android:text="@{data.name}"
             android:textColor="@color/theme_blue" />
 
         <TextView
@@ -61,24 +64,22 @@
             android:layout_marginTop="14dp">
 
             <TextView
-                android:id="@+id/tv_left"
+                android:id="@+id/tv_left_vision"
                 style="@style/TextViewSmallStyle"
-                android:layout_alignParentStart="true"
-                android:text="L 4.0" />
+                android:layout_alignParentStart="true" />
 
             <TextView
-                android:id="@+id/tv_right"
+                android:id="@+id/tv_right_vision"
                 style="@style/TextViewSmallStyle"
                 android:layout_alignParentEnd="true"
-                android:layout_marginLeft="10dp"
-                android:text="R 4.0" />
+                android:layout_marginStart="10dp" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_improve"
             style="@style/TextViewStyle"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="38dp"
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:textColor="@color/white" />

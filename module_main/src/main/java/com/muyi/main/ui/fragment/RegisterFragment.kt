@@ -31,9 +31,7 @@ class RegisterFragment : BaseFragment<FragmentLoginBinding, RegisterViewModel>()
             DialogHelper.showNoCancelDialog(requireContext(), "注册成功", "您的注册信息正在审核中，请稍后在登录页登录。") {
                 this@RegisterFragment.back()
             }
-
         }
-
     }
 
     override fun initData() {

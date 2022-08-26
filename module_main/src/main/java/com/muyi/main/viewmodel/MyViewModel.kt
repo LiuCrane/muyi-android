@@ -28,18 +28,26 @@ class MyViewModel(application: MyApplication, model: DataRepository) :
         getStoreInfo()
     })
 
+    var allianceClick: BindingCommand<Any> = BindingCommand(BindingAction {
+    })
+
+    var progressClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        startContainerActivity(AppConstants.Router.My.F_PROGRESS_TRACK)
+    })
+
     var registrationClick: BindingCommand<Any> = BindingCommand(BindingAction {
         startContainerActivity(AppConstants.Router.My.F_REGISTRATION)
     })
 
+    var createClassClick: BindingCommand<Any> = BindingCommand(BindingAction {
+        startContainerActivity(AppConstants.Router.My.F_CREATE_CLASS)
+    })
 
     fun getStoreInfo() {
         model.apply {
             getStoreInfo().compose(RxThreadHelper.rxSchedulerHelper(this@MyViewModel))
-                .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<StoreBean>>() {
                     override fun onResult(result: BaseBean<StoreBean>) {
-                        dismissLoading()
                         if (result.code == 200) {
                             result.data?.let {
                                 uc.getStoreInfoCompleteEvent.value = it
@@ -48,8 +56,7 @@ class MyViewModel(application: MyApplication, model: DataRepository) :
                     }
 
                     override fun onFailed(msg: String?) {
-                        dismissLoading()
-                        showNormalToast(msg)
+                        showErrorToast(msg)
                     }
                 })
         }

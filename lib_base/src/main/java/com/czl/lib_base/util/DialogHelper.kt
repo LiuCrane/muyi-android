@@ -12,6 +12,11 @@ import com.lxj.xpopup.interfaces.OnConfirmListener
  * @Description
  */
 object DialogHelper {
+
+    fun showLoadingDialog(context: Context, title: String? = "加载中"): BasePopupView {
+        return XPopup.Builder(context).asLoading(title, R.layout.common_loading_dialog).show()
+    }
+
     fun showBaseDialog(
         context: Context,
         title: String,

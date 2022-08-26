@@ -1,6 +1,5 @@
 package com.muyi.main.progress.ui
 
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -22,7 +21,7 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
 
     @JvmField
     @Autowired
-    var keyString: String? = null
+    var rehabType: String? = null
 
     private var firstLoad = true
     lateinit var mAdapter: StudentTrackAdapter
@@ -40,7 +39,7 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
     }
 
     override fun initData() {
-        viewModel.rehabType = keyString
+        viewModel.rehabType = rehabType
         initAdapter()
     }
 
@@ -57,61 +56,21 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
         // 接收加载完成的数据
         viewModel.uc.refreshCompleteEvent.observe(this, Observer {
 
-            if (it.isNullOrEmpty()) {
-                binding.smartCommon.finishRefresh(500)
-                binding.smartCommon.finishLoadMore(false)
-                val list = mutableListOf<StudentBean>()
-//                ENDED, IN_PROGRESS, NOT_STARTED, REHAB_TRAINING
-                list.add(
-                    StudentBean(
-                        "11",
-                        "https://lmg.jj20.com/up/allimg/tp03/1Z922164FBG0-0-lp.jpg",
-                        "20220801第一期",
-                        "测试姓名",
-                        "13651743096",
-                        "ENDED",
-                        true,
-                        null
-                    )
-                )
-                list.add(
-                    StudentBean(
-                        "12",
-                        "",
-                        "20220801第二期",
-                        "测试姓名",
-                        "13651743096",
-                        "ENDED",
-                        false,
-                        null
-                    )
-                )
-                list.add(
-                    StudentBean(
-                        "13",
-                        "",
-                        "20220801第二期",
-                        "测试姓名",
-                        "13651743096",
-                        "ENDED",
-                        false,
-                        null
-                    )
-                )
+            binding.smartCommon.finishRefresh(500)
 
-                mAdapter.setNewInstance(list)
+            if (it.isNullOrEmpty()) {
+                binding.smartCommon.finishLoadMore(false)
                 return@Observer
             }
             // 成功加载数据后关闭懒加载开关
             firstLoad = false
-            binding.smartCommon.finishRefresh(500)
 
-//            if (it.over) {
-//                binding.smartCommon.finishLoadMoreWithNoMoreData()
-//            } else {
-            binding.smartCommon.finishLoadMore(true)
-//            }
-            if (viewModel.currentPage > 1) {
+            if (it.size < AppConstants.Common.PAGE_SIZE) {
+                binding.smartCommon.finishLoadMoreWithNoMoreData()
+            } else {
+                binding.smartCommon.finishLoadMore(true)
+            }
+            if (viewModel.currentPage > 2) {
                 mAdapter.addData(it)
                 return@Observer
             }
@@ -130,6 +89,11 @@ class StudentTrackFragment : BaseFragment<FragmentStudentTrackBinding, StudentTr
     }
 
     private fun refreshData() {
+        binding.smartCommon.autoRefresh()
+    }
+
+    override fun reload() {
+        super.reload()
         binding.smartCommon.autoRefresh()
     }
 }

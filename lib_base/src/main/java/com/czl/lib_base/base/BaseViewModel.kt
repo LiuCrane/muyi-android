@@ -9,8 +9,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.czl.lib_base.binding.command.BindingAction
 import com.czl.lib_base.binding.command.BindingCommand
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.event.callback.UIChangeLiveData
 import com.czl.lib_base.util.ToastHelper
+import com.kingja.loadsir.core.LoadService
 import com.trello.rxlifecycle3.LifecycleProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -24,7 +26,7 @@ import java.lang.ref.WeakReference
  */
 open class BaseViewModel<M : BaseModel>(application: MyApplication, val model: M) :
     AndroidViewModel(application), IBaseViewModel, Consumer<Disposable?> {
-
+    lateinit var loadService: LoadService<BaseBean<ListDataBean<*>>?>
     val uC: UIChangeLiveData = UIChangeLiveData()
 
     // 标题栏标题
@@ -121,6 +123,7 @@ open class BaseViewModel<M : BaseModel>(application: MyApplication, val model: M
         if (requestCode != null) params[ParameterField.REQUEST_CODE] = requestCode
         uC.startContainerActivityEvent.postValue(params)
     }
+
 
     /**
      * 关闭界面

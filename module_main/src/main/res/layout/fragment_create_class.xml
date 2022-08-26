@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.muyi.main.my.viewmodel.CreateClassViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".mvvm.ui.activity.LoginActivity">
+
+        <TextView
+            style="@style/TextViewTitleStyle"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:text="创建班级" />
+
+        <TextView
+            style="@style/TextViewLabelStyle"
+            android:layout_marginTop="40dp"
+            android:text="班级名称" />
+
+        <com.czl.lib_base.widget.EditTextWithDel
+            style="@style/EditTextStyle"
+            android:layout_marginTop="14dp"
+            android:hint="输入班级名称"
+            android:inputType="text"
+            binding:textChanged="@{viewModel.onNameChangeCommand}" />
+
+        <TextView
+            style="@style/TextViewLabelStyle"
+            android:layout_marginTop="40dp"
+            android:text="教师" />
+
+        <com.czl.lib_base.widget.EditTextWithDel
+            style="@style/EditTextStyle"
+            android:layout_marginTop="14dp"
+            android:hint="输入教师姓名"
+            android:inputType="text"
+            binding:textChanged="@{viewModel.onTeacherChangeCommand}" />
+
+        <Button
+            android:id="@+id/btn_login"
+            style="@style/ButtonBlueStyle"
+            android:layout_marginTop="70dp"
+            android:text="确定"
+            binding:onClickCommand="@{viewModel.btnCreateClick}" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

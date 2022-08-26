@@ -123,6 +123,8 @@ dependencies {
     api rootProject.ext.dependencies["refresh-footer-classic"]
     api rootProject.ext.dependencies["refresh"]
     api rootProject.ext.dependencies["adapter-helper"]
+    api rootProject.ext.dependencies["loadsir"]
+
 
     //视频GSYVideoPlayer
     api rootProject.ext.dependencies["gsyVideoPlayer-java"]

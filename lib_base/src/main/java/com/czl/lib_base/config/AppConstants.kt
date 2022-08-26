@@ -6,11 +6,21 @@ package com.czl.lib_base.config
  * @Description 常量管理类
  */
 interface AppConstants {
-    object IntentKey{
-        const val KEY_STRING = "keyString"
-        const val REHAB_TYPE = "rehab_type"
+    object Common {
+        const val PAGE_SIZE = 100
 
     }
+
+    object BundleKey {
+        const val KEY_REHAB_TYPE = "rehabType"
+        const val KEY_ClASS_ID = "classId"
+        const val KEY_COURSE_ID = "courseId"
+        const val KEY_MEDIA_ID = "mediaId"
+        const val KEY_MEDIA_TYPE = "mediaType"
+
+
+    }
+
     object SpKey {
         const val USER_TOKEN: String = "user_token"
         const val USER_JSON_DATA: String = "user_json_data"
@@ -28,10 +38,11 @@ interface AppConstants {
             const val F_LEARN = "/main/LearnFragment"
             const val F_PROGRESS = "/main/ProgressFragment"
             const val F_MY = "/main/MyFragment"
-            const val A_DETAIL = "/main/DetailActivity"
-
         }
 
+        object Detail {
+            const val A_DETAIL = "/main/DetailActivity"
+        }
 
         object Login {
             const val F_LOGIN = "/login/LoginFragment"
@@ -43,13 +54,24 @@ interface AppConstants {
             const val F_VIDEO = "/learn/VideoFragment"
             const val F_CLASS = "/learn/ClassFragment"
         }
-        object Progress{
-            const val F_STUDENT_TRACK = "/progress/StudentTrackFragment"
 
+        object Progress {
+            const val F_STUDENT_TRACK = "/progress/StudentTrackFragment"
+            const val F_STUDENT_DETAIL = "/progress/StudentDetailFragment"
         }
 
         object My {
-            const val F_REGISTRATION= "/my/StudentRegisterFragment"
+            const val F_REGISTRATION = "/my/StudentRegisterFragment"
+            const val F_CREATE_CLASS = "/my/CreateClassFragment"
+            const val F_CHOOSE_CLASS = "/my/ChooseClassFragment"
+            const val F_PROGRESS_TRACK = "/my/ProgressTrackFragment"
+        }
+
+        object ClassManage {
+            const val F_CLASS_MANAGE = "/class/ClassManageFragment"
+            const val F_SIGN_IN = "/class/SignInFragment"
+            const val F_CLASS_DETAIL = "/class/ClassDetailFragment"
+            const val F_COURSE_LIST = "/class/CourseListFragment"
         }
     }
 }

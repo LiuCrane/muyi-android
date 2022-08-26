@@ -30,8 +30,10 @@ class DataRepository constructor(
         return mLocalDataSource.getUserToken()
     }
 
-    override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
-        return mHttpDataSource.userLogin(username, password)
+    override fun userLogin(
+        username: String, password: String, lat: String, lng: String
+    ): Observable<BaseBean<UserBean>> {
+        return mHttpDataSource.userLogin(username, password, lat, lng)
     }
 
     override fun userRegister(
@@ -43,7 +45,7 @@ class DataRepository constructor(
         store_address: String,
         store_lat: String,
         store_lng: String
-    ): Observable<BaseBean<UserBean>> {
+    ): Observable<BaseBean<String>> {
         return mHttpDataSource.userRegister(
             name,
             password,
@@ -60,46 +62,80 @@ class DataRepository constructor(
         name: String,
         parent_name: String,
         parent_phone: String,
-        diopter: String,
-        left_sight: String?,
-        right_sight: String?,
-        classId: String
-    ): Observable<BaseBean<UserBean>> {
+        left_diopter: String,
+        right_diopter: String,
+        left_vision: String,
+        right_vision: String,
+        class_id: String
+    ): Observable<BaseBean<String>> {
         return mHttpDataSource.studentRegister(
             name,
             parent_name,
             parent_phone,
-            diopter,
-            left_sight,
-            right_sight,
-            classId
+            left_diopter,
+            right_diopter,
+            left_vision,
+            right_vision,
+            class_id
         )
     }
 
     override fun getMediaList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         type: String,
-        course_id: Int,
-        public: Boolean
-    ): Observable<BaseBean<List<MediaBean>>> {
-        return mHttpDataSource.getMediaList(offset, limit, type, course_id, public)
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return mHttpDataSource.getMediaList(page_num, page_size, type)
     }
 
-    override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
-        return mHttpDataSource.getClassList(offset, limit)
+    override fun getClassList(
+        page_num: Int,
+        page_size: Int
+    ): Observable<BaseBean<ListDataBean<ClassesBean>>> {
+        return mHttpDataSource.getClassList(page_num, page_size)
+    }
+
+    override fun createClass(name: String, teacher: String): Observable<BaseBean<String>> {
+        return mHttpDataSource.createClass(name, teacher)
     }
 
     override fun getStudentList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         rehab: String?
-    ): Observable<BaseBean<List<StudentBean>>> {
-        return mHttpDataSource.getStudentList(offset, limit, rehab)
+    ): Observable<BaseBean<ListDataBean<StudentBean>>> {
+        return mHttpDataSource.getStudentList(page_num, page_size, rehab)
+    }
+
+    override fun getStudentDetail(student_id: String): Observable<BaseBean<StudentBean>> {
+        return mHttpDataSource.getStudentDetail(student_id)
     }
 
     override fun getStoreInfo(): Observable<BaseBean<StoreBean>> {
         return mHttpDataSource.getStoreInfo()
+    }
+
+    override fun getClassStudents(class_id: String): Observable<BaseBean<ListDataBean<StudentBean>>> {
+        return mHttpDataSource.getClassStudents(class_id)
+    }
+
+    override fun getClassDetail(class_id: String): Observable<BaseBean<ClassesBean>> {
+        return mHttpDataSource.getClassDetail(class_id)
+    }
+
+    override fun getClassCourses(class_id: String): Observable<BaseBean<ListDataBean<CourseBean>>> {
+        return mHttpDataSource.getClassCourses(class_id)
+    }
+
+    override fun applyCourse(class_id: String, course_id: String): Observable<BaseBean<String>> {
+        return mHttpDataSource.applyCourse(class_id, course_id)
+    }
+
+    override fun getCCourseMediaList(
+        class_id: String,
+        course_id: String
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return mHttpDataSource.getCCourseMediaList(class_id, course_id)
     }
 
 }

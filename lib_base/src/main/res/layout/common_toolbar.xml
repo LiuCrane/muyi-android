@@ -35,10 +35,10 @@
                 android:layout_height="?actionBarSize"
                 android:gravity="center"
                 android:onClick="@{(x)->viewModel.finish()}"
-                android:paddingStart="@dimen/dp_10"
-                android:paddingEnd="@dimen/dp_10"
+                android:paddingStart="@dimen/dp_20"
+                android:paddingEnd="@dimen/dp_20"
                 binding:isVisible="@{viewModel.btnBackVisibility}"
-                app:srcCompat="@drawable/ic_back_black_24dp"
+                app:srcCompat="@drawable/ic_back_white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 />
@@ -52,14 +52,13 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLength="10"
-                android:paddingStart="@dimen/dp_20"
-                android:paddingEnd="@dimen/dp_20"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
                 android:singleLine="true"
                 android:text="@{viewModel.tvTitle}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/mColorPrimary"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintStart_toEndOf="@id/iv_back"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="这是标题这是标题这是标题这是标题这是标题" />
 
@@ -97,6 +96,7 @@
                 android:id="@+id/toolbarShadow"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:visibility="gone"
                 android:background="@drawable/toolbar_shad"
                 app:layout_constraintTop_toBottomOf="@id/toolbar_contentTitle" />
         </androidx.constraintlayout.widget.ConstraintLayout>

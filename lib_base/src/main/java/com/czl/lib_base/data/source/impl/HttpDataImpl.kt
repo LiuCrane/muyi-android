@@ -9,10 +9,17 @@ import io.reactivex.Observable
 
 class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
 
-    override fun userLogin(username: String, password: String): Observable<BaseBean<UserBean>> {
+    override fun userLogin(
+        username: String,
+        password: String,
+        lat: String,
+        lng: String
+    ): Observable<BaseBean<UserBean>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("username", username)
         jsonObject.addProperty("password", password)
+        jsonObject.addProperty("lat", lat)
+        jsonObject.addProperty("lng", lng)
         return apiService.login(jsonObject)
     }
 
@@ -25,7 +32,7 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         store_address: String,
         store_lat: String,
         store_lng: String
-    ): Observable<BaseBean<UserBean>> {
+    ): Observable<BaseBean<String>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("name", name)
         jsonObject.addProperty("password", password)
@@ -42,46 +49,85 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         name: String,
         parent_name: String,
         parent_phone: String,
-        diopter: String,
-        left_sight: String?,
-        right_sight: String?,
-        classId: String
-    ): Observable<BaseBean<UserBean>> {
+        left_diopter: String,
+        right_diopter: String,
+        left_vision: String,
+        right_vision: String,
+        class_id: String
+    ): Observable<BaseBean<String>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("name", name)
         jsonObject.addProperty("parent_name", parent_name)
         jsonObject.addProperty("parent_phone", parent_phone)
-        jsonObject.addProperty("diopter", diopter)
-//        jsonObject.addProperty("left_sight", left_sight)
-//        jsonObject.addProperty("right_sight", right_sight)
-        jsonObject.addProperty("classId", classId)
+        jsonObject.addProperty("left_diopter", left_diopter)
+        jsonObject.addProperty("right_diopter", right_diopter)
+        jsonObject.addProperty("left_vision", left_vision)
+        jsonObject.addProperty("right_vision", right_vision)
+        jsonObject.addProperty("class_id", class_id)
         return apiService.studentRegister(jsonObject)
     }
 
+
     override fun getMediaList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         type: String,
-        course_id: Int,
-        public: Boolean
-    ): Observable<BaseBean<List<MediaBean>>> {
-        return apiService.appMedia(offset, limit, type, course_id, public)
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return apiService.appMedia(page_num, page_size, type)
     }
 
-    override fun getClassList(offset: Int, limit: Int): Observable<BaseBean<List<ClassesBean>>> {
-        return apiService.appClasses(offset, limit)
+    override fun getClassList(
+        page_num: Int,
+        page_size: Int
+    ): Observable<BaseBean<ListDataBean<ClassesBean>>> {
+        return apiService.appClasses(page_num, page_size)
+    }
+
+    override fun createClass(name: String, teacher: String): Observable<BaseBean<String>> {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("name", name)
+        jsonObject.addProperty("teacher", teacher)
+        return apiService.createAppClass(jsonObject)
     }
 
     override fun getStudentList(
-        offset: Int,
-        limit: Int,
+        page_num: Int,
+        page_size: Int,
         rehab: String?
-    ): Observable<BaseBean<List<StudentBean>>> {
-        return apiService.appStudents(offset, limit, rehab)
+    ): Observable<BaseBean<ListDataBean<StudentBean>>> {
+        return apiService.appStudents(page_num, page_size, rehab)
+    }
+
+    override fun getStudentDetail(student_id: String): Observable<BaseBean<StudentBean>> {
+        return apiService.getStudentDetail(student_id)
     }
 
     override fun getStoreInfo(): Observable<BaseBean<StoreBean>> {
         return apiService.appStore()
+    }
+
+    override fun getClassStudents(class_id: String): Observable<BaseBean<ListDataBean<StudentBean>>> {
+        return apiService.getClassStudents(class_id)
+
+    }
+
+    override fun getClassDetail(class_id: String): Observable<BaseBean<ClassesBean>> {
+        return apiService.getClassDetail(class_id)
+    }
+
+    override fun getClassCourses(class_id: String): Observable<BaseBean<ListDataBean<CourseBean>>> {
+        return apiService.getClassCourses(class_id)
+    }
+
+    override fun applyCourse(class_id: String, course_id: String): Observable<BaseBean<String>> {
+        return apiService.applyCourse(class_id, course_id)
+    }
+
+    override fun getCCourseMediaList(
+        class_id: String,
+        course_id: String
+    ): Observable<BaseBean<ListDataBean<MediaBean>>> {
+        return apiService.getCCourseMediaList(class_id, course_id)
     }
 
 }

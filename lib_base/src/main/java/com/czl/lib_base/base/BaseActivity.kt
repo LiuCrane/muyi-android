@@ -10,11 +10,22 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.launcher.ARouter
 import com.czl.lib_base.R
+import com.czl.lib_base.callback.EmptyCallback
+import com.czl.lib_base.callback.ErrorCallback
+import com.czl.lib_base.callback.LoadingCallback
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.mvvm.ui.ContainerFmActivity
 import com.czl.lib_base.route.RouteCenter
 import com.czl.lib_base.util.DayModeUtil
+import com.czl.lib_base.util.DialogHelper
 import com.czl.lib_base.util.ToastHelper
 import com.gyf.immersionbar.ImmersionBar
+import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.callback.SuccessCallback
+import com.kingja.loadsir.core.Convertor
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
+import com.lxj.xpopup.core.BasePopupView
 import me.yokeyword.fragmentation.SupportFragment
 import me.yokeyword.fragmentation.anim.DefaultVerticalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
@@ -31,7 +42,9 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
     protected lateinit var binding: V
     lateinit var viewModel: VM
     private var viewModelId = 0
+    private var dialog: BasePopupView? = null
     private var rootBinding: ViewDataBinding? = null
+    lateinit var loadService: LoadService<BaseBean<ListDataBean<*>>?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +89,13 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
      * 注入绑定
      */
     private fun initViewDataBinding(savedInstanceState: Bundle?) {
+        val loadSir = LoadSir.Builder()
+            .addCallback(EmptyCallback())
+            .addCallback(ErrorCallback())
+            .addCallback(LoadingCallback())
+            .setDefaultCallback(SuccessCallback::class.java)
+            .build()
+
         if (useBaseLayout()) {
             setContentView(R.layout.activity_base)
             val mActivityRoot = findViewById<ViewGroup>(R.id.activity_root)
@@ -99,6 +119,19 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
         } else {
             binding = DataBindingUtil.setContentView(this, initContentView())
         }
+
+        loadService = loadSir.register(binding.root,
+            Callback.OnReloadListener { reload() },
+            Convertor<BaseBean<ListDataBean<*>>?> { result ->
+                if (result == null || result.code != 200) {
+                    ErrorCallback::class.java
+                } else if (result.data == null || result.data!!.list.isNullOrEmpty()) {
+                    EmptyCallback::class.java
+                } else {
+                    SuccessCallback::class.java
+                }
+            }) as LoadService<BaseBean<ListDataBean<*>>?>
+
         viewModelId = initVariableId()
         viewModel = initViewModel()
         //关联ViewModel
@@ -109,6 +142,8 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
         lifecycle.addObserver(viewModel)
         //注入RxLifecycle生命周期
         viewModel.injectLifecycleProvider(this)
+
+        viewModel.loadService = loadService
     }
 
     //刷新布局
@@ -155,12 +190,13 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
         ) { onBackPressedSupport() }
     }
 
-    fun showLoading(title: String?) {
-        // todo 加载中
+
+    private fun showLoading(title: String?) {
+        dialog = DialogHelper.showLoadingDialog(this, title)
     }
 
-    fun dismissLoading() {
-        // todo 关闭加载
+    private fun dismissLoading() {
+        dialog?.smartDismiss()
     }
 
     fun showErrorToast(msg: String?) {
@@ -173,6 +209,13 @@ abstract class BaseActivity<V : ViewDataBinding, VM : BaseViewModel<*>> :
 
     fun showSuccessToast(msg: String?) {
         ToastHelper.showSuccessToast(msg)
+    }
+
+    /**
+     * 子类重写页面重试加载逻辑
+     */
+    open fun reload() {
+        loadService.showCallback(LoadingCallback::class.java)
     }
 
     /**

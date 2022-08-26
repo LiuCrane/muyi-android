@@ -28,10 +28,9 @@
 
             <TextView
                 android:id="@+id/tvLogo"
-                style="@style/TextViewStyle"
+                style="@style/TextViewBigStyle"
                 android:layout_marginStart="14dp"
-                android:text="目益视力"
-                android:textSize="18sp" />
+                android:text="目益视力" />
         </LinearLayout>
 
         <LinearLayout

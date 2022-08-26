@@ -18,7 +18,6 @@
         android:id="@+id/smart_common"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableLoadMore="false"
         binding:onRefreshCommand="@{viewModel.onRefreshCommand}">
 
         <ScrollView
@@ -38,11 +37,9 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="90dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_placeholder"
+                    binding:placeholderRes="@{@drawable/ic_avatar_holder}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:riv_border_color="@color/theme_blue_20"
-                    app:riv_border_width="1dp"
                     app:riv_oval="true" />
 
                 <TextView
@@ -101,7 +98,8 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_store">
+                    app:layout_constraintTop_toBottomOf="@id/ll_store"
+                    binding:onClickCommand="@{viewModel.allianceClick}">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="40dp"
@@ -123,8 +121,8 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_store"
-                    app:layout_constraintTop_toTopOf="@id/ll_alliance">
+                    app:layout_constraintTop_toTopOf="@id/ll_alliance"
+                    binding:onClickCommand="@{viewModel.progressClick}">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="40dp"
@@ -159,6 +157,29 @@
                         style="@style/TextViewStyle"
                         android:layout_marginTop="24dp"
                         android:text="新学员登记"
+                        android:textColor="@color/theme_blue" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_create_class"
+                    android:layout_width="155dp"
+                    android:layout_height="146dp"
+                    android:background="@drawable/bg_gray_30"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ll_registration"
+                    binding:onClickCommand="@{viewModel.createClassClick}">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_create_class" />
+
+                    <TextView
+                        style="@style/TextViewStyle"
+                        android:layout_marginTop="24dp"
+                        android:text="创建班级"
                         android:textColor="@color/theme_blue" />
                 </LinearLayout>
 

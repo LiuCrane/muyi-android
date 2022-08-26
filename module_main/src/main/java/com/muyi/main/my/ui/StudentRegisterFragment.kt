@@ -1,9 +1,11 @@
 package com.muyi.main.my.ui
 
+import android.content.Intent
+import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.blankj.utilcode.util.LogUtils
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
-import com.czl.lib_base.util.DialogHelper
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.FragmentStudentRegisterBinding
@@ -28,17 +30,19 @@ class StudentRegisterFragment :
         return false
     }
 
-    override fun initViewObservable() {
-        viewModel.uc.successLiveEvent.observe(this) {
-            DialogHelper.showNoCancelDialog(requireContext(), "注册成功", "您的注册信息正在审核中，请稍后在登录页登录。") {
-                this@StudentRegisterFragment.back()
-            }
-
-        }
-
-    }
 
     override fun initData() {
 
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val classId = data?.getStringExtra("classId")
+        val className = data?.getStringExtra("className")
+        viewModel.classId.set(classId)
+        viewModel.className.set(className)
+
+    }
+
 }

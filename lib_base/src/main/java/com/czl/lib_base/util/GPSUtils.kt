@@ -67,7 +67,8 @@ class GPSUtils private constructor(private val mContext: Context) {
     var locationListener: LocationListener = object : LocationListener {
         // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
         @Deprecated("Deprecated in Java")
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
+        }
 
         // Provider被enable时触发此函数，比如GPS被打开
         override fun onProviderEnabled(provider: String) {}
@@ -84,6 +85,7 @@ class GPSUtils private constructor(private val mContext: Context) {
     }
 
     fun removeListener() {
+        mOnLocationListener = null
         locationManager!!.removeUpdates(locationListener)
     }
 

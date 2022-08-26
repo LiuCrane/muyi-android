@@ -2,9 +2,7 @@ package com.muyi.main.ui.fragment
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.adapter.ViewPagerFmAdapter
@@ -13,9 +11,7 @@ import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.route.RouteCenter
 import com.muyi.main.BR
 import com.muyi.main.R
-import com.muyi.main.databinding.FragmentLoginBinding
 import com.muyi.main.databinding.FragmentProgressBinding
-import com.muyi.main.progress.ui.StudentTrackFragment
 import com.muyi.main.viewmodel.ProgressViewModel
 import me.yokeyword.fragmentation.SupportFragment
 import net.lucode.hackware.magicindicator.buildins.UIUtil
@@ -53,18 +49,18 @@ class ProgressFragment : BaseFragment<FragmentProgressBinding, ProgressViewModel
     }
 
     private fun initViewPager() {
-//        val bundle = Bundle()
-//        bundle.putString(AppConstants.IntentKey.REHAB_TYPE, "")
-        val studentTrackFragment = RouteCenter.navigateWithKey(
+        val studentTrackFragment = RouteCenter.navigate(
             AppConstants.Router.Progress.F_STUDENT_TRACK,
-            ""
+            Bundle().apply {
+                putString(AppConstants.BundleKey.KEY_REHAB_TYPE, "")
+            }
         ) as SupportFragment
 
-//        val bundle2 = Bundle()
-//        bundle2.putString(AppConstants.IntentKey.REHAB_TYPE, "true")
-        val recoveryTrackFragment = RouteCenter.navigateWithKey(
+        val recoveryTrackFragment = RouteCenter.navigate(
             AppConstants.Router.Progress.F_STUDENT_TRACK,
-            "true"
+            Bundle().apply {
+                putString(AppConstants.BundleKey.KEY_REHAB_TYPE, "true")
+            }
         ) as SupportFragment
 
         val fragments = arrayListOf(studentTrackFragment, recoveryTrackFragment)

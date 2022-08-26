@@ -8,6 +8,8 @@ import com.czl.lib_base.databinding.CommonContainerBinding
 import com.czl.lib_base.mvvm.viewmodel.CommonViewModel
 import com.czl.lib_base.route.RouteCenter
 import me.yokeyword.fragmentation.SupportFragment
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator
+
 
 /**
  * @author Alwyn
@@ -42,5 +44,6 @@ class ContainerFmActivity : BaseActivity<CommonContainerBinding, CommonViewModel
         if (findFragment(fragment::class.java) == null) {
             loadRootFragment(R.id.fl_container, fragment)
         }
+        fragmentAnimator = DefaultNoAnimator()
     }
 }
