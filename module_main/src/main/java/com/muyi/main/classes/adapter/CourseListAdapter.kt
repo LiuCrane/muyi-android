@@ -56,32 +56,23 @@ class CourseListAdapter(private val mFragment: CourseListFragment) :
         }
     }
 
-    val onItemClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
-        LogUtils.e("onItemClickCommand")
-        if (it is CourseBean) {
-//            if (it.status == "ACCESSIBLE") {
-//        }
-            mFragment.startActivity(
-                DetailActivity::class.java,
-                Bundle().apply {
-                    putString(
-                        AppConstants.BundleKey.KEY_ClASS_ID,
-                        mFragment.viewModel.classId
-                    )
-                    putString(
-                        AppConstants.BundleKey.KEY_COURSE_ID,
-                        it.id
-                    )
-                })
-        }
-    })
-
     val onStatusClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
-        LogUtils.e("onStatusClickCommand")
-
         if (it is CourseBean) {
             if (it.status == "APPLICABLE") {
                 mFragment.viewModel.applyCourse(it.id)
+            }else if(it.status == "ACCESSIBLE"){
+                mFragment.startActivity(
+                    DetailActivity::class.java,
+                    Bundle().apply {
+                        putString(
+                            AppConstants.BundleKey.KEY_ClASS_ID,
+                            mFragment.viewModel.classId
+                        )
+                        putString(
+                            AppConstants.BundleKey.KEY_COURSE_ID,
+                            it.id
+                        )
+                    })
             }
         }
     })

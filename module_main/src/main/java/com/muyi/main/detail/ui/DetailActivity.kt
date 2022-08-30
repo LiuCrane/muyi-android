@@ -2,7 +2,6 @@ package com.muyi.main.detail.ui
 
 import android.content.res.Configuration
 import android.widget.ImageView
-import android.widget.SeekBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -138,6 +137,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                     orientationUtils!!.isEnable = binding.detailPlayer.isRotateWithSystem
                     isPlay = true
                     binding.ivPause.setImageResource(R.drawable.ic_pause)
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"START")
                 }
 
                 override fun onQuitFullscreen(url: String, vararg objects: Any) {
@@ -161,12 +161,14 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                 override fun onClickStop(url: String?, vararg objects: Any?) {
                     LogUtils.e("onClickStop")
                     binding.ivPause.setImageResource(R.drawable.ic_play)
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"PAUSE")
                 }
 
                 //点击了全屏播放状态下的开始按键--->停止，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
                 override fun onClickStopFullscreen(url: String?, vararg objects: Any?) {
                     LogUtils.e("onClickStopFullscreen")
                     binding.ivPause.setImageResource(R.drawable.ic_play)
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"PAUSE")
                 }
 
                 //点击了暂停状态下的开始按键--->播放，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
@@ -185,6 +187,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                 override fun onAutoComplete(url: String?, vararg objects: Any?) {
                     LogUtils.e("onAutoComplete")
                     resetControlView()
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"END")
                 }
 
                 //非正常播放完了，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）

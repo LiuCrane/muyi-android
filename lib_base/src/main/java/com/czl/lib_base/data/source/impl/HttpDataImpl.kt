@@ -123,11 +123,37 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         return apiService.applyCourse(class_id, course_id)
     }
 
-    override fun getCCourseMediaList(
+    override fun getCourseMediaList(
         class_id: String,
         course_id: String
     ): Observable<BaseBean<ListDataBean<MediaBean>>> {
-        return apiService.getCCourseMediaList(class_id, course_id)
+        return apiService.getCourseMediaList(class_id, course_id)
+    }
+
+    override fun mediaPlay(
+        id: String,
+        class_id: String?,
+        course_id: String?,
+        event: String
+    ): Observable<BaseBean<String>> {
+        val jsonObject = JsonObject()
+        if (class_id?.isNotEmpty() == true)
+            jsonObject.addProperty("class_id", class_id)
+        if (course_id?.isNotEmpty() == true)
+            jsonObject.addProperty("course_id", course_id)
+        jsonObject.addProperty("event", event)
+        return apiService.mediaPlay(id, jsonObject)
+    }
+
+    override fun updateVision(
+        id: String,
+        left_vision: String,
+        right_vision: String
+    ): Observable<BaseBean<String>> {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("left_vision", left_vision)
+        jsonObject.addProperty("right_vision", right_vision)
+        return apiService.updateVision(id, jsonObject)
     }
 
 }

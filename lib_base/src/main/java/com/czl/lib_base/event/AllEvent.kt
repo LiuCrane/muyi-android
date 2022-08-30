@@ -9,3 +9,4 @@ import com.jeremyliao.liveeventbus.core.LiveEvent
  */
 
 data class TokenExpiredEvent(val msg: String?):LiveEvent
+data class AddVisionEvent(val msg: String?):LiveEvent

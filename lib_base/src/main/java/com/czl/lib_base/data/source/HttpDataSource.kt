@@ -3,6 +3,7 @@ package com.czl.lib_base.data.source
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.data.bean.*
 import io.reactivex.Observable
+import retrofit2.http.Body
 import retrofit2.http.Path
 
 /**
@@ -82,8 +83,21 @@ interface HttpDataSource {
         course_id: String
     ): Observable<BaseBean<String>>
 
-    fun getCCourseMediaList(
+    fun getCourseMediaList(
         class_id: String,
         course_id: String
     ): Observable<BaseBean<ListDataBean<MediaBean>>>
+
+    fun mediaPlay(
+        id: String,
+        class_id: String?,
+        course_id: String?,
+        event: String
+    ): Observable<BaseBean<String>>
+
+    fun updateVision(
+        id: String,
+        left_vision: String,
+        right_vision: String
+    ): Observable<BaseBean<String>>
 }

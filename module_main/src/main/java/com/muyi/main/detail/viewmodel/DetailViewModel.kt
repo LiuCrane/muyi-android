@@ -63,12 +63,12 @@ class DetailViewModel(application: MyApplication, model: DataRepository) :
         }
 
         if (classId.isNullOrEmpty() || courseId.isNullOrEmpty()) {
-            showErrorToast("班级或课程信息为获取")
+            showErrorToast("班级或课程信息未获取")
             return
         }
 
         model.apply {
-            getCCourseMediaList(
+            getCourseMediaList(
                 classId!!,
                 courseId!!
             ).compose(RxThreadHelper.rxSchedulerHelper(this@DetailViewModel))
@@ -82,8 +82,34 @@ class DetailViewModel(application: MyApplication, model: DataRepository) :
                     }
 
                     override fun onFailed(msg: String?) {
-                        showNormalToast(msg)
+                        showErrorToast(msg)
                         uc.getMediaListCompleteEvent.value = null
+                    }
+                })
+        }
+    }
+
+    fun recordMediaPlayer(id: String?, event: String) {
+        if (id.isNullOrEmpty()) {
+            showErrorToast("media id 获取失败")
+            return
+        }
+        model.apply {
+            mediaPlay(
+                id,
+                classId,
+                courseId,
+                event
+            ).compose(RxThreadHelper.rxSchedulerHelper(this@DetailViewModel))
+                .subscribe(object : ApiSubscriberHelper<BaseBean<String>>() {
+                    override fun onResult(result: BaseBean<String>) {
+                        if (result.code != 200) {
+                            showErrorToast(result.msg)
+                        }
+                    }
+
+                    override fun onFailed(msg: String?) {
+                        showErrorToast(msg)
                     }
                 })
         }

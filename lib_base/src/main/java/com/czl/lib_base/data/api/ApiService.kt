@@ -35,14 +35,12 @@ interface ApiService {
         @Body body: Any
     ): Observable<BaseBean<String>>
 
-
     @GET("/app/students")
     fun appStudents(
         @Query("page_num") page_num: Int? = 0,
         @Query("page_size") page_size: Int? = AppConstants.Common.PAGE_SIZE,
         @Query("rehab") rehab: String?,
     ): Observable<BaseBean<ListDataBean<StudentBean>>>
-
 
     @GET("/app/students/{id}")
     fun getStudentDetail(
@@ -51,7 +49,6 @@ interface ApiService {
 
     @GET("/app/store")
     fun appStore(): Observable<BaseBean<StoreBean>>
-
 
     @GET("/app/classes/{class_id}/students")
     fun getClassStudents(
@@ -75,10 +72,21 @@ interface ApiService {
         @Path("id") course_id: String
     ): Observable<BaseBean<String>>
 
-
     @GET("/app/classes/{class_id}/courses/{course_id}/media")
-    fun getCCourseMediaList(
+    fun getCourseMediaList(
         @Path("class_id") class_id: String,
         @Path("course_id") course_id: String
     ): Observable<BaseBean<ListDataBean<MediaBean>>>
+
+    @POST("/app/media/{id}/player")
+    fun mediaPlay(
+        @Path("id") id: String,
+        @Body body: Any
+    ): Observable<BaseBean<String>>
+
+    @PUT("/app/students/{id}/vision")
+    fun updateVision(
+        @Path("id") id: String,
+        @Body body: Any
+    ): Observable<BaseBean<String>>
 }

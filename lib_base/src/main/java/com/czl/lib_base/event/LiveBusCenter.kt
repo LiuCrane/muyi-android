@@ -20,5 +20,12 @@ object LiveBusCenter {
         LiveEventBus.get(TokenExpiredEvent::class.java).observe(owner, observer)
     }
 
+    fun postAddVisionEvent(value: String?) {
+        LiveEventBus.get(AddVisionEvent::class.java).post(AddVisionEvent(value))
+    }
+
+    fun observeAddVisionEvent(owner: LifecycleOwner, observer: Observer<AddVisionEvent>){
+        LiveEventBus.get(AddVisionEvent::class.java).observe(owner,observer)
+    }
 
 }

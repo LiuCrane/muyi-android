@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.muyi.main.progress.viewmodel.AddVisionViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".mvvm.ui.activity.LoginActivity">
+
+            <TextView
+                android:id="@+id/tvLeft"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="40dp"
+                android:text="左眼视力"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+              />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etLeft"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入左眼视力"
+                android:inputType="number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLeft"
+                binding:textChanged="@{viewModel.onLeftChangeCommand}" />
+
+            <TextView
+                android:id="@+id/tvRight"
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="右眼视力"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etLeft" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                android:id="@+id/etRight"
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入右眼视力"
+                android:inputType="number"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRight"
+                binding:textChanged="@{viewModel.onRightChangeCommand}" />
+
+            <Button
+                android:id="@+id/btn_sure"
+                style="@style/ButtonBlueStyle"
+                android:layout_marginTop="70dp"
+                android:text="确认"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etRight"
+                binding:onClickCommand="@{viewModel.btnSureClick}" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

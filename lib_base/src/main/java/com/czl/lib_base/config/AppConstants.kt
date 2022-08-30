@@ -17,7 +17,7 @@ interface AppConstants {
         const val KEY_COURSE_ID = "courseId"
         const val KEY_MEDIA_ID = "mediaId"
         const val KEY_MEDIA_TYPE = "mediaType"
-
+        const val KEY_STUDENT_ID = "studentId"
 
     }
 
@@ -58,6 +58,7 @@ interface AppConstants {
         object Progress {
             const val F_STUDENT_TRACK = "/progress/StudentTrackFragment"
             const val F_STUDENT_DETAIL = "/progress/StudentDetailFragment"
+            const val F_ADD_VISION= "/progress/AddVisionFragment"
         }
 
         object My {
