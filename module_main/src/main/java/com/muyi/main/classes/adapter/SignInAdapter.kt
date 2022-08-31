@@ -1,8 +1,12 @@
 package com.muyi.main.classes.adapter
 
+import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.czl.lib_base.binding.command.BindingCommand
+import com.czl.lib_base.binding.command.BindingConsumer
+import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.bean.StudentBean
 import com.muyi.main.R
 import com.muyi.main.classes.ui.SignInFragment
@@ -29,6 +33,14 @@ class SignInAdapter(val mFragment: SignInFragment) :
             }
         }
     }
+
+    val onItemClickCommand: BindingCommand<Any?> = BindingCommand(BindingConsumer {
+        if (it is StudentBean) {
+            mFragment.startContainerActivity(
+                AppConstants.Router.Progress.F_STUDENT_DETAIL,
+                Bundle().apply { putString(AppConstants.BundleKey.KEY_ClASS_ID, it.id) })
+        }
+    })
 
     val diffConfig = object : DiffUtil.ItemCallback<StudentBean>() {
         override fun areItemsTheSame(

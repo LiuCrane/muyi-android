@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
+import com.czl.lib_base.event.LiveBusCenter
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.databinding.FragmentStudentDetailBinding
@@ -57,6 +58,9 @@ class StudentDetailFragment : BaseFragment<FragmentStudentDetailBinding, Student
             binding.smartCommon.finishRefresh(500)
             binding.data = it
             mAdapter.setDiffNewData(it.eyesight_list)
+        }
+        LiveBusCenter.observeAddVisionEvent(this){
+            viewModel.getClassDetailInfo()
         }
     }
 }

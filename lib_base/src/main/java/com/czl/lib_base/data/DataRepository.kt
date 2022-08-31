@@ -131,11 +131,28 @@ class DataRepository constructor(
         return mHttpDataSource.applyCourse(class_id, course_id)
     }
 
-    override fun getCCourseMediaList(
+    override fun getCourseMediaList(
         class_id: String,
         course_id: String
     ): Observable<BaseBean<ListDataBean<MediaBean>>> {
-        return mHttpDataSource.getCCourseMediaList(class_id, course_id)
+        return mHttpDataSource.getCourseMediaList(class_id, course_id)
+    }
+
+    override fun mediaPlay(
+        id: String,
+        class_id: String?,
+        course_id: String?,
+        event: String
+    ): Observable<BaseBean<String>> {
+        return mHttpDataSource.mediaPlay(id, class_id, course_id, event)
+    }
+
+    override fun updateVision(
+        id: String,
+        left_vision: String,
+        right_vision: String
+    ): Observable<BaseBean<String>> {
+        return mHttpDataSource.updateVision(id, left_vision, right_vision)
     }
 
 }

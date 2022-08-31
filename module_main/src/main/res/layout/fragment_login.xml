@@ -43,7 +43,7 @@
                 android:id="@+id/tvNameLabel"
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="40dp"
-                android:text="用户名"
+                android:text="手机号"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLogo" />
 

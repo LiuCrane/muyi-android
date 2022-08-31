@@ -21,8 +21,8 @@
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/TextViewTitleStyle"
-                android:layout_marginTop="100dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"
                 android:text="新店注册" />
 
             <TextView
@@ -52,6 +52,18 @@
                 android:hint="输入手机号"
                 android:inputType="number"
                 binding:textChanged="@{viewModel.onUserPhoneChangeCommand}" />
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="密码" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入密码"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onUserPwdChangeCommand}" />
 
             <TextView
                 android:id="@+id/tvIdCardLabel"

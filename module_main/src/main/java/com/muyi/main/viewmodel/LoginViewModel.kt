@@ -56,6 +56,7 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
     })
 
     private fun getLocation() {
+        showLoading()
         GPSUtils.getInstance(Utils.getApp())
             ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
                 override fun onLocationResult(location: Location?) {
@@ -79,12 +80,14 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
 
         if (latitude == null || longitude == null) {
             showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
+            dismissLoading()
             return
         }
 
         model.apply {
             if (userName.get().isNullOrBlank() || pwd.get().isNullOrBlank()) {
                 showNormalToast("账号或密码不能为空")
+                dismissLoading()
                 return
             }
             userLogin(
@@ -93,7 +96,6 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
                 latitude.toString(),
                 longitude.toString()
             ).compose(RxThreadHelper.rxSchedulerHelper(this@LoginViewModel))
-                .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<UserBean>>() {
                     override fun onResult(result: BaseBean<UserBean>) {
                         dismissLoading()

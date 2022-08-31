@@ -70,7 +70,7 @@
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
                 android:hint="输入学员左眼度数"
-                android:inputType="text"
+                android:inputType="number"
                 binding:textChanged="@{viewModel.onLeftDiopterChangeCommand}" />
 
             <TextView
@@ -82,7 +82,7 @@
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
                 android:hint="输入学员右眼度数"
-                android:inputType="text"
+                android:inputType="number"
                 binding:textChanged="@{viewModel.onRightDiopterChangeCommand}" />
 
             <TextView
@@ -94,7 +94,7 @@
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
                 android:hint="输入学员左眼视力"
-                android:inputType="text"
+                android:inputType="number"
                 binding:textChanged="@{viewModel.onLeftSightChangeCommand}" />
 
             <TextView
@@ -106,7 +106,7 @@
                 style="@style/EditTextStyle"
                 android:layout_marginTop="14dp"
                 android:hint="输入学员右眼视力"
-                android:inputType="text"
+                android:inputType="number"
                 binding:textChanged="@{viewModel.onRightSightChangeCommand}" />
 
             <TextView

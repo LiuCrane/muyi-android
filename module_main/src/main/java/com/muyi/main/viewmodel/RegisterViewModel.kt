@@ -24,6 +24,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
     var userName = ObservableField("")
     var userPhone = ObservableField("")
+    var userPassword = ObservableField("")
     var userIdCard = ObservableField("")
     var storeName = ObservableField("")
     var storeLocation = ObservableField("")
@@ -34,6 +35,9 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     })
     val onUserPhoneChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         userPhone.set(it)
+    })
+    val onUserPwdChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        userPassword.set(it)
     })
     val onUserIdCardChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
         userIdCard.set(it)
@@ -56,6 +60,7 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
     }
 
     private fun getLocation() {
+        showLoading()
         GPSUtils.getInstance(Utils.getApp())
             ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
                 override fun onLocationResult(location: Location?) {
@@ -79,21 +84,23 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
 
         if (latitude == null || longitude == null) {
             showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
+            dismissLoading()
             return
         }
 
         if (userName.get().isNullOrBlank() || userPhone.get().isNullOrBlank() ||
-            userIdCard.get().isNullOrBlank() || storeName.get().isNullOrBlank() ||
-            storeLocation.get().isNullOrBlank()
+            userPassword.get().isNullOrBlank() || userIdCard.get().isNullOrBlank() ||
+            storeName.get().isNullOrBlank() || storeLocation.get().isNullOrBlank()
         ) {
             showNormalToast("注册各项不能为空")
+            dismissLoading()
             return
         }
 
         model.apply {
             userRegister(
                 userName.get()!!,
-                "123456",
+                userPassword.get()!!,
                 userPhone.get()!!,
                 userIdCard.get()!!,
                 storeName.get()!!,
@@ -101,7 +108,6 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
                 latitude.toString(),
                 longitude.toString()
             ).compose(RxThreadHelper.rxSchedulerHelper(this@RegisterViewModel))
-                .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<*>>() {
                     override fun onResult(result: BaseBean<*>) {
                         dismissLoading()
