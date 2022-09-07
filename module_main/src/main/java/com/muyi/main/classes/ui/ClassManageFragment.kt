@@ -28,7 +28,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPa
 @Route(path = AppConstants.Router.ClassManage.F_CLASS_MANAGE)
 class ClassManageFragment : BaseFragment<FragmentClassManageBinding, ClassManageViewModel>() {
     private var classId: String? = null
-    private val channels = arrayOf("学员签到", "班级详情", "课程列表")
+    private val channels = arrayOf("学员列表", "班级详情", "课程列表")
 
 
     override fun initContentView(): Int {

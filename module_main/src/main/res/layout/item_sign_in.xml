@@ -32,6 +32,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:gravity="center"
+            android:visibility="invisible"
             android:textColor="@color/white" />
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -54,7 +55,6 @@
             android:layout_toEndOf="@id/iv_avatar"
             android:text="@{data.name}"
             android:textColor="@color/theme_blue" />
-
 
     </RelativeLayout>
 </layout>
