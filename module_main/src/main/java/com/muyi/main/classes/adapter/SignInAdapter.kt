@@ -25,11 +25,11 @@ class SignInAdapter(val mFragment: SignInFragment) :
             executePendingBindings()
 
             if (item.signIn == "true") {
-                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
+                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_apha20_70)
                 tvStatus.text = "已签到"
             } else {
-                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_apha20_70)
-                tvStatus.text = "未签到"
+                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
+                tvStatus.text = "去签到"
             }
         }
     }
@@ -41,6 +41,7 @@ class SignInAdapter(val mFragment: SignInFragment) :
                 Bundle().apply { putString(AppConstants.BundleKey.KEY_ClASS_ID, it.id) })
         }
     })
+
 
     val diffConfig = object : DiffUtil.ItemCallback<StudentBean>() {
         override fun areItemsTheSame(
