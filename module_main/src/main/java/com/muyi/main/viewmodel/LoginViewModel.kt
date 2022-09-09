@@ -1,6 +1,8 @@
 package com.muyi.main.viewmodel
 
 import android.location.Location
+import android.os.Handler
+import android.os.Looper
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.LogUtils
@@ -57,18 +59,26 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
 
     private fun getLocation() {
         showLoading()
-        GPSUtils.getInstance(Utils.getApp())
-            ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
-                override fun onLocationResult(location: Location?) {
-                    LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
+        Handler(Looper.myLooper()!!).postDelayed({
+            GPSUtils.getInstance(Utils.getApp())
+                ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
+                    override fun onLocationResult(location: Location?) {
+                        LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
 //                    loginByPwd(location?.latitude, location?.longitude)
-                }
+                    }
 
-                override fun onLocationChange(location: Location?) {
-                    LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
-                    loginByPwd(location?.latitude, location?.longitude)
-                }
-            })
+                    override fun onLocationChange(location: Location?) {
+                        LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
+                        loginByPwd(location?.latitude, location?.longitude)
+                    }
+
+                    override fun onOpenSetting() {
+                        dismissLoading()
+                        showNormalToast("位置信息未获取，请打开手机定位服务再登录")
+                    }
+                })
+        },500)
+
     }
 
     private fun loginByPwd(latitude: Double?, longitude: Double?) {
@@ -79,7 +89,7 @@ class LoginViewModel(application: MyApplication, model: DataRepository) :
         GPSUtils.getInstance(Utils.getApp())?.removeListener()
 
         if (latitude == null || longitude == null) {
-            showNormalToast("位置信息未获取，请打开手机定位服务重新登录")
+            showNormalToast("位置信息未获取，请打开手机定位服务再登录")
             dismissLoading()
             return
         }

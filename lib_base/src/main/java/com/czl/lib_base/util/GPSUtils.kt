@@ -35,8 +35,10 @@ class GPSUtils private constructor(private val mContext: Context) {
             //如果是Network
             locationProvider = LocationManager.NETWORK_PROVIDER
         } else {
+            mOnLocationListener?.onOpenSetting()
             val i = Intent()
             i.action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(i)
             return null
         }
@@ -94,6 +96,7 @@ class GPSUtils private constructor(private val mContext: Context) {
     interface OnLocationResultListener {
         fun onLocationResult(location: Location?)
         fun onLocationChange(location: Location?)
+        fun onOpenSetting()
     }
 
     companion object {

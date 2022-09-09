@@ -1,6 +1,8 @@
 package com.muyi.main.viewmodel
 
 import android.location.Location
+import android.os.Handler
+import android.os.Looper
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.Utils
@@ -61,18 +63,25 @@ class RegisterViewModel(application: MyApplication, model: DataRepository) :
 
     private fun getLocation() {
         showLoading()
-        GPSUtils.getInstance(Utils.getApp())
-            ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
-                override fun onLocationResult(location: Location?) {
-                    LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
+        Handler(Looper.myLooper()!!).postDelayed({
+            GPSUtils.getInstance(Utils.getApp())
+                ?.getLngAndLat(object : GPSUtils.OnLocationResultListener {
+                    override fun onLocationResult(location: Location?) {
+                        LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
 //                    register(location?.latitude, location?.longitude)
-                }
+                    }
 
-                override fun onLocationChange(location: Location?) {
-                    LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
-                    register(location?.latitude, location?.longitude)
-                }
-            })
+                    override fun onLocationChange(location: Location?) {
+                        LogUtils.e("onLocationChange location latitude=" + location?.latitude + " longitude=" + location?.longitude)
+                        register(location?.latitude, location?.longitude)
+                    }
+
+                    override fun onOpenSetting() {
+                        dismissLoading()
+                        showNormalToast("位置信息未获取，请打开手机定位服务再登录")
+                    }
+                })
+        }, 500)
     }
 
     private fun register(latitude: Double?, longitude: Double?) {
