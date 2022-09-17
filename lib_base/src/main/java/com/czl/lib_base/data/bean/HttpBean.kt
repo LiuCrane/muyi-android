@@ -1,6 +1,7 @@
 package com.czl.lib_base.data.bean
 
 import com.google.gson.annotations.SerializedName
+import com.lljjcoder.bean.CustomCityData
 
 data class UserBean(
     @SerializedName("token")
@@ -85,14 +86,17 @@ data class StudentBean(
     val parent_phone: String?,
     @SerializedName("improved")
     val improved: String?,
-    @SerializedName("left_vision")
-    val left_vision: String?,
-    @SerializedName("right_vision")
-    val right_vision: String?,
+    @SerializedName("first_left_vision")
+    val first_left_vision: String?,
+    @SerializedName("first_right_vision")
+    val first_right_vision: String?,
+    @SerializedName("first_binocular_vision")
+    val first_binocular_vision: String?,
+    @SerializedName("binocular_vision")
+    val binocular_vision: String?,
     @SerializedName("eyesight_list")
     val eyesight_list: MutableList<EyesightBean>?,
-    @SerializedName("signIn")
-    val signIn: String?
+
 )
 
 data class EyesightBean(
@@ -103,7 +107,11 @@ data class EyesightBean(
     @SerializedName("left_vision")
     val left_vision: String?,
     @SerializedName("right_vision")
-    val right_vision: String?
+    val right_vision: String?,
+    @SerializedName("binocular_vision")
+    val binocular_vision: String?,
+    @SerializedName("title")
+    val title: String?,
 )
 
 data class StoreBean(
@@ -122,4 +130,31 @@ data class StoreBean(
     @SerializedName("status")
     val status: String?
     //APPROVED, REJECTED, SUBMITTED
+)
+
+data class ProvinceBean(
+    @SerializedName("id")
+    val id: String?,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("children")
+    val children: MutableList<CityBean>?
+)
+
+data class CityBean(
+    @SerializedName("id")
+    val id: String?,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("children")
+    val children: MutableList<CountyBean>?
+)
+
+data class CountyBean(
+    @SerializedName("id")
+    val id: String?,
+    @SerializedName("name")
+    val name: String?,
+    @SerializedName("children")
+    val children: MutableList<CountyBean>?
 )

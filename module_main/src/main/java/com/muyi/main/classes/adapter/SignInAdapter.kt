@@ -24,13 +24,13 @@ class SignInAdapter(val mFragment: SignInFragment) :
             adapter = this@SignInAdapter
             executePendingBindings()
 
-            if (item.signIn == "true") {
-                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_apha20_70)
-                tvStatus.text = "已签到"
-            } else {
-                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
-                tvStatus.text = "去签到"
-            }
+//            if (item.signIn == "true") {
+//                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_apha20_70)
+//                tvStatus.text = "已签到"
+//            } else {
+//                tvStatus.setBackgroundResource(com.czl.lib_base.R.drawable.bg_blue_70)
+//                tvStatus.text = "去签到"
+//            }
         }
     }
 

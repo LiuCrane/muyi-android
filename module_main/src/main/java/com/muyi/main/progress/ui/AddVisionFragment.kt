@@ -36,5 +36,6 @@ class AddVisionFragment : BaseFragment<FragmentAddVisionBinding, AddVisionViewMo
     override fun initData() {
         viewModel.tvTitle.set("添加视力")
         viewModel.studentId = studentId
+        viewModel.getCourse()
     }
 }

@@ -42,7 +42,8 @@ class DataRepository constructor(
         phone: String,
         id_card_num: String,
         store_name: String,
-        store_address: String,
+        store_area_id: String,
+        store_address_detail: String,
         store_lat: String,
         store_lng: String
     ): Observable<BaseBean<String>> {
@@ -52,7 +53,8 @@ class DataRepository constructor(
             phone,
             id_card_num,
             store_name,
-            store_address,
+            store_area_id,
+            store_address_detail,
             store_lat,
             store_lng
         )
@@ -60,23 +62,29 @@ class DataRepository constructor(
 
     override fun studentRegister(
         name: String,
+        age: String,
+        gender: String,
         parent_name: String,
         parent_phone: String,
-        left_diopter: String,
-        right_diopter: String,
         left_vision: String,
         right_vision: String,
-        class_id: String
+        binocular_vision: String,
+        class_id: String,
+        area_id: String,
+        address_detail: String
     ): Observable<BaseBean<String>> {
         return mHttpDataSource.studentRegister(
             name,
+            age,
+            gender,
             parent_name,
             parent_phone,
-            left_diopter,
-            right_diopter,
             left_vision,
             right_vision,
-            class_id
+            binocular_vision,
+            class_id,
+            area_id,
+            address_detail
         )
     }
 
@@ -149,10 +157,18 @@ class DataRepository constructor(
 
     override fun updateVision(
         id: String,
-        left_vision: String,
-        right_vision: String
+        binocular_vision: String,
+        course_id: Int
     ): Observable<BaseBean<String>> {
-        return mHttpDataSource.updateVision(id, left_vision, right_vision)
+        return mHttpDataSource.updateVision(id, binocular_vision, course_id)
+    }
+
+    override fun getAllAddress(): Observable<BaseBean<ListDataBean<ProvinceBean>>> {
+        return mHttpDataSource.getAllAddress()
+    }
+
+    override fun getStudentCourse(id: String): Observable<BaseBean<ListDataBean<CourseBean>>> {
+        return mHttpDataSource.getStudentCourse(id)
     }
 
 }

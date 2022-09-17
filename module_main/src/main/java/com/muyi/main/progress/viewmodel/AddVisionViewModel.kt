@@ -1,22 +1,17 @@
 package com.muyi.main.progress.viewmodel
 
-import android.location.Location
 import androidx.databinding.ObservableField
-import com.blankj.utilcode.util.LogUtils
-import com.blankj.utilcode.util.Utils
 import com.czl.lib_base.base.BaseBean
 import com.czl.lib_base.base.BaseViewModel
 import com.czl.lib_base.base.MyApplication
 import com.czl.lib_base.binding.command.BindingAction
 import com.czl.lib_base.binding.command.BindingCommand
 import com.czl.lib_base.binding.command.BindingConsumer
-import com.czl.lib_base.bus.event.SingleLiveEvent
-import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.DataRepository
-import com.czl.lib_base.data.bean.UserBean
+import com.czl.lib_base.data.bean.CourseBean
+import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.event.LiveBusCenter
 import com.czl.lib_base.extension.ApiSubscriberHelper
-import com.czl.lib_base.util.GPSUtils
 import com.czl.lib_base.util.RxThreadHelper
 
 /**
@@ -25,29 +20,46 @@ import com.czl.lib_base.util.RxThreadHelper
 class AddVisionViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
     var studentId: String? = null
-
-    var leftVision = ObservableField("")
-    var rightVision = ObservableField("")
-
-    val uc = UiChangeEvent()
-
-    inner class UiChangeEvent {
-        val successLiveEvent: SingleLiveEvent<BaseBean<UserBean>> = SingleLiveEvent()
-    }
+    private var vision = ObservableField("")
+    private var courseId = 0
 
 
-    val onLeftChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
-        leftVision.set(it)
+    val onVisionChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        vision.set(it)
     })
 
-    val onRightChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
-        rightVision.set(it)
-    })
 
     var btnSureClick: BindingCommand<Any> = BindingCommand(BindingAction {
         addVision()
     })
 
+    fun getCourse() {
+        model.apply {
+            if (studentId.isNullOrEmpty()) {
+                showNormalToast("学生Id不能为空")
+                return
+            }
+            getStudentCourse(studentId!!).compose(RxThreadHelper.rxSchedulerHelper(this@AddVisionViewModel))
+                .subscribe(object : ApiSubscriberHelper<BaseBean<ListDataBean<CourseBean>>>() {
+                    override fun onResult(result: BaseBean<ListDataBean<CourseBean>>) {
+                        if (result.code == 200) {
+                            var largestID = 0
+                            result.data?.list?.forEach {
+                                if ((it.id?.toInt() ?: 0) > largestID) {
+                                    largestID = it.id?.toInt() ?: 0
+                                }
+                            }
+                            if (largestID > 0)
+                                courseId = largestID
+                        }
+                    }
+
+                    override fun onFailed(msg: String?) {
+                        showErrorToast(msg)
+                    }
+                })
+        }
+    }
 
     private fun addVision() {
         model.apply {
@@ -55,18 +67,19 @@ class AddVisionViewModel(application: MyApplication, model: DataRepository) :
                 showNormalToast("学生Id不能为空")
                 return
             }
-            if (leftVision.get().isNullOrEmpty()) {
-                showNormalToast("左眼视力不能为空")
+            if (vision.get().isNullOrEmpty()) {
+                showNormalToast("视力不能为空")
                 return
             }
-            if (rightVision.get().isNullOrEmpty()) {
-                showNormalToast("右眼视力不能为空")
+            if (courseId <= 0) {
+                showNormalToast("请先完成课程")
                 return
             }
+
             updateVision(
                 studentId!!,
-                leftVision.get()!!,
-                rightVision.get()!!
+                vision.get()!!,
+                courseId
             ).compose(RxThreadHelper.rxSchedulerHelper(this@AddVisionViewModel))
                 .doOnSubscribe { showLoading() }
                 .subscribe(object : ApiSubscriberHelper<BaseBean<*>>() {
@@ -76,7 +89,7 @@ class AddVisionViewModel(application: MyApplication, model: DataRepository) :
                             showNormalToast("添加视力信息成功")
                             LiveBusCenter.postAddVisionEvent("success")
                             finish()
-                        }else{
+                        } else {
                             showErrorToast(result.msg)
                         }
                     }
