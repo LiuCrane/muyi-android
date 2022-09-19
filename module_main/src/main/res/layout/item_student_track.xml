@@ -72,6 +72,7 @@
                 android:id="@+id/tv_right_vision"
                 style="@style/TextViewSmallStyle"
                 android:layout_alignParentEnd="true"
+                android:visibility="gone"
                 android:layout_marginStart="10dp" />
         </RelativeLayout>
 

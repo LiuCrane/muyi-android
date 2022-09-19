@@ -78,6 +78,7 @@ ext {
             'MagicIndicator'                       : 'com.github.hackware1993:MagicIndicator:1.7.0',
             'round_imageview'                      : 'com.makeramen:roundedimageview:2.3.0',
             'loadsir'                              : 'com.kingja.loadsir:loadsir:1.3.8',
+            'citypicker'                           : 'com.github.crazyandcoder:citypicker:6.0.2',
 
             'gsyVideoPlayer-java'                  :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-java:v8.3.3-release-jitpack',
             'gsyVideoPlayer-ex_so'                 :'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer-ex_so:v8.3.3-release-jitpack',

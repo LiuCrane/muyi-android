@@ -124,6 +124,7 @@ dependencies {
     api rootProject.ext.dependencies["refresh"]
     api rootProject.ext.dependencies["adapter-helper"]
     api rootProject.ext.dependencies["loadsir"]
+    api rootProject.ext.dependencies["citypicker"]
 
 
     //视频GSYVideoPlayer

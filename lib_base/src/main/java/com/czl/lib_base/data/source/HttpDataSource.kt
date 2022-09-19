@@ -22,20 +22,24 @@ interface HttpDataSource {
         phone: String,
         id_card_num: String,
         store_name: String,
-        store_address: String,
+        store_area_id: String,
+        store_address_detail: String,
         store_lat: String,
         store_lng: String
     ): Observable<BaseBean<String>>
 
     fun studentRegister(
         name: String,
+        age: String,
+        gender: String,
         parent_name: String,
         parent_phone: String,
-        left_diopter: String,
-        right_diopter: String,
         left_vision: String,
         right_vision: String,
-        class_id: String
+        binocular_vision: String,
+        class_id: String,
+        area_id: String,
+        address_detail: String
     ): Observable<BaseBean<String>>
 
     fun getMediaList(
@@ -97,7 +101,13 @@ interface HttpDataSource {
 
     fun updateVision(
         id: String,
-        left_vision: String,
-        right_vision: String
+        binocular_vision: String,
+        course_id: Int
     ): Observable<BaseBean<String>>
+
+    fun getAllAddress(): Observable<BaseBean<ListDataBean<ProvinceBean>>>
+
+    fun getStudentCourse(
+        id: String
+    ): Observable<BaseBean<ListDataBean<CourseBean>>>
 }

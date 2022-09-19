@@ -34,8 +34,9 @@ class StudentTrackAdapter(private val mFragment: StudentTrackFragment) :
                 tvImprove.text = "无提升"
             }
 
-            tvLeftVision.text = "L " + item.left_vision
-            tvRightVision.text = "R " + item.right_vision
+            tvLeftVision.text = "视力 " + item.binocular_vision
+//            tvLeftVision.text = "L " + item.left_vision
+//            tvRightVision.text = "R " + item.right_vision
 
         }
     }

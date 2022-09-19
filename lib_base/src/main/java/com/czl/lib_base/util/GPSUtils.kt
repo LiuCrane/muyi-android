@@ -23,6 +23,7 @@ class GPSUtils private constructor(private val mContext: Context) {
      * @return
      */
     fun getLngAndLat(onLocationResultListener: OnLocationResultListener?): String? {
+
         mOnLocationListener = onLocationResultListener
         var locationProvider: String? = null
         locationManager = mContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -35,9 +36,15 @@ class GPSUtils private constructor(private val mContext: Context) {
             //如果是Network
             locationProvider = LocationManager.NETWORK_PROVIDER
         } else {
-            val i = Intent()
-            i.action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
-            mContext.startActivity(i)
+            try {
+                mOnLocationListener?.onOpenSetting()
+                val i = Intent()
+                i.action = Settings.ACTION_LOCATION_SOURCE_SETTINGS
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(i)
+            } catch (throwable: Throwable) {
+                throwable.printStackTrace()
+            }
             return null
         }
 
@@ -94,6 +101,7 @@ class GPSUtils private constructor(private val mContext: Context) {
     interface OnLocationResultListener {
         fun onLocationResult(location: Location?)
         fun onLocationChange(location: Location?)
+        fun onOpenSetting()
     }
 
     companion object {

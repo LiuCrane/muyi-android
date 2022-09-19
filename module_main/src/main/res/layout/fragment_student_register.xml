@@ -39,7 +39,50 @@
 
             <TextView
                 style="@style/TextViewLabelStyle"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
+                android:text="性别" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginHorizontal="26dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_input_selector"
+                android:paddingHorizontal="20dp"
+                binding:onClickCommand="@{viewModel.onGenderChooseCommand}">
+
+                <TextView
+                    style="@style/TextViewStyle"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择性别"
+                    android:text="@{viewModel.studentGender}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_down_blue" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="年龄" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入年龄"
+                android:inputType="number"
+                binding:textChanged="@{viewModel.onStudentAgeChangeCommand}" />
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
                 android:text="家长姓名" />
 
             <com.czl.lib_base.widget.EditTextWithDel
@@ -60,30 +103,6 @@
                 android:hint="输入家长手机号码"
                 android:inputType="number"
                 binding:textChanged="@{viewModel.onParentPhoneChangeCommand}" />
-
-            <TextView
-                style="@style/TextViewLabelStyle"
-                android:layout_marginTop="20dp"
-                android:text="左眼度数" />
-
-            <com.czl.lib_base.widget.EditTextWithDel
-                style="@style/EditTextStyle"
-                android:layout_marginTop="14dp"
-                android:hint="输入学员左眼度数"
-                android:inputType="number"
-                binding:textChanged="@{viewModel.onLeftDiopterChangeCommand}" />
-
-            <TextView
-                style="@style/TextViewLabelStyle"
-                android:layout_marginTop="20dp"
-                android:text="右眼度数" />
-
-            <com.czl.lib_base.widget.EditTextWithDel
-                style="@style/EditTextStyle"
-                android:layout_marginTop="14dp"
-                android:hint="输入学员右眼度数"
-                android:inputType="number"
-                binding:textChanged="@{viewModel.onRightDiopterChangeCommand}" />
 
             <TextView
                 style="@style/TextViewLabelStyle"
@@ -112,7 +131,51 @@
             <TextView
                 style="@style/TextViewLabelStyle"
                 android:layout_marginTop="20dp"
+                android:text="双眼视力" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="输入学员双眼视力"
+                android:inputType="number"
+                binding:textChanged="@{viewModel.onDiopterChangeCommand}" />
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
                 android:text="班级" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:layout_marginHorizontal="26dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_input_selector"
+                android:paddingHorizontal="20dp"
+                binding:onClickCommand="@{viewModel.onClassChooseCommand}">
+
+                <TextView
+                    android:id="@+id/tv_class_name"
+                    style="@style/TextViewStyle"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:hint="请选择班级"
+                    android:text="@{viewModel.className}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hint" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_down_blue" />
+            </RelativeLayout>
+
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="学员地区" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -121,16 +184,15 @@
                 android:layout_height="57dp"
                 android:layout_marginTop="14dp"
                 android:background="@drawable/bg_input_selector"
-                binding:onClickCommand="@{viewModel.onClassChooseCommand}">
+                binding:onClickCommand="@{viewModel.onRegionChooseCommand}">
 
                 <TextView
-                    android:id="@+id/tv_class_name"
                     style="@style/TextViewStyle"
                     android:layout_centerVertical="true"
-                    android:hint="请选择班级"
+                    android:hint="请选择地区"
                     android:textColorHint="@color/hint"
                     android:textColor="@color/black"
-                    android:text="@{viewModel.className}"
+                    android:text="@{viewModel.storeRegion}"
                     android:layout_alignParentStart="true" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -141,6 +203,17 @@
                     android:src="@drawable/ic_down_blue" />
             </RelativeLayout>
 
+            <TextView
+                style="@style/TextViewLabelStyle"
+                android:layout_marginTop="20dp"
+                android:text="学员详情地址" />
+
+            <com.czl.lib_base.widget.EditTextWithDel
+                style="@style/EditTextStyle"
+                android:layout_marginTop="14dp"
+                android:hint="请输入详情地址"
+                android:inputType="text"
+                binding:textChanged="@{viewModel.onStoreLocationChangeCommand}" />
 
             <Button
                 android:id="@+id/btn_login"

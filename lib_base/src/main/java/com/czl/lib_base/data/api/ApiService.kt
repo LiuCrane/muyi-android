@@ -89,4 +89,12 @@ interface ApiService {
         @Path("id") id: String,
         @Body body: Any
     ): Observable<BaseBean<String>>
+
+    @GET("/app/address/all")
+    fun getAllAddress(): Observable<BaseBean<ListDataBean<ProvinceBean>>>
+
+    @GET("/app/students/{id}/courses")
+    fun getStudentCourse(
+        @Path("id") id: String
+    ): Observable<BaseBean<ListDataBean<CourseBean>>>
 }
