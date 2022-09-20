@@ -104,10 +104,6 @@ data class EyesightBean(
     val created_at: Long?,
     @SerializedName("improved")
     val improved: String?,
-    @SerializedName("left_vision")
-    val left_vision: String?,
-    @SerializedName("right_vision")
-    val right_vision: String?,
     @SerializedName("binocular_vision")
     val binocular_vision: String?,
     @SerializedName("title")

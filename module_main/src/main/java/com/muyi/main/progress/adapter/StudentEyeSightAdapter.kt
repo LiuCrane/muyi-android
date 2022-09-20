@@ -31,8 +31,7 @@ class StudentEyeSightAdapter(private val mFragment: StudentDetailFragment) :
                 tvImprove.text = "无提升"
             }
 
-            tvLeftVision.text = "L " + item.left_vision
-            tvRightVision.text = "R " + item.right_vision
+            tvVision.text = "双眼视力 " + item.binocular_vision
             item.created_at?.let {
                 tvTime.text = DateUtils.millis2String(item.created_at!!, DateUtils.YYYY_MM_DD)
             }
@@ -44,14 +43,14 @@ class StudentEyeSightAdapter(private val mFragment: StudentDetailFragment) :
             oldItem: EyesightBean,
             newItem: EyesightBean
         ): Boolean {
-            return oldItem.created_at == newItem.created_at && oldItem.left_vision == newItem.left_vision && oldItem.right_vision == newItem.right_vision
+            return oldItem.created_at == newItem.created_at && oldItem.binocular_vision == newItem.binocular_vision
         }
 
         override fun areContentsTheSame(
             oldItem: EyesightBean,
             newItem: EyesightBean
         ): Boolean {
-            return oldItem.created_at == newItem.created_at && oldItem.left_vision == newItem.left_vision && oldItem.right_vision == newItem.right_vision
+            return oldItem.created_at == newItem.created_at && oldItem.binocular_vision == newItem.binocular_vision
         }
     }
 }
