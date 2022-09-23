@@ -97,4 +97,10 @@ interface ApiService {
     fun getStudentCourse(
         @Path("id") id: String
     ): Observable<BaseBean<ListDataBean<CourseBean>>>
+
+    @GET("/app/classes/{class_id}/courses/{course_id}/status")
+    fun getCourseStatus(
+        @Path("class_id") class_id: String,
+        @Path("course_id") course_id: String
+        ): Observable<BaseBean<StatusBean>>
 }

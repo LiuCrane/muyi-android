@@ -31,7 +31,7 @@ class CourseListViewModel(application: MyApplication, model: DataRepository) :
     })
 
 
-    private fun getCourseList() {
+    fun getCourseList() {
         if (classId.isNullOrEmpty()) {
             showErrorToast("班级Id为空")
             return

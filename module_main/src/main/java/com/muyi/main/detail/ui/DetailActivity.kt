@@ -24,6 +24,8 @@ import com.shuyu.gsyvideoplayer.utils.CommonUtil
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer
 import tv.danmaku.ijk.media.player.IjkMediaPlayer
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by hq on 2022/7/30.
@@ -45,6 +47,14 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
     //seek touch
     private var mHadSeekTouch = false
     private var currentMediaIndex = 0
+
+    private var timer: Timer? = null
+    private var timerTask = object : TimerTask() {
+        override fun run() {
+            viewModel.getCourseStatus()
+        }
+    }
+
 
     override fun initContentView(): Int {
         return R.layout.activity_detail
@@ -78,6 +88,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
         binding.smartCommon.setEnableLoadMore(false)
         initAdapter()
         initVideoPlayer()
+        timer= Timer()
+        timer?.schedule(timerTask, 1000, 5000)
     }
 
     private fun initAdapter() {
@@ -137,7 +149,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                     orientationUtils!!.isEnable = binding.detailPlayer.isRotateWithSystem
                     isPlay = true
                     binding.ivPause.setImageResource(R.drawable.ic_pause)
-                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"START")
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id, "START")
                 }
 
                 override fun onQuitFullscreen(url: String, vararg objects: Any) {
@@ -161,14 +173,14 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                 override fun onClickStop(url: String?, vararg objects: Any?) {
                     LogUtils.e("onClickStop")
                     binding.ivPause.setImageResource(R.drawable.ic_play)
-                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"PAUSE")
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id, "PAUSE")
                 }
 
                 //点击了全屏播放状态下的开始按键--->停止，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
                 override fun onClickStopFullscreen(url: String?, vararg objects: Any?) {
                     LogUtils.e("onClickStopFullscreen")
                     binding.ivPause.setImageResource(R.drawable.ic_play)
-                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"PAUSE")
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id, "PAUSE")
                 }
 
                 //点击了暂停状态下的开始按键--->播放，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
@@ -187,7 +199,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
                 override fun onAutoComplete(url: String?, vararg objects: Any?) {
                     LogUtils.e("onAutoComplete")
                     resetControlView()
-                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id,"END")
+                    viewModel.recordMediaPlayer(mAdapter.data[currentMediaIndex].id, "END")
                 }
 
                 //非正常播放完了，objects[0]是title，object[1]是当前所处播放器（全屏或非全屏）
@@ -218,7 +230,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
             //第一个true是否需要隐藏actionBar，第二个true是否需要隐藏statusBar
             binding.detailPlayer.startWindowFullscreen(this, true, true)
         }
-        binding.detailPlayer.setGSYVideoProgressListener { progress, secProgress, currentPosition, duration ->
+        binding.detailPlayer.setGSYVideoProgressListener { progress, _, currentPosition, duration ->
             if (currentPosition > 0)
                 binding.tvTime.text = CommonUtil.stringForTime(currentPosition)
             binding.tvDuration.text = CommonUtil.stringForTime(duration)
@@ -354,6 +366,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding, DetailViewModel>() {
             getCurPlayer()?.release()
         }
         orientationUtils?.releaseListener()
+        timer?.cancel()
     }
 
 

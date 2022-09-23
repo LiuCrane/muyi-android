@@ -154,3 +154,8 @@ data class CountyBean(
     @SerializedName("children")
     val children: MutableList<CountyBean>?
 )
+
+data class StatusBean(
+    @SerializedName("status")
+    val status: String?,
+)

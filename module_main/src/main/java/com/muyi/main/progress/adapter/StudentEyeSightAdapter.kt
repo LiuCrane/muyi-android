@@ -26,9 +26,12 @@ class StudentEyeSightAdapter(private val mFragment: StudentDetailFragment) :
             if (item.improved == "true") {
                 tvImprove.setBackgroundResource(R.drawable.bg_sight_improved)
                 tvImprove.text = "有提升"
-            } else {
+            } else if (item.improved == "false") {
                 tvImprove.setBackgroundResource(R.drawable.bg_sight_not_improved)
                 tvImprove.text = "无提升"
+            } else {
+                tvImprove.setBackgroundResource(R.drawable.bg_sight_unchange)
+                tvImprove.text = "无变化"
             }
 
             tvVision.text = "双眼视力 " + item.binocular_vision
