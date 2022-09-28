@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.czl.lib_base.base.BaseFragment
 import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.bean.CourseBean
+import com.czl.lib_base.event.LiveBusCenter
 import com.muyi.main.BR
 import com.muyi.main.R
 import com.muyi.main.classes.adapter.CourseListAdapter
@@ -77,6 +78,9 @@ class CourseListFragment : BaseFragment<FragmentCourseListBinding, CourseListVie
                 courseBean.status = "UNDER_APPLICATION"
                 mAdapter.notifyItemChanged(index)
             }
+        }
+        LiveBusCenter.observeChangeCourseStatusEvent(this) {
+            viewModel.getCourseList()
         }
 
     }

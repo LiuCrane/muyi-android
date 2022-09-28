@@ -171,4 +171,11 @@ class DataRepository constructor(
         return mHttpDataSource.getStudentCourse(id)
     }
 
+    override fun getCourseStatus(
+        class_id: String,
+        course_id: String,
+    ): Observable<BaseBean<StatusBean>> {
+        return mHttpDataSource.getCourseStatus(class_id, course_id)
+    }
+
 }

@@ -110,4 +110,9 @@ interface HttpDataSource {
     fun getStudentCourse(
         id: String
     ): Observable<BaseBean<ListDataBean<CourseBean>>>
+
+    fun getCourseStatus(
+        class_id: String,
+        course_id: String
+    ): Observable<BaseBean<StatusBean>>
 }

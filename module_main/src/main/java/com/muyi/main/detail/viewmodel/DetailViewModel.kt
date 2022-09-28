@@ -10,6 +10,8 @@ import com.czl.lib_base.config.AppConstants
 import com.czl.lib_base.data.DataRepository
 import com.czl.lib_base.data.bean.ListDataBean
 import com.czl.lib_base.data.bean.MediaBean
+import com.czl.lib_base.data.bean.StatusBean
+import com.czl.lib_base.event.LiveBusCenter
 import com.czl.lib_base.extension.ApiSubscriberHelper
 import com.czl.lib_base.util.RxThreadHelper
 
@@ -32,7 +34,6 @@ class DetailViewModel(application: MyApplication, model: DataRepository) :
     val onRefreshCommand: BindingCommand<Void> = BindingCommand(BindingAction {
         getMediaList()
     })
-
 
     fun getMediaList() {
         if (mediaId != null && mediaType != null) {
@@ -110,6 +111,30 @@ class DetailViewModel(application: MyApplication, model: DataRepository) :
 
                     override fun onFailed(msg: String?) {
                         showErrorToast(msg)
+                    }
+                })
+        }
+    }
+
+    fun getCourseStatus(){
+        if (classId.isNullOrEmpty() || courseId.isNullOrEmpty()) {
+            return
+        }
+        model.apply {
+            getCourseStatus(
+                classId!!,
+                courseId!!
+            ).compose(RxThreadHelper.rxSchedulerHelper(this@DetailViewModel))
+                .subscribe(object : ApiSubscriberHelper<BaseBean<StatusBean>>() {
+                    override fun onResult(result: BaseBean<StatusBean>) {
+                        if (result.code == 200 && result.data?.status != "ACCESSIBLE") {
+                            showNormalToast("课程状态已被修改")
+                            LiveBusCenter.postChangeCourseStatusEvent(result.data?.status)
+                            finish()
+                        }
+                    }
+
+                    override fun onFailed(msg: String?) {
                     }
                 })
         }

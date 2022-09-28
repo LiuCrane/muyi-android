@@ -28,4 +28,11 @@ object LiveBusCenter {
         LiveEventBus.get(AddVisionEvent::class.java).observe(owner,observer)
     }
 
+    fun postChangeCourseStatusEvent(value: String?) {
+        LiveEventBus.get(ChangeCourseStatusEvent::class.java).post(ChangeCourseStatusEvent(value))
+    }
+
+    fun observeChangeCourseStatusEvent(owner: LifecycleOwner, observer: Observer<ChangeCourseStatusEvent>){
+        LiveEventBus.get(ChangeCourseStatusEvent::class.java).observe(owner,observer)
+    }
 }
