@@ -156,10 +156,14 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
     override fun updateVision(
         id: String,
         binocular_vision: String,
+        left_vision: String,
+        right_vision: String,
         course_id: Int
     ): Observable<BaseBean<String>> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("binocular_vision", binocular_vision)
+        jsonObject.addProperty("left_vision", left_vision)
+        jsonObject.addProperty("right_vision", right_vision)
         jsonObject.addProperty("course_id", course_id)
         return apiService.updateVision(id, jsonObject)
     }
@@ -176,7 +180,7 @@ class HttpDataImpl(private val apiService: ApiService) : HttpDataSource {
         class_id: String,
         course_id: String
     ): Observable<BaseBean<StatusBean>> {
-        return apiService.getCourseStatus(class_id,course_id)
+        return apiService.getCourseStatus(class_id, course_id)
     }
 
 }

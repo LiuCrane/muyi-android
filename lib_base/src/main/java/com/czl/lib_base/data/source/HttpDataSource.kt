@@ -102,6 +102,8 @@ interface HttpDataSource {
     fun updateVision(
         id: String,
         binocular_vision: String,
+        left_vision: String,
+        right_vision: String,
         course_id: Int
     ): Observable<BaseBean<String>>
 

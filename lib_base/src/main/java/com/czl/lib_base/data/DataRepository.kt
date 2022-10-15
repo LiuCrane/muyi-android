@@ -158,9 +158,17 @@ class DataRepository constructor(
     override fun updateVision(
         id: String,
         binocular_vision: String,
+        left_vision: String,
+        right_vision: String,
         course_id: Int
     ): Observable<BaseBean<String>> {
-        return mHttpDataSource.updateVision(id, binocular_vision, course_id)
+        return mHttpDataSource.updateVision(
+            id,
+            binocular_vision,
+            left_vision,
+            right_vision,
+            course_id
+        )
     }
 
     override fun getAllAddress(): Observable<BaseBean<ListDataBean<ProvinceBean>>> {

@@ -20,12 +20,22 @@ import com.czl.lib_base.util.RxThreadHelper
 class AddVisionViewModel(application: MyApplication, model: DataRepository) :
     BaseViewModel<DataRepository>(application, model) {
     var studentId: String? = null
-    private var vision = ObservableField("")
+    var leftVision = ObservableField("")
+    var rightVision = ObservableField("")
+    var doubleVision = ObservableField("")
     private var courseId = 0
 
 
-    val onVisionChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
-        vision.set(it)
+    val onLeftChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        leftVision.set(it)
+    })
+
+    val onRightChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        rightVision.set(it)
+    })
+
+    val onDoubleChangeCommand: BindingCommand<String> = BindingCommand(BindingConsumer {
+        doubleVision.set(it)
     })
 
 
@@ -67,8 +77,16 @@ class AddVisionViewModel(application: MyApplication, model: DataRepository) :
                 showNormalToast("学生Id不能为空")
                 return
             }
-            if (vision.get().isNullOrEmpty()) {
-                showNormalToast("视力不能为空")
+            if (leftVision.get().isNullOrEmpty()) {
+                showNormalToast("左眼视力不能为空")
+                return
+            }
+            if (rightVision.get().isNullOrEmpty()) {
+                showNormalToast("右眼视力不能为空")
+                return
+            }
+            if (doubleVision.get().isNullOrEmpty()) {
+                showNormalToast("双眼视力不能为空")
                 return
             }
             if (courseId <= 0) {
@@ -78,7 +96,9 @@ class AddVisionViewModel(application: MyApplication, model: DataRepository) :
 
             updateVision(
                 studentId!!,
-                vision.get()!!,
+                doubleVision.get()!!,
+                leftVision.get()!!,
+                rightVision.get()!!,
                 courseId
             ).compose(RxThreadHelper.rxSchedulerHelper(this@AddVisionViewModel))
                 .doOnSubscribe { showLoading() }
