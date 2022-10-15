@@ -27,8 +27,8 @@ public class RetrofitClient {
     //超时时间
     private static final int DEFAULT_TIMEOUT = 20;
     //服务端根路径
-//    public static String baseUrl = "http://1.116.174.148:3001/";
-    public static String baseUrl = "http://124.221.182.242:3001/";
+    public static String baseUrl = "http://1.116.174.148:3001/";
+//    public static String baseUrl = "http://124.221.182.242:3001/";
 
     private static Retrofit retrofit;
 
