@@ -59,7 +59,7 @@
             android:textColor="@color/theme_blue_40" />
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="78dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp">
 
@@ -72,7 +72,6 @@
                 android:id="@+id/tv_right_vision"
                 style="@style/TextViewSmallStyle"
                 android:layout_alignParentEnd="true"
-                android:visibility="gone"
                 android:layout_marginStart="10dp" />
         </RelativeLayout>
 
